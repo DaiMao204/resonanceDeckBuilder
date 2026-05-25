@@ -3,6 +3,7 @@
 import { useMemo } from "react"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, Legend } from "recharts"
 import type { Card, CardExtraInfo } from "../types"
+import { DISCARD_CARD_ID } from "../hooks/deck-builder/types"
 
 interface DeckStatsProps {
   selectedCards: {
@@ -32,6 +33,7 @@ export function DeckStats({
   // Get the cards that are actually in the deck (not disabled)
   const activeCards = useMemo(() => {
     return selectedCards
+      .filter((card) => card.id !== DISCARD_CARD_ID)
       .filter((card) => card.useType !== 2) // Filter out disabled cards
       .map((selectedCard) => {
         const cardInfo = availableCards.find((c) => c.card.id.toString() === selectedCard.id)

@@ -724,25 +724,59 @@ export default function DeckBuilder({ urlDeckCode }: DeckBuilderProps) {
       </div>
 
       <div className="mt-0 mb-0 text-center text-sm text-muted-foreground flex flex-wrap items-center justify-center gap-2">
-        <span>Resonance Deck Builder © 2025 Heeyong Chang</span>
-        <span className="hidden sm:inline">·</span>
-        <a href="https://github.com/danij91/resonanceDeckBuilder" target="_blank" rel="noopener noreferrer">
-          <img className="w-6 h-6" src="images/github-mark-white2.svg" />
-        </a>
-        <span className="hidden sm:inline">·</span>
         <span>
-          Maintained by{" "}
+          {getTranslatedString("footer.project_copyright") || "Resonance Deck Builder © 2025"}{" "}
+          {getTranslatedString("footer.original_author_label") || "Original author"}{" "}
           <a
             className="underline-offset-2 hover:underline"
-            href="https://github.com/DaiMao204/resonanceDeckBuilder"
+            href="https://github.com/danij91/resonanceDeckBuilder"
             target="_blank"
             rel="noopener noreferrer"
           >
-            DaiMao
+            Heeyong Chang
           </a>
         </span>
         <span className="hidden sm:inline">·</span>
-        <span className="hidden sm:inline">GPLv3</span>
+        <span>
+          {getTranslatedString("footer.current_maintainer_label") || "Currently maintained by"}{" "}
+          <a
+            className="underline-offset-2 hover:underline"
+            href={
+              currentLanguage === "cn"
+                ? "https://space.bilibili.com/25653754?spm_id_from=555.117.0.0"
+                : "https://github.com/DaiMao204/resonanceDeckBuilder"
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {getTranslatedString("footer.maintainer_name") || "DaiMao"}
+          </a>
+          {getTranslatedString("footer.current_maintainer_suffix") || ""}
+        </span>
+        <span className="hidden sm:inline">·</span>
+        <a href="https://github.com/DaiMao204/resonanceDeckBuilder" target="_blank" rel="noopener noreferrer">
+          <img className="w-6 h-6" src="images/github-mark-white2.svg" />
+        </a>
+        <span className="hidden sm:inline">·</span>
+        <a
+          className="underline-offset-2 hover:underline"
+          href="https://soli-reso.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {getTranslatedString("footer.official_site") || "Resonance Official Site"}
+        </a>
+        <span className="hidden sm:inline">·</span>
+        <a
+          className="underline-offset-2 hover:underline"
+          href="https://wiki.biligame.com/resonance"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {getTranslatedString("footer.wiki") || "Resonance Wiki"}
+        </a>
+        <span className="hidden sm:inline">·</span>
+        <span className="hidden sm:inline">{getTranslatedString("footer.license") || "GPLv3"}</span>
       </div>
       {/* 댓글 섹션 */}
       <CommentsSection currentLanguage={currentLanguage} />

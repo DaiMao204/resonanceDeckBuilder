@@ -8792,5 +8792,18 @@
   "tag_tagName_12601906": "朵拉弥丝",
   "tag_tagName_12601908": "签到挑战",
   "tag_tagName_12601910": "异界招募",
-  "tag_tagName_12601919": "林间呓语"
+  "tag_tagName_12601919": "林间呓语",
+  "capture_screenshot": "Capture Screenshot",
+  "capturing_screenshot": "Capturing screenshot...",
+  "footer.official_site": "Resonance Official Site",
+  "footer.wiki": "Resonance Wiki",
+  "footer.original_author": "Resonance Deck Builder © 2025 Heeyong Chang",
+  "footer.maintained_by": "Maintained by",
+  "footer.license": "GPLv3",
+  "footer.maintainer_name": "DaiMao",
+  "footer.maintained_suffix": "",
+  "footer.original_author_label": "Original author",
+  "footer.current_maintainer_label": "Currently maintained by",
+  "footer.current_maintainer_suffix": "",
+  "footer.project_copyright": "Resonance Deck Builder © 2025"
 }

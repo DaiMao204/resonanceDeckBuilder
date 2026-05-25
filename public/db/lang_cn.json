@@ -24373,5 +24373,18 @@
   "url_copied": "可分享链接已复制到剪贴板！",
   "url_copy_failed": "生成可分享链接失败",
   "usage_settings": "选择操作",
-  "use_immediately": "直接释放"
+  "use_immediately": "直接释放",
+  "capture_screenshot": "截图",
+  "capturing_screenshot": "正在截图...",
+  "footer.official_site": "雷索纳斯官网",
+  "footer.wiki": "雷索纳斯Wiki",
+  "footer.original_author": "雷索纳斯卡组构建器 © 2025 Heeyong Chang",
+  "footer.maintained_by": "由",
+  "footer.license": "GPLv3 开源协议",
+  "footer.maintainer_name": "呆毛",
+  "footer.maintained_suffix": " 维护",
+  "footer.original_author_label": "原作者",
+  "footer.current_maintainer_label": "现由",
+  "footer.current_maintainer_suffix": " 维护",
+  "footer.project_copyright": "雷索纳斯卡组构建器 © 2025"
 }

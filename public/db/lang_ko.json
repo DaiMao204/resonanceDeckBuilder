@@ -8800,5 +8800,18 @@
   "tag_detail_12601880": "每次【流光】造成回复时，同时使目标攻击力+0.5%，上限50%",
   "tag_tagName_12601894": "向生而死",
   "tag_tagName_12601906": "朵拉弥丝",
-  "tag_tagName_12601919": "林间呓语"
+  "tag_tagName_12601919": "林间呓语",
+  "capture_screenshot": "스크린샷 캡처",
+  "capturing_screenshot": "스크린샷 캡처 중...",
+  "footer.official_site": "레조넌스 공식 사이트",
+  "footer.wiki": "레조넌스 Wiki",
+  "footer.original_author": "레조넌스 덱 빌더 © 2025 Heeyong Chang",
+  "footer.maintained_by": "관리",
+  "footer.license": "GPLv3",
+  "footer.maintainer_name": "DaiMao",
+  "footer.maintained_suffix": "",
+  "footer.original_author_label": "원작자",
+  "footer.current_maintainer_label": "현재 관리",
+  "footer.current_maintainer_suffix": "",
+  "footer.project_copyright": "레조넌스 덱 빌더 © 2025"
 }

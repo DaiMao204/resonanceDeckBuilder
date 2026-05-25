@@ -8791,5 +8791,18 @@
   "tag_tagName_12601906": "朵拉弥丝",
   "tag_tagName_12601908": "签到挑战",
   "tag_tagName_12601910": "异界招募",
-  "tag_tagName_12601919": "林间呓语"
+  "tag_tagName_12601919": "林间呓语",
+  "capture_screenshot": "截圖",
+  "capturing_screenshot": "正在截圖...",
+  "footer.official_site": "雷索納斯官網",
+  "footer.wiki": "雷索納斯Wiki",
+  "footer.original_author": "雷索納斯卡組構建器 © 2025 Heeyong Chang",
+  "footer.maintained_by": "由",
+  "footer.license": "GPLv3 開源授權",
+  "footer.maintainer_name": "呆毛",
+  "footer.maintained_suffix": " 維護",
+  "footer.original_author_label": "原作者",
+  "footer.current_maintainer_label": "現由",
+  "footer.current_maintainer_suffix": " 維護",
+  "footer.project_copyright": "雷索納斯卡組構建器 © 2025"
 }

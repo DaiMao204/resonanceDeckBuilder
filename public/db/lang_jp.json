@@ -8792,5 +8792,18 @@
   "talent_desc_12800659": "我方场上每存在1架【无人机】时，每秒获得0.1点费用",
   "home_skill_desc_83900261": "阿妮塔101军用无人机和202民用无人机可买入数量+%s%%",
   "home_skill_desc_83900262": "阿妮塔101军用无人机和202民用无人机可买入数量+%s%%",
-  "tag_tagName_12601919": "林间呓语"
+  "tag_tagName_12601919": "林间呓语",
+  "capture_screenshot": "スクリーンショット",
+  "capturing_screenshot": "スクリーンショットを撮影中...",
+  "footer.official_site": "レゾナンス公式サイト",
+  "footer.wiki": "レゾナンスWiki",
+  "footer.original_author": "レゾナンスデッキビルダー © 2025 Heeyong Chang",
+  "footer.maintained_by": "メンテナンス",
+  "footer.license": "GPLv3",
+  "footer.maintainer_name": "DaiMao",
+  "footer.maintained_suffix": "",
+  "footer.original_author_label": "原作者",
+  "footer.current_maintainer_label": "現在のメンテナー",
+  "footer.current_maintainer_suffix": "",
+  "footer.project_copyright": "レゾナンスデッキビルダー © 2025"
 }

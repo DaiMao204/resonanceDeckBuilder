@@ -2,8 +2,6 @@ import { initializeApp } from "firebase/app"
 import type { FirebaseApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 import type { Firestore } from "firebase/firestore"
-import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth"
-import type { Auth, User } from "firebase/auth"
 import { getAnalytics, logEvent } from "firebase/analytics"
 import type { Analytics } from "firebase/analytics"
 
@@ -31,7 +29,6 @@ const hasFirebaseConfig = requiredFirebaseConfig.every(Boolean)
 const app: FirebaseApp | null = isFirebaseEnabled && hasFirebaseConfig ? initializeApp(firebaseConfig) : null
 
 export const db: Firestore | null = app ? getFirestore(app) : null
-export const auth: Auth | null = app ? getAuth(app) : null
 export const firebaseEnabled = Boolean(app)
 
 const isAnalyticsEnabled =
@@ -44,42 +41,6 @@ export const analytics: Analytics | null =
   typeof window !== "undefined" && app && isAnalyticsEnabled ? getAnalytics(app) : null
 
 // 새로운 래핑된 logEvent 함수로 대체
-export const getAnonymousUser = (): Promise<User | null> => {
-  if (!auth) return Promise.resolve(null)
-
-  if (auth.currentUser) return Promise.resolve(auth.currentUser)
-
-  const waitForAuthState = new Promise<User | null>((resolve) => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      unsubscribe()
-      resolve(user)
-    }, (error) => {
-      unsubscribe()
-      console.error("[ERROR] Anonymous auth state failed:", error)
-      resolve(null)
-    })
-  })
-
-  const timeout = new Promise<null>((resolve) => {
-    window.setTimeout(() => resolve(null), 3000)
-  })
-
-  return Promise.race([waitForAuthState, timeout]).then(async (user) => {
-    if (user) return user
-
-    try {
-      const result = await Promise.race([
-        signInAnonymously(auth),
-        new Promise<null>((resolve) => window.setTimeout(() => resolve(null), 7000)),
-      ])
-      return result?.user ?? null
-    } catch (error) {
-      console.error("[ERROR] Anonymous sign-in failed:", error)
-      return null
-    }
-  })
-}
-
 export const logEventWrapper = (eventName: string, eventParams?: Record<string, any>) => {
   if (!firebaseEnabled) {
     if (!isProd) console.log(`[DEV] Firebase disabled. Event skipped: ${eventName}`, eventParams)

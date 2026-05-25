@@ -2,6 +2,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import { v4 as uuidv4 } from "uuid"
 import { Trash2, Clock, Edit2, X, Check, ChevronDown } from "lucide-react"
 import {
   addDoc,
@@ -18,7 +19,7 @@ import {
   type QueryDocumentSnapshot,
   type DocumentData,
 } from "firebase/firestore"
-import { db, firebaseEnabled, getAnonymousUser } from "../lib/firebase-config"
+import { db, firebaseEnabled } from "../lib/firebase-config"
 import { useLanguage } from "../contexts/language-context"
 
 interface Comment {
@@ -26,7 +27,6 @@ interface Comment {
   content: string
   date: string
   userId: string
-  uid?: string
   lastEdited?: string
 }
 
@@ -51,8 +51,6 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState("")
   const [userId, setUserId] = useState<string>("")
-  const [authReady, setAuthReady] = useState(false)
-  const [authFailed, setAuthFailed] = useState(false)
   const [lastCommentTime, setLastCommentTime] = useState<number | null>(null)
   const [remainingTime, setRemainingTime] = useState<number>(0)
   const [canComment, setCanComment] = useState<boolean>(true)
@@ -70,23 +68,15 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    const existing = localStorage.getItem("anonymousUserId")
+    if (existing) setUserId(existing)
+    else {
+      const newId = uuidv4()
+      localStorage.setItem("anonymousUserId", newId)
+      setUserId(newId)
+    }
     const lastTime = localStorage.getItem("lastCommentTime")
     if (lastTime) setLastCommentTime(Number.parseInt(lastTime, 10))
-
-    if (!firebaseEnabled) {
-      setAuthReady(true)
-      return
-    }
-
-    getAnonymousUser().then((user) => {
-      if (user) {
-        setUserId(user.uid)
-        setAuthFailed(false)
-      } else {
-        setAuthFailed(true)
-      }
-      setAuthReady(true)
-    })
   }, [])
 
   useEffect(() => {
@@ -155,8 +145,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
           id: doc.id,
           content: d.content,
           date: d.createdAt?.toDate()?.toISOString() ?? "",
-          userId: d.userId || d.uid || "",
-          uid: d.uid,
+          userId: d.userId,
           lastEdited: d.lastEdited?.toDate()?.toISOString(),
         }
       })
@@ -176,7 +165,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
 
   const isOwnComment = (comment: Comment) => {
     if (!userId) return false
-    return comment.uid ? comment.uid === userId : comment.userId === userId
+    return comment.userId === userId
   }
 
   const addComment = async () => {
@@ -211,7 +200,6 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
     try {
       await addDoc(collection(db, "comments"), {
         content: newComment.trim(),
-        uid: userId,
         userId,
         createdAt: serverTimestamp(),
       })
@@ -223,7 +211,6 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
         {
           id: "local_" + Math.random().toString(36).slice(2),
           content: newComment.trim(),
-          uid: userId,
           userId,
           date: new Date().toISOString(),
         },
@@ -276,14 +263,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
     )
   }
 
-  const canSubmitComment = authReady && Boolean(userId) && canComment
-  const commentPlaceholder = !authReady
-    ? getTranslatedString("comments.auth_loading") || "Preparing anonymous session..."
-    : authFailed || !userId
-    ? getTranslatedString("comments.auth_failed") || "Anonymous sign-in failed. Check Firebase Authentication settings."
-    : canComment
-    ? getTranslatedString("comments.placeholder") || "Add a comment..."
-    : getTranslatedString("comments.wait") || "Please wait before commenting again..."
+  const canSubmitComment = Boolean(userId) && canComment
 
   return (
     <section className="w-full py-4 mt-12 border-t border-[rgba(255,255,255,0.1)]">
@@ -334,7 +314,11 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
                   className={`flex-grow p-3 bg-black/50 border border-[rgba(255,255,255,0.2)] rounded-l-md text-white resize-none focus:outline-none ${
                     canSubmitComment ? "focus:border-[rgba(255,255,255,0.5)]" : "opacity-70"
                   }`}
-                  placeholder={commentPlaceholder}
+                  placeholder={
+                    canComment
+                      ? getTranslatedString("comments.placeholder") || "Add a comment..."
+                      : getTranslatedString("comments.wait") || "Please wait before commenting again..."
+                  }
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   onKeyDown={(e) => {
@@ -366,12 +350,6 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
               <span>
                 {getTranslatedString("comments.cooldown") || "You can comment again in"} {formatRemainingTime(remainingTime)}
               </span>
-            </div>
-          )}
-          {authFailed && !editingCommentId && (
-            <div className="mt-2 text-red-400 text-sm">
-              {getTranslatedString("comments.auth_failed") ||
-                "Anonymous sign-in failed. Check Firebase Authentication settings."}
             </div>
           )}
         </div>

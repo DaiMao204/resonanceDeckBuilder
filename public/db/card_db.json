@@ -15555,7 +15555,16 @@
     "cost_SN": 20000,
     "cardType": "Normal",
     "ExCondList": [],
-    "ExActList": [],
+    "ExActList": [
+      {
+        "condId": 96300009,
+        "des": 80610277
+      },
+      {
+        "condId": 96300010,
+        "des": 80610278
+      }
+    ],
     "tagList": [
       {
         "tagId": 12600073
@@ -15589,23 +15598,5 @@
       }
     ],
     "name": "card_name_10600574"
-  },
-  "10600575": {
-    "id": 10600575,
-    "idCN": "00原版/05五星/美琪/A-0_觉醒4",
-    "color": "Purple",
-    "cost_SN": 20000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600073
-      },
-      {
-        "tagId": 12602096
-      }
-    ],
-    "name": "card_name_10600575"
   }
 }

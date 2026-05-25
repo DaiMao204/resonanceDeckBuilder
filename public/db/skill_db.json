@@ -121343,25 +121343,6 @@
     "detailDescription": "skill_detailDescription_12304861",
     "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12304861"
   },
-  "12304862": {
-    "id": 12304862,
-    "mod": "主动技能",
-    "ExSkillList": [],
-    "cardID": 10600575,
-    "desParamList": [
-      {
-        "isPercent": false,
-        "param": "A"
-      }
-    ],
-    "skillParamList": [
-      {}
-    ],
-    "name": "skill_name_12304862",
-    "description": "skill_description_12304862",
-    "detailDescription": "skill_detailDescription_12304862",
-    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12304862"
-  },
   "12304863": {
     "id": 12304863,
     "mod": "被动技能",

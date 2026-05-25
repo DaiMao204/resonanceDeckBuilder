@@ -6,6 +6,10 @@ export type CardSource =
   | { type: "equipment"; id: string; skillId?: number; slotIndex?: number; equipType: "weapon" | "armor" | "accessory" }
   | { type: "passive"; id: number; skillId?: number; slotIndex?: number }
 
+export const DISCARD_CARD_ID = "10600474"
+export const DISCARD_SKILL_ID = 12303725
+export const DEFAULT_OWNER_ID = 10000001
+
 // 선택된 카드 타입
 export type SelectedCard = {
   id: string

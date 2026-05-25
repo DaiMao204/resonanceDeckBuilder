@@ -3,6 +3,7 @@
 import { useState, useCallback, useMemo, useEffect } from "react"
 import type { Database } from "../../types"
 import type { SelectedCard, Result } from "./types"
+import { DEFAULT_OWNER_ID, DISCARD_CARD_ID, DISCARD_SKILL_ID } from "./types"
 import { useCharacters } from "./use-characters"
 import { useCards } from "./use-cards"
 import { useEquipment } from "./use-equipment"
@@ -76,6 +77,16 @@ export function useDeckBuilder(data: Database | null) {
       document.documentElement.classList.remove("dark")
     }
   }, [isDarkMode])
+
+  useEffect(() => {
+    if (!data?.cards?.[DISCARD_CARD_ID]) return
+    if (selectedCards.some((card) => card.id === DISCARD_CARD_ID)) return
+
+    addCard(DISCARD_CARD_ID, "passive", DEFAULT_OWNER_ID, {
+      skillId: DISCARD_SKILL_ID,
+      ownerId: DEFAULT_OWNER_ID,
+    })
+  }, [data, selectedCards, addCard])
 
   // 모든 상태 초기화
   const clearAll = useCallback(() => {

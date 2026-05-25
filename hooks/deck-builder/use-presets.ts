@@ -3,6 +3,7 @@
 import { useCallback } from "react"
 import type { Database } from "../../types"
 import type { SelectedCard, PresetCard, Preset, EquipmentSlot, Result, AwakeningInfo } from "./types"
+import { DEFAULT_OWNER_ID, DISCARD_CARD_ID, DISCARD_SKILL_ID } from "./types"
 import { encodePreset, decodePreset, encodePresetForUrl } from "../../utils/presetCodec"
 
 export function usePresets(
@@ -26,7 +27,21 @@ export function usePresets(
   const createPresetObject = useCallback(
     (includeEquipment = false, includeAwakening = false) => {
       // 선택된 카드를 필요한 형식으로 변환
-      const formattedCardList = selectedCards.map((card) => {
+      const cardsForPreset: SelectedCard[] = selectedCards.some((card) => card.id === DISCARD_CARD_ID)
+        ? selectedCards
+        : [
+            ...selectedCards,
+            {
+              id: DISCARD_CARD_ID,
+              ownerId: DEFAULT_OWNER_ID,
+              skillId: DISCARD_SKILL_ID,
+              useType: 1,
+              useParam: -1,
+              sources: [{ type: "passive", id: DEFAULT_OWNER_ID, skillId: DISCARD_SKILL_ID }],
+            },
+          ]
+
+      const formattedCardList = cardsForPreset.map((card) => {
         // 기본 카드 객체 생성
         const cardObj: PresetCard = {
           id: card.id,
@@ -95,7 +110,7 @@ export function usePresets(
 
       // 카드 ID 맵 생성
       const cardIdMap: Record<string, number> = {}
-      selectedCards.forEach((card) => {
+      cardsForPreset.forEach((card) => {
         cardIdMap[card.id] = 1
       })
 

@@ -52,6 +52,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   const [newComment, setNewComment] = useState("")
   const [userId, setUserId] = useState<string>("")
   const [authReady, setAuthReady] = useState(false)
+  const [authFailed, setAuthFailed] = useState(false)
   const [lastCommentTime, setLastCommentTime] = useState<number | null>(null)
   const [remainingTime, setRemainingTime] = useState<number>(0)
   const [canComment, setCanComment] = useState<boolean>(true)
@@ -78,7 +79,12 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
     }
 
     getAnonymousUser().then((user) => {
-      if (user) setUserId(user.uid)
+      if (user) {
+        setUserId(user.uid)
+        setAuthFailed(false)
+      } else {
+        setAuthFailed(true)
+      }
       setAuthReady(true)
     })
   }, [])
@@ -271,6 +277,13 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   }
 
   const canSubmitComment = authReady && Boolean(userId) && canComment
+  const commentPlaceholder = !authReady
+    ? getTranslatedString("comments.auth_loading") || "Preparing anonymous session..."
+    : authFailed || !userId
+    ? getTranslatedString("comments.auth_failed") || "Anonymous sign-in failed. Check Firebase Authentication settings."
+    : canComment
+    ? getTranslatedString("comments.placeholder") || "Add a comment..."
+    : getTranslatedString("comments.wait") || "Please wait before commenting again..."
 
   return (
     <section className="w-full py-4 mt-12 border-t border-[rgba(255,255,255,0.1)]">
@@ -321,13 +334,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
                   className={`flex-grow p-3 bg-black/50 border border-[rgba(255,255,255,0.2)] rounded-l-md text-white resize-none focus:outline-none ${
                     canSubmitComment ? "focus:border-[rgba(255,255,255,0.5)]" : "opacity-70"
                   }`}
-                  placeholder={
-                    !authReady || !userId
-                      ? getTranslatedString("comments.auth_loading") || "Preparing anonymous session..."
-                      : canComment
-                      ? getTranslatedString("comments.placeholder") || "Add a comment..."
-                      : getTranslatedString("comments.wait") || "Please wait before commenting again..."
-                  }
+                  placeholder={commentPlaceholder}
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   onKeyDown={(e) => {
@@ -359,6 +366,12 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
               <span>
                 {getTranslatedString("comments.cooldown") || "You can comment again in"} {formatRemainingTime(remainingTime)}
               </span>
+            </div>
+          )}
+          {authFailed && !editingCommentId && (
+            <div className="mt-2 text-red-400 text-sm">
+              {getTranslatedString("comments.auth_failed") ||
+                "Anonymous sign-in failed. Check Firebase Authentication settings."}
             </div>
           )}
         </div>

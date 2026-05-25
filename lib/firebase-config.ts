@@ -47,23 +47,36 @@ export const analytics: Analytics | null =
 export const getAnonymousUser = (): Promise<User | null> => {
   if (!auth) return Promise.resolve(null)
 
-  return new Promise((resolve) => {
+  if (auth.currentUser) return Promise.resolve(auth.currentUser)
+
+  const waitForAuthState = new Promise<User | null>((resolve) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       unsubscribe()
-
-      if (user) {
-        resolve(user)
-        return
-      }
-
-      try {
-        const result = await signInAnonymously(auth)
-        resolve(result.user)
-      } catch (error) {
-        console.error("[ERROR] Anonymous sign-in failed:", error)
-        resolve(null)
-      }
+      resolve(user)
+    }, (error) => {
+      unsubscribe()
+      console.error("[ERROR] Anonymous auth state failed:", error)
+      resolve(null)
     })
+  })
+
+  const timeout = new Promise<null>((resolve) => {
+    window.setTimeout(() => resolve(null), 3000)
+  })
+
+  return Promise.race([waitForAuthState, timeout]).then(async (user) => {
+    if (user) return user
+
+    try {
+      const result = await Promise.race([
+        signInAnonymously(auth),
+        new Promise<null>((resolve) => window.setTimeout(() => resolve(null), 7000)),
+      ])
+      return result?.user ?? null
+    } catch (error) {
+      console.error("[ERROR] Anonymous sign-in failed:", error)
+      return null
+    }
   })
 }
 

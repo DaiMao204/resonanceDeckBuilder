@@ -723,12 +723,24 @@ export default function DeckBuilder({ urlDeckCode }: DeckBuilderProps) {
         </div>
       </div>
 
-      <div className="mt-0 mb-0 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+      <div className="mt-0 mb-0 text-center text-sm text-muted-foreground flex flex-wrap items-center justify-center gap-2">
         <span>Resonance Deck Builder © 2025 Heeyong Chang</span>
         <span className="hidden sm:inline">·</span>
         <a href="https://github.com/danij91/resonanceDeckBuilder" target="_blank" rel="noopener noreferrer">
           <img className="w-6 h-6" src="images/github-mark-white2.svg" />
         </a>
+        <span className="hidden sm:inline">·</span>
+        <span>
+          Maintained by{" "}
+          <a
+            className="underline-offset-2 hover:underline"
+            href="https://github.com/DaiMao204/resonanceDeckBuilder"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            DaiMao
+          </a>
+        </span>
         <span className="hidden sm:inline">·</span>
         <span className="hidden sm:inline">GPLv3</span>
       </div>

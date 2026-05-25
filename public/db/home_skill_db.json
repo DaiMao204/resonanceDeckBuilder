@@ -27,6 +27,13 @@
     "param": 0.002,
     "homeSkillType": "HaggleRange"
   },
+  "83900005": {
+    "id": 83900005,
+    "name": "home_skill_name_83900005",
+    "desc": "home_skill_desc_83900005",
+    "param": 0.2,
+    "homeSkillType": "AddSpecQty"
+  },
   "83900006": {
     "id": 83900006,
     "name": "home_skill_name_83900006",
@@ -41,12 +48,12 @@
     "param": -0.005,
     "homeSkillType": "TaxCuts"
   },
-  "83900005": {
-    "id": 83900005,
-    "name": "home_skill_name_83900005",
-    "desc": "home_skill_desc_83900005",
-    "param": 0.2,
-    "homeSkillType": "AddSpecQty"
+  "83900008": {
+    "id": 83900008,
+    "name": "home_skill_name_83900008",
+    "desc": "home_skill_desc_83900008",
+    "param": 0.003,
+    "homeSkillType": "HaggleRange"
   },
   "83900009": {
     "id": 83900009,
@@ -62,26 +69,26 @@
     "param": 0.01,
     "homeSkillType": "HaggleSuccessRate"
   },
-  "83900008": {
-    "id": 83900008,
-    "name": "home_skill_name_83900008",
-    "desc": "home_skill_desc_83900008",
-    "param": 0.003,
-    "homeSkillType": "HaggleRange"
-  },
   "83900011": {
     "id": 83900011,
     "name": "home_skill_name_83900011",
     "desc": "home_skill_desc_83900011",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "AddHaggleNum"
   },
   "83900012": {
     "id": 83900012,
     "name": "home_skill_name_83900012",
     "desc": "home_skill_desc_83900012",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "AddRiseNum"
+  },
+  "83900013": {
+    "id": 83900013,
+    "name": "home_skill_name_83900013",
+    "desc": "home_skill_desc_83900013",
+    "param": 0.2,
+    "homeSkillType": "AddQty"
   },
   "83900014": {
     "id": 83900014,
@@ -94,7 +101,7 @@
     "id": 83900015,
     "name": "home_skill_name_83900015",
     "desc": "home_skill_desc_83900015",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "OneForAll"
   },
   "83900016": {
@@ -111,25 +118,25 @@
     "param": 0.05,
     "homeSkillType": "AddQty"
   },
-  "83900019": {
-    "id": 83900019,
-    "name": "home_skill_name_83900019",
-    "desc": "home_skill_desc_83900019",
-    "param": 5,
-    "homeSkillType": "AddSpeed"
-  },
   "83900018": {
     "id": 83900018,
     "name": "home_skill_name_83900018",
     "desc": "home_skill_desc_83900018",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "ReduceBargainFailEnergy"
+  },
+  "83900019": {
+    "id": 83900019,
+    "name": "home_skill_name_83900019",
+    "desc": "home_skill_desc_83900019",
+    "param": 5.0,
+    "homeSkillType": "AddSpeed"
   },
   "83900020": {
     "id": 83900020,
     "name": "home_skill_name_83900020",
     "desc": "home_skill_desc_83900020",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "ReduceBargainFailEnergy"
   },
   "83900021": {
@@ -167,20 +174,6 @@
     "param": 0.2,
     "homeSkillType": "AddSpecQty"
   },
-  "83900029": {
-    "id": 83900029,
-    "name": "home_skill_name_83900029",
-    "desc": "home_skill_desc_83900029",
-    "param": 0.2,
-    "homeSkillType": "AddQty"
-  },
-  "83900030": {
-    "id": 83900030,
-    "name": "home_skill_name_83900030",
-    "desc": "home_skill_desc_83900030",
-    "param": 0.2,
-    "homeSkillType": "AddQty"
-  },
   "83900026": {
     "id": 83900026,
     "name": "home_skill_name_83900026",
@@ -202,17 +195,17 @@
     "param": 0.2,
     "homeSkillType": "AddQty"
   },
-  "83900040": {
-    "id": 83900040,
-    "name": "home_skill_name_83900040",
-    "desc": "home_skill_desc_83900040",
+  "83900029": {
+    "id": 83900029,
+    "name": "home_skill_name_83900029",
+    "desc": "home_skill_desc_83900029",
     "param": 0.2,
     "homeSkillType": "AddQty"
   },
-  "83900041": {
-    "id": 83900041,
-    "name": "home_skill_name_83900041",
-    "desc": "home_skill_desc_83900041",
+  "83900030": {
+    "id": 83900030,
+    "name": "home_skill_name_83900030",
+    "desc": "home_skill_desc_83900030",
     "param": 0.2,
     "homeSkillType": "AddQty"
   },
@@ -220,6 +213,27 @@
     "id": 83900031,
     "name": "home_skill_name_83900031",
     "desc": "home_skill_desc_83900031",
+    "param": 0.2,
+    "homeSkillType": "AddQty"
+  },
+  "83900032": {
+    "id": 83900032,
+    "name": "home_skill_name_83900032",
+    "desc": "home_skill_desc_83900032",
+    "param": 0.2,
+    "homeSkillType": "AddQty"
+  },
+  "83900033": {
+    "id": 83900033,
+    "name": "home_skill_name_83900033",
+    "desc": "home_skill_desc_83900033",
+    "param": 0.2,
+    "homeSkillType": "AddQty"
+  },
+  "83900034": {
+    "id": 83900034,
+    "name": "home_skill_name_83900034",
+    "desc": "home_skill_desc_83900034",
     "param": 0.2,
     "homeSkillType": "AddQty"
   },
@@ -258,10 +272,17 @@
     "param": 0.2,
     "homeSkillType": "AddQty"
   },
-  "83900052": {
-    "id": 83900052,
-    "name": "home_skill_name_83900052",
-    "desc": "home_skill_desc_83900052",
+  "83900040": {
+    "id": 83900040,
+    "name": "home_skill_name_83900040",
+    "desc": "home_skill_desc_83900040",
+    "param": 0.2,
+    "homeSkillType": "AddQty"
+  },
+  "83900041": {
+    "id": 83900041,
+    "name": "home_skill_name_83900041",
+    "desc": "home_skill_desc_83900041",
     "param": 0.2,
     "homeSkillType": "AddQty"
   },
@@ -279,25 +300,25 @@
     "param": 0.2,
     "homeSkillType": "AddQty"
   },
-  "83900032": {
-    "id": 83900032,
-    "name": "home_skill_name_83900032",
-    "desc": "home_skill_desc_83900032",
-    "param": 0.2,
+  "83900044": {
+    "id": 83900044,
+    "name": "home_skill_name_83900044",
+    "desc": "home_skill_desc_83900044",
+    "param": 0.1,
     "homeSkillType": "AddQty"
   },
-  "83900033": {
-    "id": 83900033,
-    "name": "home_skill_name_83900033",
-    "desc": "home_skill_desc_83900033",
-    "param": 0.2,
+  "83900045": {
+    "id": 83900045,
+    "name": "home_skill_name_83900045",
+    "desc": "home_skill_desc_83900045",
+    "param": 0.1,
     "homeSkillType": "AddQty"
   },
-  "83900034": {
-    "id": 83900034,
-    "name": "home_skill_name_83900034",
-    "desc": "home_skill_desc_83900034",
-    "param": 0.2,
+  "83900046": {
+    "id": 83900046,
+    "name": "home_skill_name_83900046",
+    "desc": "home_skill_desc_83900046",
+    "param": 0.1,
     "homeSkillType": "AddQty"
   },
   "83900047": {
@@ -328,25 +349,18 @@
     "param": 0.1,
     "homeSkillType": "AddQty"
   },
-  "83900046": {
-    "id": 83900046,
-    "name": "home_skill_name_83900046",
-    "desc": "home_skill_desc_83900046",
-    "param": 0.1,
-    "homeSkillType": "AddQty"
-  },
-  "83900059": {
-    "id": 83900059,
-    "name": "home_skill_name_83900059",
-    "desc": "home_skill_desc_83900059",
-    "param": 0.1,
-    "homeSkillType": "AddQty"
-  },
   "83900051": {
     "id": 83900051,
     "name": "home_skill_name_83900051",
     "desc": "home_skill_desc_83900051",
     "param": 0.1,
+    "homeSkillType": "AddQty"
+  },
+  "83900052": {
+    "id": 83900052,
+    "name": "home_skill_name_83900052",
+    "desc": "home_skill_desc_83900052",
+    "param": 0.2,
     "homeSkillType": "AddQty"
   },
   "83900053": {
@@ -377,20 +391,6 @@
     "param": 0.3,
     "homeSkillType": "AddQty"
   },
-  "83900044": {
-    "id": 83900044,
-    "name": "home_skill_name_83900044",
-    "desc": "home_skill_desc_83900044",
-    "param": 0.1,
-    "homeSkillType": "AddQty"
-  },
-  "83900045": {
-    "id": 83900045,
-    "name": "home_skill_name_83900045",
-    "desc": "home_skill_desc_83900045",
-    "param": 0.1,
-    "homeSkillType": "AddQty"
-  },
   "83900057": {
     "id": 83900057,
     "name": "home_skill_name_83900057",
@@ -402,6 +402,13 @@
     "id": 83900058,
     "name": "home_skill_name_83900058",
     "desc": "home_skill_desc_83900058",
+    "param": 0.1,
+    "homeSkillType": "AddQty"
+  },
+  "83900059": {
+    "id": 83900059,
+    "name": "home_skill_name_83900059",
+    "desc": "home_skill_desc_83900059",
     "param": 0.1,
     "homeSkillType": "AddQty"
   },
@@ -426,19 +433,19 @@
     "param": -0.005,
     "homeSkillType": "TaxCuts"
   },
-  "83900064": {
-    "id": 83900064,
-    "name": "home_skill_name_83900064",
-    "desc": "home_skill_desc_83900064",
-    "param": 0.1,
-    "homeSkillType": "RiseGrassOutput"
-  },
   "83900063": {
     "id": 83900063,
     "name": "home_skill_name_83900063",
     "desc": "home_skill_desc_83900063",
     "param": 0.1,
     "homeSkillType": "RiseWoodOutput"
+  },
+  "83900064": {
+    "id": 83900064,
+    "name": "home_skill_name_83900064",
+    "desc": "home_skill_desc_83900064",
+    "param": 0.1,
+    "homeSkillType": "RiseGrassOutput"
   },
   "83900065": {
     "id": 83900065,
@@ -577,84 +584,91 @@
     "id": 83900084,
     "name": "home_skill_name_83900084",
     "desc": "home_skill_desc_83900084",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900085": {
     "id": 83900085,
     "name": "home_skill_name_83900085",
     "desc": "home_skill_desc_83900085",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
+  },
+  "83900086": {
+    "id": 83900086,
+    "name": "home_skill_name_83900086",
+    "desc": "home_skill_desc_83900086",
+    "param": 0.2,
+    "homeSkillType": "AddQty"
   },
   "83900087": {
     "id": 83900087,
     "name": "home_skill_name_83900087",
     "desc": "home_skill_desc_83900087",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
   },
   "83900088": {
     "id": 83900088,
     "name": "home_skill_name_83900088",
     "desc": "home_skill_desc_83900088",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
   },
   "83900089": {
     "id": 83900089,
     "name": "home_skill_name_83900089",
     "desc": "home_skill_desc_83900089",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900090": {
     "id": 83900090,
     "name": "home_skill_name_83900090",
     "desc": "home_skill_desc_83900090",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900091": {
     "id": 83900091,
     "name": "home_skill_name_83900091",
     "desc": "home_skill_desc_83900091",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
   },
   "83900092": {
     "id": 83900092,
     "name": "home_skill_name_83900092",
     "desc": "home_skill_desc_83900092",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
   },
   "83900093": {
     "id": 83900093,
     "name": "home_skill_name_83900093",
     "desc": "home_skill_desc_83900093",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900094": {
     "id": 83900094,
     "name": "home_skill_name_83900094",
     "desc": "home_skill_desc_83900094",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "RiseSpaceLimited"
   },
   "83900095": {
     "id": 83900095,
     "name": "home_skill_name_83900095",
     "desc": "home_skill_desc_83900095",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "RiseSpaceLimited"
   },
   "83900096": {
     "id": 83900096,
     "name": "home_skill_name_83900096",
     "desc": "home_skill_desc_83900096",
-    "param": 25,
+    "param": 25.0,
     "homeSkillType": "RiseFliersSaveLimited"
   },
   "83900097": {
@@ -668,28 +682,28 @@
     "id": 83900098,
     "name": "home_skill_name_83900098",
     "desc": "home_skill_desc_83900098",
-    "param": 500,
+    "param": 500.0,
     "homeSkillType": "RiseDurabilityLimited"
   },
   "83900099": {
     "id": 83900099,
     "name": "home_skill_name_83900099",
     "desc": "home_skill_desc_83900099",
-    "param": 25,
+    "param": 25.0,
     "homeSkillType": "RiseTrashStagingLimited"
   },
   "83900100": {
     "id": 83900100,
     "name": "home_skill_name_83900100",
     "desc": "home_skill_desc_83900100",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "RiseRushLimited"
   },
   "83900101": {
     "id": 83900101,
     "name": "home_skill_name_83900101",
     "desc": "home_skill_desc_83900101",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "RiseRushLimited"
   },
   "83900102": {
@@ -780,7 +794,7 @@
     "id": 83900114,
     "name": "home_skill_name_83900114",
     "desc": "home_skill_desc_83900114",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "AddClean"
   },
   "83900115": {
@@ -815,7 +829,7 @@
     "id": 83900119,
     "name": "home_skill_name_83900119",
     "desc": "home_skill_desc_83900119",
-    "param": 0,
+    "param": 0.0,
     "homeSkillType": "AutoPickup"
   },
   "83900120": {
@@ -878,35 +892,35 @@
     "id": 83900128,
     "name": "home_skill_name_83900128",
     "desc": "home_skill_desc_83900128",
-    "param": 3,
+    "param": 3.0,
     "homeSkillType": "RiseBentoEnergy"
   },
   "83900129": {
     "id": 83900129,
     "name": "home_skill_name_83900129",
     "desc": "home_skill_desc_83900129",
-    "param": 10,
+    "param": 10.0,
     "homeSkillType": "AddDeterrence"
   },
   "83900130": {
     "id": 83900130,
     "name": "home_skill_name_83900130",
     "desc": "home_skill_desc_83900130",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "ReduceEscapeEnergy"
   },
   "83900131": {
     "id": 83900131,
     "name": "home_skill_name_83900131",
     "desc": "home_skill_desc_83900131",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "ReduceEscapeEnergy"
   },
   "83900132": {
     "id": 83900132,
     "name": "home_skill_name_83900132",
     "desc": "home_skill_desc_83900132",
-    "param": 2,
+    "param": 2.0,
     "homeSkillType": "ReduceReadEnergy"
   },
   "83900133": {
@@ -1053,28 +1067,28 @@
     "id": 83900153,
     "name": "home_skill_name_83900153",
     "desc": "home_skill_desc_83900153",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900154": {
     "id": 83900154,
     "name": "home_skill_name_83900154",
     "desc": "home_skill_desc_83900154",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900155": {
     "id": 83900155,
     "name": "home_skill_name_83900155",
     "desc": "home_skill_desc_83900155",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900156": {
     "id": 83900156,
     "name": "home_skill_name_83900156",
     "desc": "home_skill_desc_83900156",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "ReduceDriveCost"
   },
   "83900157": {
@@ -1102,35 +1116,21 @@
     "id": 83900160,
     "name": "home_skill_name_83900160",
     "desc": "home_skill_desc_83900160",
-    "param": 10,
+    "param": 10.0,
     "homeSkillType": "AddColoudness"
   },
   "83900161": {
     "id": 83900161,
     "name": "home_skill_name_83900161",
     "desc": "home_skill_desc_83900161",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "AddColoudness"
-  },
-  "83900013": {
-    "id": 83900013,
-    "name": "home_skill_name_83900013",
-    "desc": "home_skill_desc_83900013",
-    "param": 0.2,
-    "homeSkillType": "AddQty"
   },
   "83900162": {
     "id": 83900162,
     "name": "home_skill_name_83900162",
     "desc": "home_skill_desc_83900162",
     "param": 0.1,
-    "homeSkillType": "AddQty"
-  },
-  "83900086": {
-    "id": 83900086,
-    "name": "home_skill_name_83900086",
-    "desc": "home_skill_desc_83900086",
-    "param": 0.2,
     "homeSkillType": "AddQty"
   },
   "83900163": {
@@ -1235,14 +1235,14 @@
     "id": 83900177,
     "name": "home_skill_name_83900177",
     "desc": "home_skill_desc_83900177",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
   },
   "83900178": {
     "id": 83900178,
     "name": "home_skill_name_83900178",
     "desc": "home_skill_desc_83900178",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900179": {
@@ -1277,7 +1277,7 @@
     "id": 83900183,
     "name": "home_skill_name_83900183",
     "desc": "home_skill_desc_83900183",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
   },
   "83900184": {
@@ -1298,14 +1298,14 @@
     "id": 83900186,
     "name": "home_skill_name_83900186",
     "desc": "home_skill_desc_83900186",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "AddSpeed"
   },
   "83900187": {
     "id": 83900187,
     "name": "home_skill_name_83900187",
     "desc": "home_skill_desc_83900187",
-    "param": 2,
+    "param": 2.0,
     "homeSkillType": "AddDrinkRecoverEnergy"
   },
   "83900188": {
@@ -1361,14 +1361,14 @@
     "id": 83900195,
     "name": "home_skill_name_83900195",
     "desc": "home_skill_desc_83900195",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "AddLightningTime"
   },
   "83900196": {
     "id": 83900196,
     "name": "home_skill_name_83900196",
     "desc": "home_skill_desc_83900196",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "RiseSpaceLimited"
   },
   "83900197": {
@@ -1473,14 +1473,14 @@
     "id": 83900211,
     "name": "home_skill_name_83900211",
     "desc": "home_skill_desc_83900211",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "RiseEnergyLimited"
   },
   "83900212": {
     "id": 83900212,
     "name": "home_skill_name_83900212",
     "desc": "home_skill_desc_83900212",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900213": {
@@ -1648,7 +1648,7 @@
     "id": 83900236,
     "name": "home_skill_name_83900236",
     "desc": "home_skill_desc_83900236",
-    "param": 1,
+    "param": 1.0,
     "homeSkillType": "AddTrailerFreeNum"
   },
   "83900237": {
@@ -1725,14 +1725,14 @@
     "id": 83900247,
     "name": "home_skill_name_83900247",
     "desc": "home_skill_desc_83900247",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "RiseSpaceLimited"
   },
   "83900248": {
     "id": 83900248,
     "name": "home_skill_name_83900248",
     "desc": "home_skill_desc_83900248",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "AddSpeed"
   },
   "83900249": {
@@ -1748,6 +1748,13 @@
     "desc": "home_skill_desc_83900250",
     "param": 0.1,
     "homeSkillType": "AddSpecQty"
+  },
+  "83900251": {
+    "id": 83900251,
+    "name": "home_skill_name_83900251",
+    "desc": "home_skill_desc_83900251",
+    "param": 0.2,
+    "homeSkillType": "AddTypeQty"
   },
   "83900252": {
     "id": 83900252,
@@ -1767,15 +1774,15 @@
     "id": 83900254,
     "name": "home_skill_name_83900254",
     "desc": "home_skill_desc_83900254",
-    "param": 5,
+    "param": 5.0,
     "homeSkillType": "RiseSpaceLimited"
   },
-  "83900251": {
-    "id": 83900251,
-    "name": "home_skill_name_83900251",
-    "desc": "home_skill_desc_83900251",
+  "83900255": {
+    "id": 83900255,
+    "name": "home_skill_name_83900255",
+    "desc": "home_skill_desc_83900255",
     "param": 0.2,
-    "homeSkillType": "AddTypeQty"
+    "homeSkillType": "AddSpecQty"
   },
   "83900256": {
     "id": 83900256,
@@ -1791,13 +1798,6 @@
     "param": 0.1,
     "homeSkillType": "AddTypeQty"
   },
-  "83900255": {
-    "id": 83900255,
-    "name": "home_skill_name_83900255",
-    "desc": "home_skill_desc_83900255",
-    "param": 0.2,
-    "homeSkillType": "AddSpecQty"
-  },
   "83900258": {
     "id": 83900258,
     "name": "home_skill_name_83900258",
@@ -1809,7 +1809,7 @@
     "id": 83900259,
     "name": "home_skill_name_83900259",
     "desc": "home_skill_desc_83900259",
-    "param": 8,
+    "param": 8.0,
     "homeSkillType": "AddEnergyMax"
   },
   "83900260": {
@@ -1832,5 +1832,180 @@
     "desc": "home_skill_desc_83900262",
     "param": 0.1,
     "homeSkillType": "AddQty"
+  },
+  "83900263": {
+    "id": 83900263,
+    "name": "home_skill_name_83900263",
+    "desc": "home_skill_desc_83900263",
+    "param": 0.2,
+    "homeSkillType": "AddTypeQty"
+  },
+  "83900264": {
+    "id": 83900264,
+    "name": "home_skill_name_83900264",
+    "desc": "home_skill_desc_83900264",
+    "param": 0.01,
+    "homeSkillType": "AddAllCityRecycleReward"
+  },
+  "83900265": {
+    "id": 83900265,
+    "name": "home_skill_name_83900265",
+    "desc": "home_skill_desc_83900265",
+    "param": 0.01,
+    "homeSkillType": "AddAllCityRecycleReward"
+  },
+  "83900266": {
+    "id": 83900266,
+    "name": "home_skill_name_83900266",
+    "desc": "home_skill_desc_83900266",
+    "param": 0.2,
+    "homeSkillType": "AddSpecQty"
+  },
+  "83900267": {
+    "id": 83900267,
+    "name": "home_skill_name_83900267",
+    "desc": "home_skill_desc_83900267",
+    "param": 0.1,
+    "homeSkillType": "AddSpecQty"
+  },
+  "83900268": {
+    "id": 83900268,
+    "name": "home_skill_name_83900268",
+    "desc": "home_skill_desc_83900268",
+    "param": 0.2,
+    "homeSkillType": "AddSpecQty"
+  },
+  "83900269": {
+    "id": 83900269,
+    "name": "home_skill_name_83900269",
+    "desc": "home_skill_desc_83900269",
+    "param": -0.005,
+    "homeSkillType": "TaxCuts"
+  },
+  "83900270": {
+    "id": 83900270,
+    "name": "home_skill_name_83900270",
+    "desc": "home_skill_desc_83900270",
+    "param": 0.2,
+    "homeSkillType": "AddSpecQty"
+  },
+  "83900271": {
+    "id": 83900271,
+    "name": "home_skill_name_83900271",
+    "desc": "home_skill_desc_83900271",
+    "param": 0.1,
+    "homeSkillType": "AddSpecQty"
+  },
+  "83900272": {
+    "id": 83900272,
+    "name": "home_skill_name_83900272",
+    "desc": "home_skill_desc_83900272",
+    "param": 0.03,
+    "homeSkillType": "AddEntrustReward"
+  },
+  "83900273": {
+    "id": 83900273,
+    "name": "home_skill_name_83900273",
+    "desc": "home_skill_desc_83900273",
+    "param": 8.0,
+    "homeSkillType": "AddEnergyMax"
+  },
+  "83900274": {
+    "id": 83900274,
+    "name": "home_skill_name_83900274",
+    "desc": "home_skill_desc_83900274",
+    "param": 8.0,
+    "homeSkillType": "AddEnergyMax"
+  },
+  "83900275": {
+    "id": 83900275,
+    "name": "home_skill_name_83900275",
+    "desc": "home_skill_desc_83900275",
+    "param": 0.2,
+    "homeSkillType": "AddTypeQty"
+  },
+  "83900276": {
+    "id": 83900276,
+    "name": "home_skill_name_83900276",
+    "desc": "home_skill_desc_83900276",
+    "param": 8.0,
+    "homeSkillType": "AddEnergyMax"
+  },
+  "83900277": {
+    "id": 83900277,
+    "name": "home_skill_name_83900277",
+    "desc": "home_skill_desc_83900277",
+    "param": 8.0,
+    "homeSkillType": "AddEnergyMax"
+  },
+  "83900278": {
+    "id": 83900278,
+    "name": "home_skill_name_83900278",
+    "desc": "home_skill_desc_83900278",
+    "param": 0.03,
+    "homeSkillType": "AddEntrustReward"
+  },
+  "83900279": {
+    "id": 83900279,
+    "name": "home_skill_name_83900279",
+    "desc": "home_skill_desc_83900279",
+    "param": 5.0,
+    "homeSkillType": "RiseSpaceLimited"
+  },
+  "83900280": {
+    "id": 83900280,
+    "name": "home_skill_name_83900280",
+    "desc": "home_skill_desc_83900280",
+    "param": 1.0,
+    "homeSkillType": "AddQtyNum"
+  },
+  "83900281": {
+    "id": 83900281,
+    "name": "home_skill_name_83900281",
+    "desc": "home_skill_desc_83900281",
+    "param": 0.1,
+    "homeSkillType": "AddTypeQty"
+  },
+  "83900282": {
+    "id": 83900282,
+    "name": "home_skill_name_83900282",
+    "desc": "home_skill_desc_83900282",
+    "param": 0.1,
+    "homeSkillType": "AddTypeQty"
+  },
+  "83900283": {
+    "id": 83900283,
+    "name": "home_skill_name_83900283",
+    "desc": "home_skill_desc_83900283",
+    "param": 0.2,
+    "homeSkillType": "AddTypeQty"
+  },
+  "83900284": {
+    "id": 83900284,
+    "name": "home_skill_name_83900284",
+    "desc": "home_skill_desc_83900284",
+    "param": 0.03,
+    "homeSkillType": "AddEntrustReward"
+  },
+  "83900285": {
+    "id": 83900285,
+    "name": "home_skill_name_83900285",
+    "desc": "home_skill_desc_83900285",
+    "param": 0.2,
+    "homeSkillType": "AddSpecQty"
+  },
+  "83900286": {
+    "id": 83900286,
+    "name": "home_skill_name_83900286",
+    "desc": "home_skill_desc_83900286",
+    "param": 0.1,
+    "homeSkillType": "AddSpecQty"
+  },
+  "83900287": {
+    "id": 83900287,
+    "name": "home_skill_name_83900287",
+    "desc": "home_skill_desc_83900287",
+    "param": -0.005,
+    "homeSkillType": "TaxCuts"
   }
 }

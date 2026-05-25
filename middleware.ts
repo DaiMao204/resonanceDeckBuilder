@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server"
 
 // 지원하는 언어 목록
 const supportedLanguages = ["en", "ko", "jp", "cn", "tw"]
-const defaultLanguage = "en"
+const defaultLanguage = "cn"
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
@@ -49,11 +49,11 @@ export function middleware(request: NextRequest) {
 
   // 루트 경로 접근 시 감지된 언어로 리다이렉트
   if (pathname === "/") {
-    return NextResponse.redirect(new URL(`/${detectedLanguage}${queryString}`, request.url))
+    return NextResponse.redirect(new URL(`/${defaultLanguage}${queryString}`, request.url))
   }
 
   // 다른 경로에 접근할 때도 감지된 언어 적용하여 리다이렉트
-  return NextResponse.redirect(new URL(`/${detectedLanguage}${pathname}${queryString}`, request.url))
+  return NextResponse.redirect(new URL(`/${defaultLanguage}${pathname}${queryString}`, request.url))
 }
 
 export const config = {

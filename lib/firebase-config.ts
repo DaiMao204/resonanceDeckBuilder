@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app"
+import type { FirebaseApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
+import type { Firestore } from "firebase/firestore"
 import { getAnalytics, logEvent } from "firebase/analytics"
+import type { Analytics } from "firebase/analytics"
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,18 +15,38 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig)
+const isProd = process.env.NODE_ENV === "production"
+const isFirebaseEnabled = process.env.NEXT_PUBLIC_FIREBASE_ENABLED === "true"
+const requiredFirebaseConfig = [
+  firebaseConfig.apiKey,
+  firebaseConfig.authDomain,
+  firebaseConfig.projectId,
+  firebaseConfig.storageBucket,
+  firebaseConfig.messagingSenderId,
+  firebaseConfig.appId,
+]
+const hasFirebaseConfig = requiredFirebaseConfig.every(Boolean)
+const app: FirebaseApp | null = isFirebaseEnabled && hasFirebaseConfig ? initializeApp(firebaseConfig) : null
 
-export const db = getFirestore(app)
+export const db: Firestore | null = app ? getFirestore(app) : null
+export const firebaseEnabled = Boolean(app)
+
+const isAnalyticsEnabled =
+  firebaseEnabled &&
+  process.env.NEXT_PUBLIC_FIREBASE_ANALYTICS_ENABLED === "true" &&
+  Boolean(firebaseConfig.measurementId)
 
 // Initialize Firebase Analytics
-export const analytics = typeof window !== "undefined" ? getAnalytics(app) : null
-
-const isProd = process.env.NODE_ENV === "production"
-const isAnalyticsEnabled = process.env.NEXT_PUBLIC_FIREBASE_ANALYTICS_ENABLED === "true"
+export const analytics: Analytics | null =
+  typeof window !== "undefined" && app && isAnalyticsEnabled ? getAnalytics(app) : null
 
 // 새로운 래핑된 logEvent 함수로 대체
 export const logEventWrapper = (eventName: string, eventParams?: Record<string, any>) => {
+  if (!firebaseEnabled) {
+    if (!isProd) console.log(`[DEV] Firebase disabled. Event skipped: ${eventName}`, eventParams)
+    return
+  }
+
   if (!isProd || !isAnalyticsEnabled) {
     console.log(`[DEV] Firebase Analytics Events: ${eventName}`, eventParams)
     return

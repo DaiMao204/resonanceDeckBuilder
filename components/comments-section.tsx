@@ -19,7 +19,7 @@ import {
   type QueryDocumentSnapshot,
   type DocumentData,
 } from "firebase/firestore"
-import { db } from "../lib/firebase-config"
+import { db, firebaseEnabled } from "../lib/firebase-config"
 import { useLanguage } from "../contexts/language-context"
 
 interface Comment {
@@ -96,10 +96,15 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   }, [lastCommentTime, editingCommentId])
 
   useEffect(() => {
+    if (!firebaseEnabled) {
+      setHasMore(false)
+      return
+    }
     loadComments(true)
   }, [])
 
   useEffect(() => {
+    if (!firebaseEnabled) return
     if (!loadMoreRef.current || loading) return
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasMore) loadMoreComments()
@@ -110,6 +115,10 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   }, [loading, hasMore])
 
   const loadComments = async (isInitialLoad = false) => {
+    if (!db) {
+      setHasMore(false)
+      return
+    }
     if (loading || (!hasMore && !isInitialLoad)) return
     setLoading(true)
     try {
@@ -155,6 +164,8 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   }
 
   const addComment = async () => {
+    if (!db) return
+
     if (editingCommentId) {
       if (!editContent.trim()) return
       try {
@@ -205,6 +216,8 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   }
 
   const deleteComment = async (commentId: string) => {
+    if (!db) return
+
     try {
       await deleteDoc(doc(db, "comments", commentId))
       setComments((prev) => prev.filter((c) => c.id !== commentId))
@@ -223,6 +236,21 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   const cancelEditing = () => {
     setEditingCommentId(null)
     setEditContent("")
+  }
+
+  if (!firebaseEnabled) {
+    return (
+      <section className="w-full py-4 mt-12 border-t border-[rgba(255,255,255,0.1)]">
+        <div className="container mx-auto px-4">
+          <h2 className="text-xl font-semibold mb-4 neon-text">
+            {getTranslatedString("comments.title") || "Comments"}
+          </h2>
+          <p className="text-gray-500 text-center py-4">
+            {getTranslatedString("comments.disabled") || "Comments are temporarily disabled."}
+          </p>
+        </div>
+      </section>
+    )
   }
 
   return (

@@ -17,8 +17,8 @@ const metadataByLanguage: Record<string, { title: string; description: string }>
     description: "レゾナンスのデッキを簡単に作成して共有",
   },
   cn: {
-    title: "共鸣卡组构建器",
-    description: "轻松创建和分享您的共鸣卡组",
+    title: "雷索纳斯卡组构建器",
+    description: "轻松创建和分享您的雷索纳斯卡组",
   },
   tw: {
     title: "共鳴牌組構建器",

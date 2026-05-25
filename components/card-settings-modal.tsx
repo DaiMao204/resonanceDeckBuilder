@@ -283,6 +283,13 @@ export function CardSettingsModal({
                 // Calculate option index (starting after ExCondList options)
                 const condListLength = card.ExCondList?.length || 0
                 const optionIndex = index + 3 + condListLength
+                const isNumCond = act.isNumCond === true
+                const minNum = act.minNum ?? 0
+                const maxNum =
+                  act.interValNum && act.numDuration ? minNum + (act.interValNum - 1) * act.numDuration : 100
+                const step = act.numDuration || 1
+                const currentValue =
+                  useParamMap[optionIndex.toString()] !== undefined ? useParamMap[optionIndex.toString()] : minNum
 
                 // 언어팩 키 생성
                 const textKey = `text_${act.des}`
@@ -291,12 +298,36 @@ export function CardSettingsModal({
                   <div
                     key={`act-${optionIndex}`}
                     className={`skill-option ${useType === optionIndex ? "skill-option-selected" : "skill-option-unselected"}`}
-                    onClick={() => handleOptionSelect(optionIndex)}
+                    onClick={() => handleOptionSelect(optionIndex, isNumCond ? currentValue : -1)}
                   >
                     <div className="flex items-center">
                       <div className="font-medium flex items-center">
                         {/* 텍스트 */}
                         <span>{getTranslatedString(textKey) || textKey}</span>
+                        {isNumCond && (
+                          <div className="ml-2 flex items-center" onClick={(e) => e.stopPropagation()}>
+                            <button
+                              className="w-4 h-6 bg-black bg-opacity-20 rounded-l flex items-center justify-center"
+                              onClick={() => handleParamChange(optionIndex, currentValue - step, minNum, maxNum)}
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <span
+                              className={`font-mono inline-block text-right ${
+                                act.typeEnum === "percent" ? "w-[3ch]" : "w-[2ch]"
+                              }`}
+                            >
+                              {currentValue}
+                              {act.typeEnum === "percent" ? "%" : ""}
+                            </span>
+                            <button
+                              className="w-4 h-6 bg-black bg-opacity-20 rounded-r flex items-center justify-center"
+                              onClick={() => handleParamChange(optionIndex, currentValue + step, minNum, maxNum)}
+                            >
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

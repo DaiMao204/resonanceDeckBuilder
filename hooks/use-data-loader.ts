@@ -99,7 +99,7 @@ export function useDataLoader() {
             }
 
             // 기본값은 영어
-            return "en"
+            return "cn"
           }
 
           // Add image URLs to characters

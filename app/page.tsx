@@ -25,14 +25,14 @@ export default function Home() {
   const acceptLanguage = headersList.get("accept-language") || ""
 
   // 지원하는 언어 목록
-  const supportedLanguages = ["en", "ko", "jp", "cn"]
-  const defaultLanguage = "en"
+  const supportedLanguages = ["en", "ko", "jp", "cn", "tw"]
+  const defaultLanguage = "cn"
 
   // 브라우저 언어 코드 추출 (예: 'en-US' -> 'en')
   const preferredLanguage = acceptLanguage.split(",")[0].split("-")[0]
 
   // 지원하는 언어인지 확인
-  const detectedLanguage = supportedLanguages.includes(preferredLanguage) ? preferredLanguage : defaultLanguage
+  const detectedLanguage = defaultLanguage
 
   // 감지된 언어로 리다이렉트
   redirect(`/${detectedLanguage}`)

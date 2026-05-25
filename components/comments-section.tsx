@@ -2,7 +2,6 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { v4 as uuidv4 } from "uuid"
 import { Trash2, Clock, Edit2, X, Check, ChevronDown } from "lucide-react"
 import {
   addDoc,
@@ -19,7 +18,7 @@ import {
   type QueryDocumentSnapshot,
   type DocumentData,
 } from "firebase/firestore"
-import { db, firebaseEnabled } from "../lib/firebase-config"
+import { db, firebaseEnabled, getAnonymousUser } from "../lib/firebase-config"
 import { useLanguage } from "../contexts/language-context"
 
 interface Comment {
@@ -27,6 +26,7 @@ interface Comment {
   content: string
   date: string
   userId: string
+  uid?: string
   lastEdited?: string
 }
 
@@ -51,6 +51,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState("")
   const [userId, setUserId] = useState<string>("")
+  const [authReady, setAuthReady] = useState(false)
   const [lastCommentTime, setLastCommentTime] = useState<number | null>(null)
   const [remainingTime, setRemainingTime] = useState<number>(0)
   const [canComment, setCanComment] = useState<boolean>(true)
@@ -68,15 +69,18 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
 
   useEffect(() => {
     if (typeof window === "undefined") return
-    const existing = localStorage.getItem("anonymousUserId")
-    if (existing) setUserId(existing)
-    else {
-      const newId = uuidv4()
-      localStorage.setItem("anonymousUserId", newId)
-      setUserId(newId)
-    }
     const lastTime = localStorage.getItem("lastCommentTime")
     if (lastTime) setLastCommentTime(Number.parseInt(lastTime, 10))
+
+    if (!firebaseEnabled) {
+      setAuthReady(true)
+      return
+    }
+
+    getAnonymousUser().then((user) => {
+      if (user) setUserId(user.uid)
+      setAuthReady(true)
+    })
   }, [])
 
   useEffect(() => {
@@ -145,7 +149,8 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
           id: doc.id,
           content: d.content,
           date: d.createdAt?.toDate()?.toISOString() ?? "",
-          userId: d.userId,
+          userId: d.userId || d.uid || "",
+          uid: d.uid,
           lastEdited: d.lastEdited?.toDate()?.toISOString(),
         }
       })
@@ -163,11 +168,18 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
     if (!loading && hasMore) loadComments()
   }
 
+  const isOwnComment = (comment: Comment) => {
+    if (!userId) return false
+    return comment.uid ? comment.uid === userId : comment.userId === userId
+  }
+
   const addComment = async () => {
     if (!db) return
 
     if (editingCommentId) {
       if (!editContent.trim()) return
+      const targetComment = comments.find((c) => c.id === editingCommentId)
+      if (!targetComment || !isOwnComment(targetComment)) return
       try {
         const ref = doc(db, "comments", editingCommentId)
         await updateDoc(ref, {
@@ -189,10 +201,11 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
       return
     }
 
-    if (!newComment.trim() || !canComment) return
+    if (!newComment.trim() || !canComment || !userId) return
     try {
       await addDoc(collection(db, "comments"), {
         content: newComment.trim(),
+        uid: userId,
         userId,
         createdAt: serverTimestamp(),
       })
@@ -204,6 +217,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
         {
           id: "local_" + Math.random().toString(36).slice(2),
           content: newComment.trim(),
+          uid: userId,
           userId,
           date: new Date().toISOString(),
         },
@@ -217,6 +231,8 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
 
   const deleteComment = async (commentId: string) => {
     if (!db) return
+    const targetComment = comments.find((c) => c.id === commentId)
+    if (!targetComment || !isOwnComment(targetComment)) return
 
     try {
       await deleteDoc(doc(db, "comments", commentId))
@@ -229,6 +245,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
   const formatDate = (s: string) => new Date(s).toLocaleString(locale)
   const formatRemainingTime = (sec: number) => `${sec}${getTranslatedString("seconds") || "s"}`
   const startEditing = (comment: Comment) => {
+    if (!isOwnComment(comment)) return
     setEditingCommentId(comment.id)
     setEditContent(comment.content)
     setNewComment("")
@@ -252,6 +269,8 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
       </section>
     )
   }
+
+  const canSubmitComment = authReady && Boolean(userId) && canComment
 
   return (
     <section className="w-full py-4 mt-12 border-t border-[rgba(255,255,255,0.1)]">
@@ -300,32 +319,34 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
               <>
                 <textarea
                   className={`flex-grow p-3 bg-black/50 border border-[rgba(255,255,255,0.2)] rounded-l-md text-white resize-none focus:outline-none ${
-                    canComment ? "focus:border-[rgba(255,255,255,0.5)]" : "opacity-70"
+                    canSubmitComment ? "focus:border-[rgba(255,255,255,0.5)]" : "opacity-70"
                   }`}
                   placeholder={
-                    canComment
+                    !authReady || !userId
+                      ? getTranslatedString("comments.auth_loading") || "Preparing anonymous session..."
+                      : canComment
                       ? getTranslatedString("comments.placeholder") || "Add a comment..."
                       : getTranslatedString("comments.wait") || "Please wait before commenting again..."
                   }
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey && canComment) {
+                    if (e.key === "Enter" && !e.shiftKey && canSubmitComment) {
                       e.preventDefault()
                       addComment()
                     }
                   }}
                   rows={2}
-                  disabled={!canComment}
+                  disabled={!canSubmitComment}
                 />
                 <button
                   className={`px-4 py-2 bg-black/70 border border-[rgba(255,255,255,0.3)] border-l-0 rounded-r-md text-white transition-colors ${
-                    canComment
+                    canSubmitComment
                       ? "hover:bg-black/90 hover:border-[rgba(255,255,255,0.5)]"
                       : "opacity-50 cursor-not-allowed"
                   }`}
                   onClick={addComment}
-                  disabled={!canComment}
+                  disabled={!canSubmitComment}
                 >
                   {getTranslatedString("comments.submit") || "Submit"}
                 </button>
@@ -363,7 +384,7 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
                     </span>
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-gray-400">{formatDate(comment.date)}</span>
-                      {userId === comment.userId && (
+                      {isOwnComment(comment) && (
                         <div className="flex gap-1">
                           <button
                             onClick={() => startEditing(comment)}

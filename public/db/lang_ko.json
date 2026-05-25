@@ -8813,5 +8813,7 @@
   "footer.original_author_label": "원작자",
   "footer.current_maintainer_label": "현재 관리",
   "footer.current_maintainer_suffix": "",
-  "footer.project_copyright": "레조넌스 덱 빌더 © 2025"
+  "footer.project_copyright": "레조넌스 덱 빌더 © 2025",
+  "comments.auth_loading": "익명 세션을 준비하는 중...",
+  "comments.disabled": "댓글 기능이 일시적으로 비활성화되었습니다."
 }

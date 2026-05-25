@@ -8805,5 +8805,7 @@
   "footer.original_author_label": "Original author",
   "footer.current_maintainer_label": "Currently maintained by",
   "footer.current_maintainer_suffix": "",
-  "footer.project_copyright": "Resonance Deck Builder © 2025"
+  "footer.project_copyright": "Resonance Deck Builder © 2025",
+  "comments.auth_loading": "Preparing anonymous session...",
+  "comments.disabled": "Comments are temporarily disabled."
 }

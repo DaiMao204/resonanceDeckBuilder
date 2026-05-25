@@ -24386,5 +24386,7 @@
   "footer.original_author_label": "原作者",
   "footer.current_maintainer_label": "现由",
   "footer.current_maintainer_suffix": " 维护",
-  "footer.project_copyright": "雷索纳斯卡组构建器 © 2025"
+  "footer.project_copyright": "雷索纳斯卡组构建器 © 2025",
+  "comments.auth_loading": "正在准备匿名身份...",
+  "comments.disabled": "评论功能暂时关闭。"
 }

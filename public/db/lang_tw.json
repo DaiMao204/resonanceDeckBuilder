@@ -8804,5 +8804,7 @@
   "footer.original_author_label": "原作者",
   "footer.current_maintainer_label": "現由",
   "footer.current_maintainer_suffix": " 維護",
-  "footer.project_copyright": "雷索納斯卡組構建器 © 2025"
+  "footer.project_copyright": "雷索納斯卡組構建器 © 2025",
+  "comments.auth_loading": "正在準備匿名身份...",
+  "comments.disabled": "留言功能暫時關閉。"
 }

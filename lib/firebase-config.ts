@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app"
 import type { FirebaseApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 import type { Firestore } from "firebase/firestore"
+import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth"
+import type { Auth, User } from "firebase/auth"
 import { getAnalytics, logEvent } from "firebase/analytics"
 import type { Analytics } from "firebase/analytics"
 
@@ -29,6 +31,7 @@ const hasFirebaseConfig = requiredFirebaseConfig.every(Boolean)
 const app: FirebaseApp | null = isFirebaseEnabled && hasFirebaseConfig ? initializeApp(firebaseConfig) : null
 
 export const db: Firestore | null = app ? getFirestore(app) : null
+export const auth: Auth | null = app ? getAuth(app) : null
 export const firebaseEnabled = Boolean(app)
 
 const isAnalyticsEnabled =
@@ -41,6 +44,29 @@ export const analytics: Analytics | null =
   typeof window !== "undefined" && app && isAnalyticsEnabled ? getAnalytics(app) : null
 
 // 새로운 래핑된 logEvent 함수로 대체
+export const getAnonymousUser = (): Promise<User | null> => {
+  if (!auth) return Promise.resolve(null)
+
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      unsubscribe()
+
+      if (user) {
+        resolve(user)
+        return
+      }
+
+      try {
+        const result = await signInAnonymously(auth)
+        resolve(result.user)
+      } catch (error) {
+        console.error("[ERROR] Anonymous sign-in failed:", error)
+        resolve(null)
+      }
+    })
+  })
+}
+
 export const logEventWrapper = (eventName: string, eventParams?: Record<string, any>) => {
   if (!firebaseEnabled) {
     if (!isProd) console.log(`[DEV] Firebase disabled. Event skipped: ${eventName}`, eventParams)

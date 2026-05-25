@@ -8805,5 +8805,7 @@
   "footer.original_author_label": "原作者",
   "footer.current_maintainer_label": "現在のメンテナー",
   "footer.current_maintainer_suffix": "",
-  "footer.project_copyright": "レゾナンスデッキビルダー © 2025"
+  "footer.project_copyright": "レゾナンスデッキビルダー © 2025",
+  "comments.auth_loading": "匿名セッションを準備しています...",
+  "comments.disabled": "コメント機能は一時的に無効です。"
 }

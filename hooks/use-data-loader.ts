@@ -31,16 +31,16 @@ export function useDataLoader() {
             charSkillMapResponse, // char_skill_map.json 添加
             itemSkillMapResponse, // item_skill_map.json 添加
           ] = await Promise.all([
-            fetch("/api/db/char_db.json"),
-            fetch("/api/db/card_db.json"),
-            fetch("/api/db/skill_db.json"),
-            fetch("/api/db/break_db.json"),
-            fetch("/api/db/talent_db.json"),
-            fetch("/api/db/img_db.json"),
-            fetch("/api/db/equip_db.json"),
-            fetch("/api/db/home_skill_db.json"),
-            fetch("/api/db/char_skill_map.json"), // char_skill_map.json 添加
-            fetch("/api/db/item_skill_map.json"), // item_skill_map.json 添加
+            fetch("/db/char_db.json"),
+            fetch("/db/card_db.json"),
+            fetch("/db/skill_db.json"),
+            fetch("/db/break_db.json"),
+            fetch("/db/talent_db.json"),
+            fetch("/db/img_db.json"),
+            fetch("/db/equip_db.json"),
+            fetch("/db/home_skill_db.json"),
+            fetch("/db/char_skill_map.json"), // char_skill_map.json 添加
+            fetch("/db/item_skill_map.json"), // item_skill_map.json 添加
           ])
 
           const [
@@ -71,7 +71,7 @@ export function useDataLoader() {
           const currentLang = getCurrentLanguage()
 
           // 当前 语言仅 加载
-          const languageResponse = await fetch(`/api/db/lang_${currentLang}.json`)
+          const languageResponse = await fetch(`/db/lang_${currentLang}.json`)
           const languageData = await languageResponse.json()
 
           // 语言 数据 相关 - 当前 语言仅 相关

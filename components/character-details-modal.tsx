@@ -45,7 +45,7 @@ export function CharacterDetailsModal({
           // data相关 homeSkills 相关 API相关 读取 尝试
           if (!homeSkillDb) {
             try {
-              const response = await fetch("/api/db/home_skill_db.json")
+              const response = await fetch("/db/home_skill_db.json")
               homeSkillDb = await response.json()
             } catch (error) {
               console.error("Failed to load home skill data:", error)

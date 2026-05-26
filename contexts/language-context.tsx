@@ -35,7 +35,7 @@ export function LanguageProvider({
       if (!data) return
       if (data.languages[language]) return
 
-      const langResponse = await fetch(`/api/db/lang_${language}.json`)
+      const langResponse = await fetch(`/db/lang_${language}.json`)
       if (!langResponse.ok) {
         throw new Error(`Failed to load language data: ${langResponse.status}`)
       }

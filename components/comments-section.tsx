@@ -274,8 +274,53 @@ function ArtalkCommentsSection({ currentLanguage, getTranslatedString }: ArtalkC
   const containerRef = useRef<HTMLDivElement>(null)
   const artalkRef = useRef<{ destroy?: () => void } | null>(null)
   const [disabled, setDisabled] = useState(false)
+  const [shouldInitialize, setShouldInitialize] = useState(false)
 
   useEffect(() => {
+    if (shouldInitialize || typeof window === "undefined") return
+
+    let cancelled = false
+    let timeoutId: number | undefined
+    let observer: IntersectionObserver | undefined
+
+    const initializeComments = () => {
+      if (!cancelled) setShouldInitialize(true)
+    }
+
+    const initializeAfterPageSettles = () => {
+      timeoutId = window.setTimeout(initializeComments, 4000)
+    }
+
+    const container = containerRef.current
+    if ("IntersectionObserver" in window && container) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            initializeComments()
+          }
+        },
+        { rootMargin: "800px 0px" },
+      )
+      observer.observe(container)
+    }
+
+    if (document.readyState === "complete") {
+      initializeAfterPageSettles()
+    } else {
+      window.addEventListener("load", initializeAfterPageSettles, { once: true })
+    }
+
+    return () => {
+      cancelled = true
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId)
+      observer?.disconnect()
+      window.removeEventListener("load", initializeAfterPageSettles)
+    }
+  }, [shouldInitialize])
+
+  useEffect(() => {
+    if (!shouldInitialize) return
+
     let cancelled = false
     setDisabled(false)
 
@@ -321,7 +366,7 @@ function ArtalkCommentsSection({ currentLanguage, getTranslatedString }: ArtalkC
       artalkRef.current?.destroy?.()
       artalkRef.current = null
     }
-  }, [currentLanguage])
+  }, [currentLanguage, shouldInitialize])
 
   if (disabled) return null
 

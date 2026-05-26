@@ -19,12 +19,12 @@ export function StatusEffects({ selectedCards, availableCards, getTranslatedStri
     const loadData = async () => {
       try {
         // 标签 数据 加载
-        const tagResponse = await fetch("/api/db/tag_db.json")
+        const tagResponse = await fetch("/db/tag_db.json")
         const tagData = await tagResponse.json()
         setTagData(tagData)
 
         // 标签 颜色 映射 数据 加载
-        const tagColorResponse = await fetch("/api/db/tag_color_mapping.json")
+        const tagColorResponse = await fetch("/db/tag_color_mapping.json")
         const tagColorData = await tagColorResponse.json()
         setTagColorMapping(tagColorData)
       } catch (error) {

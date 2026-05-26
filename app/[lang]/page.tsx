@@ -22,18 +22,22 @@ export default function Page({ params }: PageProps) {
   const pathname = usePathname()
   const [isLoading, setIsLoading] = useState(true)
   const [deckCode, setDeckCode] = useState<string | null>(null)
+  const [deckShortCode, setDeckShortCode] = useState<string | null>(null)
   const { data, loading, error } = useDataLoader()
 
   useEffect(() => {
     // URL에서 code 파라미터 추출
     const codeParam = searchParams.get("code")
-    // logEvent 호출 부분 수정 (analytics 전달 제거)
-    if (codeParam) {
-      setDeckCode(codeParam)
+    const shortCodeParam = searchParams.get("s")
+    setDeckCode(codeParam)
+    setDeckShortCode(shortCodeParam)
 
+    // logEvent 호출 부분 수정 (analytics 전달 제거)
+    if (shortCodeParam || codeParam) {
       if (typeof window !== "undefined") {
         logEventWrapper("deck_shared_visit", {
-          deck_code: codeParam,
+          deck_code: shortCodeParam || codeParam,
+          deck_code_type: shortCodeParam ? "short" : "long",
           language: lang,
         })
       }
@@ -66,7 +70,7 @@ export default function Page({ params }: PageProps) {
 
   return (
     <LanguageProvider initialLanguage={lang} data={data}>
-      <DeckBuilder urlDeckCode={deckCode} data={data} />
+      <DeckBuilder urlDeckCode={deckCode} urlDeckShortCode={deckShortCode} data={data} />
     </LanguageProvider>
   )
 }

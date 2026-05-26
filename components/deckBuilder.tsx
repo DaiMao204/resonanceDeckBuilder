@@ -11,6 +11,7 @@ import { useToast } from "./toast-notification"
 import { useDeckBuilder } from "../hooks/deck-builder/index"
 import { useLanguage } from "../contexts/language-context"
 import { decodePresetFromUrlParam } from "../utils/presetCodec"
+import { loadDeckPresetFromShortlink } from "../utils/deck-shortlink"
 import { logEventWrapper } from "../lib/firebase-config"
 import { LoadingScreen } from "./loading-screen"
 import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 추가
@@ -19,6 +20,7 @@ import { getCurrentDeckId, setCurrentDeckId, removeCurrentDeckId, type SavedDeck
 
 interface DeckBuilderProps {
   urlDeckCode: string | null
+  urlDeckShortCode: string | null
   data: import("../types").Database | null
 }
 
@@ -30,7 +32,7 @@ interface CardExtraInfo {
   img_url: string | undefined
 }
 
-export default function DeckBuilder({ urlDeckCode, data }: DeckBuilderProps) {
+export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: DeckBuilderProps) {
   const { getTranslatedString, currentLanguage } = useLanguage()
   const searchParams = useSearchParams()
   const { showToast, ToastContainer } = useToast()
@@ -115,10 +117,13 @@ export default function DeckBuilder({ urlDeckCode, data }: DeckBuilderProps) {
     // 이미 로드 완료된 경우 다시 실행하지 않음
     if (initialLoadComplete || !data) return
 
-    const loadFromUrl = () => {
-      if (urlDeckCode) {
+    const loadFromUrl = async () => {
+      if (urlDeckShortCode || urlDeckCode) {
         try {
-          const preset = decodePresetFromUrlParam(urlDeckCode)
+          const preset = urlDeckShortCode
+            ? await loadDeckPresetFromShortlink(urlDeckShortCode)
+            : decodePresetFromUrlParam(urlDeckCode)
+
           if (preset) {
             const result = importPresetObject(preset, true) // isUrlImport 매개변수를 true로 설정
             if (result.success) {
@@ -129,7 +134,8 @@ export default function DeckBuilder({ urlDeckCode, data }: DeckBuilderProps) {
 
               // Firebase Analytics 이벤트 전송
               logEventWrapper("deck_shared_visit", {
-                deck_code: urlDeckCode,
+                deck_code: urlDeckShortCode || urlDeckCode,
+                deck_code_type: urlDeckShortCode ? "short" : "long",
                 language: currentLanguage,
               })
             }
@@ -151,8 +157,17 @@ export default function DeckBuilder({ urlDeckCode, data }: DeckBuilderProps) {
       setInitialLoadComplete(true)
     }
 
-    loadFromUrl()
-  }, [data, urlDeckCode, importPresetObject, showToast, getTranslatedString, currentLanguage, initialLoadComplete])
+    void loadFromUrl()
+  }, [
+    data,
+    urlDeckCode,
+    urlDeckShortCode,
+    importPresetObject,
+    showToast,
+    getTranslatedString,
+    currentLanguage,
+    initialLoadComplete,
+  ])
 
   // 스킬 설명에서 #r 태그를 실제 값으로 대체하는 함수
   const processSkillDescription = useCallback(
@@ -416,9 +431,9 @@ export default function DeckBuilder({ urlDeckCode, data }: DeckBuilderProps) {
   }, [exportPreset, showToast, getTranslatedString, selectedCharacters, currentLanguage])
 
   // 공유 링크 생성
-  const handleShare = useCallback(() => {
+  const handleShare = useCallback(async () => {
     try {
-      const result = createShareableUrl()
+      const result = await createShareableUrl()
       if (result.success && result.url) {
         navigator.clipboard.writeText(result.url)
         showToast(getTranslatedString("share_link_copied_alert"), "success")
@@ -537,10 +552,10 @@ export default function DeckBuilder({ urlDeckCode, data }: DeckBuilderProps) {
 
   // 저장된 덱 공유 핸들러 추가
   const handleShareSavedDeck = useCallback(
-    (deck: SavedDeck) => {
+    async (deck: SavedDeck) => {
       try {
         // 덱 프리셋으로 공유 URL 생성
-        const result = createShareableUrl(deck.preset)
+        const result = await createShareableUrl(deck.preset)
         if (result.success && result.url) {
           navigator.clipboard.writeText(result.url)
           showToast(getTranslatedString("share_link_copied_alert"), "success")

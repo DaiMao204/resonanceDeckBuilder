@@ -5,6 +5,7 @@ import type { Database } from "../../types"
 import type { SelectedCard, PresetCard, Preset, EquipmentSlot, Result, AwakeningInfo } from "./types"
 import { DEFAULT_OWNER_ID, DISCARD_CARD_ID, DISCARD_SKILL_ID } from "./types"
 import { encodePreset, decodePreset, encodePresetForUrl } from "../../utils/presetCodec"
+import { saveDeckPresetToShortlink } from "../../utils/deck-shortlink"
 
 export function usePresets(
   data: Database | null,
@@ -234,20 +235,25 @@ export function usePresets(
   }, [])
 
   // 공유 URL 생성
-  const createShareableUrl = useCallback(() => {
+  const createShareableUrl = useCallback(async (presetOverride?: any) => {
     try {
-      const preset = createPresetObject(true, true) // 장비 정보와 각성 정보 포함
+      const preset = presetOverride || createPresetObject(true, true) // 장비 정보와 각성 정보 포함
       const encodedPreset = encodePresetForUrl(preset)
 
       // 현재 URL에서 기본 경로 가져오기
       const baseUrl = window.location.origin
       const langPath = window.location.pathname.split("/")[1] || "ko"
 
-      // 공유 URL 생성
-      const shareableUrl = `${baseUrl}/${langPath}?code=${encodedPreset}`
-      return { success: true, url: shareableUrl }
+      const longUrl = `${baseUrl}/${langPath}?code=${encodedPreset}`
+      const shortCode = await saveDeckPresetToShortlink(preset)
+
+      if (shortCode) {
+        return { success: true, url: `${baseUrl}/${langPath}?s=${encodeURIComponent(shortCode)}`, isShort: true }
+      }
+
+      return { success: true, url: longUrl, isShort: false }
     } catch (error) {
-      return { success: false, url: "" }
+      return { success: false, url: "", isShort: false }
     }
   }, [createPresetObject])
 

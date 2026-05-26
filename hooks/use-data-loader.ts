@@ -18,6 +18,9 @@ export function useDataLoader() {
         if (USE_DUMMY) {
           setData(dummyData)
         } else {
+          // 当前 浏览器 语言 或 URL 路径相关 语言 相关 提取
+          const currentLang = getCurrentLanguage()
+
           // 相关 路径 使用相关 数据 文件 加载
           const [
             charactersResponse,
@@ -30,6 +33,7 @@ export function useDataLoader() {
             homeSkillsResponse,
             charSkillMapResponse, // char_skill_map.json 添加
             itemSkillMapResponse, // item_skill_map.json 添加
+            languageResponse,
           ] = await Promise.all([
             fetch("/db/char_db.json"),
             fetch("/db/card_db.json"),
@@ -41,6 +45,7 @@ export function useDataLoader() {
             fetch("/db/home_skill_db.json"),
             fetch("/db/char_skill_map.json"), // char_skill_map.json 添加
             fetch("/db/item_skill_map.json"), // item_skill_map.json 添加
+            fetch(`/db/lang_${currentLang}.json`),
           ])
 
           const [
@@ -54,6 +59,7 @@ export function useDataLoader() {
             homeSkills,
             charSkillMap,
             itemSkillMap,
+            languageData,
           ] = await Promise.all([
             charactersResponse.json(),
             cardsResponse.json(),
@@ -65,14 +71,8 @@ export function useDataLoader() {
             homeSkillsResponse.json(),
             charSkillMapResponse.json(), // char_skill_map.json 添加
             itemSkillMapResponse.json(), // item_skill_map.json 添加
+            languageResponse.json(),
           ])
-
-          // 当前 浏览器 语言 或 URL 路径相关 语言 相关 提取
-          const currentLang = getCurrentLanguage()
-
-          // 当前 语言仅 加载
-          const languageResponse = await fetch(`/db/lang_${currentLang}.json`)
-          const languageData = await languageResponse.json()
 
           // 语言 数据 相关 - 当前 语言仅 相关
           const languages: Record<string, any> = {}

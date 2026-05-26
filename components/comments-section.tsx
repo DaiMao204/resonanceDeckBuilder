@@ -31,6 +31,11 @@ const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构
 const preloadedEmoticonImageUrls = new Set<string>()
 const activePreloadImages = new Set<HTMLImageElement>()
 
+interface NetworkInformationLike {
+  effectiveType?: string
+  saveData?: boolean
+}
+
 export function CommentsSection({ currentLanguage }: CommentsProps) {
   const { getTranslatedString } = useLanguage()
 
@@ -147,8 +152,34 @@ function collectRemoteEmoticonImageUrls(value: unknown): string[] {
   return []
 }
 
-function scheduleEmoticonPreload(callback: () => void) {
+function getNetworkInformation() {
+  if (typeof navigator === "undefined") return undefined
+
+  const extendedNavigator = navigator as Navigator & {
+    connection?: NetworkInformationLike
+    mozConnection?: NetworkInformationLike
+    webkitConnection?: NetworkInformationLike
+  }
+
+  return extendedNavigator.connection || extendedNavigator.mozConnection || extendedNavigator.webkitConnection
+}
+
+function shouldDelayEmoticonPreload() {
+  const connection = getNetworkInformation()
+  if (!connection) return false
+  if (connection.saveData) return true
+
+  const effectiveType = connection.effectiveType?.toLowerCase()
+  return effectiveType === "slow-2g" || effectiveType === "2g" || effectiveType === "3g"
+}
+
+function scheduleEmoticonPreload(callback: () => void, delayMs = 0) {
   if (typeof window === "undefined") return
+
+  if (delayMs > 0) {
+    window.setTimeout(() => scheduleEmoticonPreload(callback), delayMs)
+    return
+  }
 
   if ("requestIdleCallback" in window) {
     window.requestIdleCallback(callback, { timeout: 2000 })
@@ -169,8 +200,10 @@ function preloadRemoteEmoticonImages(value: unknown) {
   if (!urls.length) return
 
   let index = 0
+  const delayPreload = shouldDelayEmoticonPreload()
+  const batchSize = delayPreload ? 2 : 6
   const preloadBatch = () => {
-    const batch = urls.slice(index, index + 6)
+    const batch = urls.slice(index, index + batchSize)
     index += batch.length
     for (const url of batch) {
       const image = new Image()
@@ -182,8 +215,8 @@ function preloadRemoteEmoticonImages(value: unknown) {
     if (index < urls.length) scheduleEmoticonPreload(preloadBatch)
   }
 
-  // 蓝鹊儿动图较多，进入页面后分批预热浏览器缓存，避免打开面板时才集中加载。
-  scheduleEmoticonPreload(preloadBatch)
+  // 蓝鹊儿动图较多；慢网或省流量模式下进一步延后并降低并发，避免抢首屏带宽。
+  scheduleEmoticonPreload(preloadBatch, delayPreload ? 12000 : 0)
 }
 
 async function loadArtalkEmoticons() {

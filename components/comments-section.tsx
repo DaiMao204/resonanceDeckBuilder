@@ -24,6 +24,7 @@ const ARTALK_VERSION = "2.9.1"
 const ARTALK_SCRIPT_ID = "artalk-client-script"
 const ARTALK_STYLE_ID = "artalk-client-style"
 const ARTALK_DEFAULT_EMOTICONS_URL = "https://cdn.jsdelivr.net/gh/ArtalkJS/Emoticons/grps/default.json"
+const ARTALK_LANQUEER_EMOTICONS_URL = "https://comment.daimao.online/artalk-emoticons/lanqueer.json"
 const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
 const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
 
@@ -98,14 +99,44 @@ function removeHuajiEmoticons(value: unknown): unknown | null {
   return value
 }
 
-async function loadArtalkEmoticonsWithoutHuaji() {
-  const response = await fetch(ARTALK_DEFAULT_EMOTICONS_URL)
+async function loadJson(url: string) {
+  const response = await fetch(url)
   if (!response.ok) {
-    throw new Error(`Failed to load Artalk emoticons: ${response.status}`)
+    throw new Error(`Failed to load ${url}: ${response.status}`)
   }
 
-  const emoticons = await response.json()
-  return removeHuajiEmoticons(emoticons) || []
+  return response.json()
+}
+
+async function loadArtalkEmoticons() {
+  const emoticonGroups: unknown[] = []
+
+  try {
+    const emoticons = await loadJson(ARTALK_DEFAULT_EMOTICONS_URL)
+    const filteredDefaultEmoticons = removeHuajiEmoticons(emoticons)
+    const defaultGroups = Array.isArray(filteredDefaultEmoticons)
+      ? filteredDefaultEmoticons
+      : filteredDefaultEmoticons
+        ? [filteredDefaultEmoticons]
+        : []
+    emoticonGroups.push(...defaultGroups)
+  } catch (error) {
+    console.warn("Failed to load filtered Artalk emoticons:", error)
+  }
+
+  // 本地蓝鹊儿 GIF 表情包独立加载，避免默认表情包接口失败时影响项目资源路径。
+  try {
+    const lanqueerEmoticons = await loadJson(ARTALK_LANQUEER_EMOTICONS_URL)
+    if (Array.isArray(lanqueerEmoticons)) {
+      emoticonGroups.push(...lanqueerEmoticons)
+    } else if (lanqueerEmoticons) {
+      emoticonGroups.push(lanqueerEmoticons)
+    }
+  } catch (error) {
+    console.warn("Failed to load Lanqueer Artalk emoticons:", error)
+  }
+
+  return emoticonGroups
 }
 
 function mapToArtalkLocale(lang: string) {
@@ -179,9 +210,9 @@ function ArtalkCommentsSection({ currentLanguage, getTranslatedString }: ArtalkC
         const uiText = getArtalkUiText(currentLanguage)
         let emoticons: unknown = []
         try {
-          emoticons = await loadArtalkEmoticonsWithoutHuaji()
+          emoticons = await loadArtalkEmoticons()
         } catch (error) {
-          console.warn("Failed to load filtered Artalk emoticons:", error)
+          console.warn("Failed to load Artalk emoticons:", error)
         }
         if (cancelled || !window.Artalk || !containerRef.current || !artalkServer) return
 

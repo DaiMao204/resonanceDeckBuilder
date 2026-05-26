@@ -1725,6 +1725,14 @@ body > .atk-editor-plug-preview,
   background: transparent !important;
 }
 
+/* 蓝鹊儿 GIF 体积比默认表情更大，评论正文中限制尺寸避免撑开布局。 */
+.artalk-comments .atk-comment-content img[atk-emoticon] {
+  max-width: 120px !important;
+  max-height: 120px !important;
+  border-radius: 6px !important;
+  vertical-align: middle !important;
+}
+
 .atk-sidebar,
 .atk-sidebar-layer,
 .atk-sidebar-wrap,

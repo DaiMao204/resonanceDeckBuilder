@@ -42,23 +42,6 @@ function normalizeWikiParamName(value: string) {
   return value.replace(/\s+/g, "").trim().toLocaleLowerCase()
 }
 
-function findCharacterIdByWikiName(
-  data: Database,
-  name: string | null,
-  getTranslatedString: (key: string) => string,
-) {
-  if (!name) return -1
-
-  const normalizedName = normalizeWikiParamName(name)
-  const character = Object.values(data.characters).find((item) => {
-    const rawName = normalizeWikiParamName(item.name)
-    const translatedName = normalizeWikiParamName(getTranslatedString(item.name) || item.name)
-    return rawName === normalizedName || translatedName === normalizedName
-  })
-
-  return character?.id ?? -1
-}
-
 function findEquipmentIdByWikiName(
   data: Database,
   name: string | null,
@@ -101,15 +84,7 @@ function applyWikiTemplateParamsToPreset(
     ...(preset.equipment || {}),
   }
 
-  // Wiki 模板通过 c1-c5 传入角色名，网站在中文数据中匹配对应角色 ID。
-  for (let slot = 0; slot < 5; slot++) {
-    const characterId = findCharacterIdByWikiName(data, searchParams.get(`c${slot + 1}`), getTranslatedString)
-    if (characterId !== -1) {
-      nextRoleList[slot] = characterId
-    }
-  }
-
-  // lv1-lv5 表示模板中的最低觉醒，按槽位写入对应角色。
+  // 角色必须以配队码中的 roleList 为准；Wiki 参数只补充觉醒和装备。
   for (let slot = 0; slot < 5; slot++) {
     const characterId = nextRoleList[slot]
     const level = readWikiAwakeningLevel(searchParams.get(`lv${slot + 1}`))

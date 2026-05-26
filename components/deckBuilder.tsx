@@ -42,6 +42,23 @@ function normalizeWikiParamName(value: string) {
   return value.replace(/\s+/g, "").trim().toLocaleLowerCase()
 }
 
+function findCharacterIdByWikiName(
+  data: Database,
+  name: string | null,
+  getTranslatedString: (key: string) => string,
+) {
+  if (!name) return -1
+
+  const normalizedName = normalizeWikiParamName(name)
+  const character = Object.values(data.characters).find((item) => {
+    const rawName = normalizeWikiParamName(item.name)
+    const translatedName = normalizeWikiParamName(getTranslatedString(item.name) || item.name)
+    return rawName === normalizedName || translatedName === normalizedName
+  })
+
+  return character?.id ?? -1
+}
+
 function findEquipmentIdByWikiName(
   data: Database,
   name: string | null,
@@ -84,22 +101,52 @@ function applyWikiTemplateParamsToPreset(
     ...(preset.equipment || {}),
   }
 
-  // 角色必须以配队码中的 roleList 为准；Wiki 参数只补充觉醒和装备。
-  for (let slot = 0; slot < 5; slot++) {
-    const characterId = nextRoleList[slot]
-    const level = readWikiAwakeningLevel(searchParams.get(`lv${slot + 1}`))
+  const wikiSlotToPresetSlot: Array<number | null> = Array(5).fill(null)
+  const usedPresetSlots = new Set<number>()
+  let hasWikiCharacterParams = false
+
+  // 角色仍以配队码中的 roleList 为准；c1-c5 只用来定位 Wiki 槽位对应配队码中的哪个角色。
+  for (let wikiSlot = 0; wikiSlot < 5; wikiSlot++) {
+    const characterId = findCharacterIdByWikiName(data, searchParams.get(`c${wikiSlot + 1}`), getTranslatedString)
+    if (characterId === -1) continue
+
+    hasWikiCharacterParams = true
+    const presetSlot = nextRoleList.findIndex((id, index) => id === characterId && !usedPresetSlots.has(index))
+    if (presetSlot !== -1) {
+      wikiSlotToPresetSlot[wikiSlot] = presetSlot
+      usedPresetSlots.add(presetSlot)
+    }
+  }
+
+  // 兼容没有 c1-c5 的旧链接；如果存在角色名参数但匹配失败，则跳过以避免错位。
+  if (!hasWikiCharacterParams) {
+    for (let slot = 0; slot < 5; slot++) {
+      wikiSlotToPresetSlot[slot] = slot
+    }
+  }
+
+  // lv1-lv5 按 Wiki 角色名匹配到的真实配队槽位写入。
+  for (let wikiSlot = 0; wikiSlot < 5; wikiSlot++) {
+    const presetSlot = wikiSlotToPresetSlot[wikiSlot]
+    if (presetSlot === null) continue
+
+    const characterId = nextRoleList[presetSlot]
+    const level = readWikiAwakeningLevel(searchParams.get(`lv${wikiSlot + 1}`))
     if (characterId !== -1 && level !== null) {
       nextAwakening[characterId] = level
     }
   }
 
-  // wp/ar/ac 分别表示高配版武器、护甲、挂件，按角色槽位写入装备配置。
-  for (let slot = 0; slot < 5; slot++) {
-    const currentEquipment = nextEquipment[slot] || [null, null, null]
+  // wp/ar/ac 分别表示高配版武器、护甲、挂件，同样按角色名匹配后的真实槽位写入。
+  for (let wikiSlot = 0; wikiSlot < 5; wikiSlot++) {
+    const presetSlot = wikiSlotToPresetSlot[wikiSlot]
+    if (presetSlot === null) continue
+
+    const currentEquipment = nextEquipment[presetSlot] || [null, null, null]
     EQUIPMENT_URL_KEYS.forEach(([paramPrefix, equipmentType], typeIndex) => {
       const equipmentId = findEquipmentIdByWikiName(
         data,
-        searchParams.get(`${paramPrefix}${slot + 1}`),
+        searchParams.get(`${paramPrefix}${wikiSlot + 1}`),
         equipmentType,
         getTranslatedString,
       )
@@ -110,7 +157,7 @@ function applyWikiTemplateParamsToPreset(
     })
 
     if (currentEquipment.some(Boolean)) {
-      nextEquipment[slot] = currentEquipment
+      nextEquipment[presetSlot] = currentEquipment
     }
   }
 

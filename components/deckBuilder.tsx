@@ -12,7 +12,6 @@ import { useDeckBuilder } from "../hooks/deck-builder/index"
 import { useLanguage } from "../contexts/language-context"
 import { decodePresetFromUrlParam } from "../utils/presetCodec"
 import { logEventWrapper } from "../lib/firebase-config"
-import { useDataLoader } from "../hooks/use-data-loader"
 import { LoadingScreen } from "./loading-screen"
 import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 추가
 import { LoadDeckModal } from "./ui/modal/LoadDeckModal" // 추가
@@ -20,6 +19,7 @@ import { getCurrentDeckId, setCurrentDeckId, removeCurrentDeckId, type SavedDeck
 
 interface DeckBuilderProps {
   urlDeckCode: string | null
+  data: import("../types").Database | null
 }
 
 interface CardExtraInfo {
@@ -30,15 +30,13 @@ interface CardExtraInfo {
   img_url: string | undefined
 }
 
-export default function DeckBuilder({ urlDeckCode }: DeckBuilderProps) {
+export default function DeckBuilder({ urlDeckCode, data }: DeckBuilderProps) {
   const { getTranslatedString, currentLanguage } = useLanguage()
   const searchParams = useSearchParams()
   const { showToast, ToastContainer } = useToast()
   const contentRef = useRef<HTMLDivElement>(null) // 캡처할 컨텐츠 참조 추가
 
   // useDataLoader 훅을 사용하여 실제 데이터 로드
-  const { data, loading, error } = useDataLoader()
-
   // 로컬 로딩 상태 추가
   const [isLocalLoading, setIsLocalLoading] = useState(true)
   const [initialLoadComplete, setInitialLoadComplete] = useState(false)
@@ -625,27 +623,11 @@ export default function DeckBuilder({ urlDeckCode }: DeckBuilderProps) {
   ])
 
   // 로딩 중 표시
-  if (loading || isLocalLoading) {
+  if (isLocalLoading) {
     return <LoadingScreen message={getTranslatedString("loading") || "Loading..."} />
   }
 
   // 에러 처리
-  if (error) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="text-red-500 p-4 max-w-md text-center">
-          <h2 className="text-xl font-bold mb-2">
-            {getTranslatedString("error_loading_data") || "Error Loading Data"}
-          </h2>
-          <p>{error.message}</p>
-          <p className="mt-2 text-sm">
-            {getTranslatedString("check_console") || "Please check console for more details."}
-          </p>
-        </div>
-      </div>
-    )
-  }
-
   // 데이터가 없는 경우
   if (!data) {
     return (
@@ -757,18 +739,30 @@ export default function DeckBuilder({ urlDeckCode }: DeckBuilderProps) {
         <a href="https://github.com/DaiMao204/resonanceDeckBuilder" target="_blank" rel="noopener noreferrer">
           <img className="w-6 h-6" src="images/github-mark-white2.svg" />
         </a>
-        <span className="hidden sm:inline">·</span>
+        <span
+          className="hidden sm:inline"
+          style={{ display: currentLanguage === "cn" || currentLanguage === "tw" ? undefined : "none" }}
+        >
+          ·
+        </span>
         <a
           className="underline-offset-2 hover:underline"
+          style={{ display: currentLanguage === "cn" || currentLanguage === "tw" ? undefined : "none" }}
           href="https://soli-reso.com"
           target="_blank"
           rel="noopener noreferrer"
         >
           {getTranslatedString("footer.official_site") || "Resonance Official Site"}
         </a>
-        <span className="hidden sm:inline">·</span>
+        <span
+          className="hidden sm:inline"
+          style={{ display: currentLanguage === "cn" || currentLanguage === "tw" ? undefined : "none" }}
+        >
+          ·
+        </span>
         <a
           className="underline-offset-2 hover:underline"
+          style={{ display: currentLanguage === "cn" || currentLanguage === "tw" ? undefined : "none" }}
           href="https://wiki.biligame.com/resonance"
           target="_blank"
           rel="noopener noreferrer"

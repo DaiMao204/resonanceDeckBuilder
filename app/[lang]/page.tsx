@@ -66,7 +66,7 @@ export default function Page({ params }: PageProps) {
 
   return (
     <LanguageProvider initialLanguage={lang} data={data}>
-      <DeckBuilder urlDeckCode={deckCode} />
+      <DeckBuilder urlDeckCode={deckCode} data={data} />
     </LanguageProvider>
   )
 }

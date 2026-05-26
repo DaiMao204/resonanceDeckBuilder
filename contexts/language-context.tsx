@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { createContext, useContext, useState, useEffect, useCallback } from "react"
-import { useRouter } from "next/navigation"
 import type { Database } from "../types"
 
 interface LanguageContextType {
@@ -27,72 +26,65 @@ export function LanguageProvider({
 }) {
   const [currentLanguage, setCurrentLanguage] = useState(initialLanguage)
   const [isChangingLanguage, setIsChangingLanguage] = useState(false)
-  const router = useRouter()
+  const [, setLanguageDataVersion] = useState(0)
 
-  // supportedLanguages 배열에 'tw' 추가
   const supportedLanguages = ["ko", "en", "jp", "cn", "tw"]
 
-  // 언어 데이터 동적 로딩
-  useEffect(() => {
-    async function loadLanguageData() {
+  const ensureLanguageData = useCallback(
+    async (language: string) => {
       if (!data) return
+      if (data.languages[language]) return
 
-      // 이미 해당 언어 데이터가 있으면 로드하지 않음
-      if (data.languages[currentLanguage]) return
-
-      try {
-        // 언어 파일 경로 수정 - 실제 API 경로에 맞게 조정
-        const langResponse = await fetch(`/api/db/lang_${currentLanguage}.json`)
-        if (!langResponse.ok) {
-          throw new Error(`Failed to load language data: ${langResponse.status}`)
-        }
-
-        const langData = await langResponse.json()
-
-        // 데이터 구조 확인 후 언어 데이터 추가
-        if (data && data.languages) {
-          data.languages[currentLanguage] = langData
-
-          // 상태 업데이트를 위해 강제 리렌더링 트리거 (선택적)
-          setIsChangingLanguage(true)
-          setTimeout(() => setIsChangingLanguage(false), 10)
-        }
-      } catch (error) {
-        console.error("Failed to load language data:", error)
+      const langResponse = await fetch(`/api/db/lang_${language}.json`)
+      if (!langResponse.ok) {
+        throw new Error(`Failed to load language data: ${langResponse.status}`)
       }
-    }
 
-    loadLanguageData()
-  }, [currentLanguage, data])
+      data.languages[language] = await langResponse.json()
+      setLanguageDataVersion((version) => version + 1)
+    },
+    [data],
+  )
 
-  // 번역 함수
+  useEffect(() => {
+    ensureLanguageData(currentLanguage).catch((error) => {
+      console.error("Failed to load language data:", error)
+    })
+  }, [currentLanguage, ensureLanguageData])
+
   const getTranslatedString = useCallback(
     (key: string) => {
       if (!data || !data.languages[currentLanguage]) return key
-      return data.languages[currentLanguage][key] || key
+      return Object.prototype.hasOwnProperty.call(data.languages[currentLanguage], key)
+        ? data.languages[currentLanguage][key]
+        : key
     },
     [data, currentLanguage],
   )
 
-  // 언어 변경 함수
   const changeLanguage = useCallback(
-    (newLanguage: string) => {
+    async (newLanguage: string) => {
       if (currentLanguage === newLanguage) return
 
       setIsChangingLanguage(true)
 
-      // URL 변경
-      router.push(`/${newLanguage}`)
-
-      // 상태 업데이트
-      setCurrentLanguage(newLanguage)
-
-      // 로딩 상태 해제 (약간의 지연 추가)
-      setTimeout(() => {
-        setIsChangingLanguage(false)
-      }, 300)
+      try {
+        await ensureLanguageData(newLanguage)
+        if (typeof window !== "undefined") {
+          const pathParts = window.location.pathname.split("/")
+          pathParts[1] = newLanguage
+          window.history.pushState(null, "", `${pathParts.join("/")}${window.location.search}${window.location.hash}`)
+        }
+        setCurrentLanguage(newLanguage)
+      } catch (error) {
+        console.error("Failed to change language:", error)
+      } finally {
+        setTimeout(() => {
+          setIsChangingLanguage(false)
+        }, 300)
+      }
     },
-    [currentLanguage, router],
+    [currentLanguage, ensureLanguageData],
   )
 
   return (
@@ -110,7 +102,6 @@ export function LanguageProvider({
   )
 }
 
-// 커스텀 훅
 export function useLanguage() {
   const context = useContext(LanguageContext)
   if (!context) {

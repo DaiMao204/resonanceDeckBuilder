@@ -45,6 +45,7 @@ interface CommentsProps {
 const ARTALK_VERSION = "2.9.1"
 const ARTALK_SCRIPT_ID = "artalk-client-script"
 const ARTALK_STYLE_ID = "artalk-client-style"
+const ARTALK_DEFAULT_EMOTICONS_URL = "https://cdn.jsdelivr.net/gh/ArtalkJS/Emoticons/grps/default.json"
 const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
 const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
 
@@ -479,6 +480,49 @@ function loadArtalkClient() {
   })
 }
 
+function isHuajiEmoticonText(value: string) {
+  return /huaji|\u6ed1\u7a3d/i.test(value)
+}
+
+function removeHuajiEmoticons(value: unknown): unknown | null {
+  if (typeof value === "string") {
+    return isHuajiEmoticonText(value) ? null : value
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(removeHuajiEmoticons).filter((item) => item !== null)
+  }
+
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>
+    const searchableText = [record.name, record.key, record.val].filter(
+      (item): item is string => typeof item === "string",
+    )
+
+    if (searchableText.some(isHuajiEmoticonText)) {
+      return null
+    }
+
+    const filteredRecord = { ...record }
+    if (Array.isArray(record.items)) {
+      filteredRecord.items = record.items.map(removeHuajiEmoticons).filter((item) => item !== null)
+    }
+    return filteredRecord
+  }
+
+  return value
+}
+
+async function loadArtalkEmoticonsWithoutHuaji() {
+  const response = await fetch(ARTALK_DEFAULT_EMOTICONS_URL)
+  if (!response.ok) {
+    throw new Error(`Failed to load Artalk emoticons: ${response.status}`)
+  }
+
+  const emoticons = await response.json()
+  return removeHuajiEmoticons(emoticons) || []
+}
+
 function mapToArtalkLocale(lang: string) {
   const localeMap: Record<string, string> = {
     cn: "zh-CN",
@@ -541,11 +585,18 @@ function ArtalkCommentsSection({ currentLanguage, getTranslatedString }: ArtalkC
     let cancelled = false
 
     loadArtalkClient()
-      .then(() => {
+      .then(async () => {
         if (cancelled || !window.Artalk || !containerRef.current || !artalkServer) return
         artalkRef.current?.destroy?.()
         containerRef.current.innerHTML = ""
         const uiText = getArtalkUiText(currentLanguage)
+        let emoticons: unknown = []
+        try {
+          emoticons = await loadArtalkEmoticonsWithoutHuaji()
+        } catch (error) {
+          console.warn("Failed to load filtered Artalk emoticons:", error)
+        }
+        if (cancelled || !window.Artalk || !containerRef.current || !artalkServer) return
         artalkRef.current = window.Artalk.init({
           el: containerRef.current,
           server: artalkServer,
@@ -554,6 +605,8 @@ function ArtalkCommentsSection({ currentLanguage, getTranslatedString }: ArtalkC
           pageTitle: "Resonance Deck Builder",
           locale: mapToArtalkLocale(currentLanguage),
           darkMode: true,
+          preview: false,
+          emoticons,
           preferRemoteConf: false,
           useBackendConf: false,
           placeholder: uiText.placeholder,

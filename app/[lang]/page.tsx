@@ -21,6 +21,8 @@ export default function Page({ params }: PageProps) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const [isLoading, setIsLoading] = useState(true)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
+  const [isLeavingLoadingScreen, setIsLeavingLoadingScreen] = useState(false)
   const [deckCode, setDeckCode] = useState<string | null>(null)
   const [deckShortCode, setDeckShortCode] = useState<string | null>(null)
   const { data, loading, error } = useDataLoader()
@@ -54,8 +56,25 @@ export default function Page({ params }: PageProps) {
     }
   }, [searchParams, pathname, lang])
 
-  if (loading || isLoading) {
-    return <LoadingScreen language={lang} />
+  const isPageReady = !loading && !isLoading
+
+  useEffect(() => {
+    if (!isPageReady) {
+      setShowLoadingScreen(true)
+      setIsLeavingLoadingScreen(false)
+      return
+    }
+
+    setIsLeavingLoadingScreen(true)
+    const timer = window.setTimeout(() => {
+      setShowLoadingScreen(false)
+    }, 300)
+
+    return () => window.clearTimeout(timer)
+  }, [isPageReady])
+
+  if (showLoadingScreen) {
+    return <LoadingScreen language={lang} leaving={isLeavingLoadingScreen} />
   }
 
   if (error) {
@@ -70,7 +89,9 @@ export default function Page({ params }: PageProps) {
 
   return (
     <LanguageProvider initialLanguage={lang} data={data}>
-      <DeckBuilder urlDeckCode={deckCode} urlDeckShortCode={deckShortCode} data={data} />
+      <div className="animate-[page-fade-in_220ms_ease-out]">
+        <DeckBuilder urlDeckCode={deckCode} urlDeckShortCode={deckShortCode} data={data} />
+      </div>
     </LanguageProvider>
   )
 }

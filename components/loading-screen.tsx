@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react"
 interface LoadingScreenProps {
   message?: string
   language?: string
+  leaving?: boolean
 }
 
 const loadingText: Record<string, { title: string; subtitle: string; message: string }> = {
@@ -15,11 +16,15 @@ const loadingText: Record<string, { title: string; subtitle: string; message: st
   ko: { title: "Resonance", subtitle: "Deck Builder", message: "데이터를 불러오는 중..." },
 }
 
-export function LoadingScreen({ message, language = "cn" }: LoadingScreenProps) {
+export function LoadingScreen({ message, language = "cn", leaving = false }: LoadingScreenProps) {
   const text = loadingText[language] || loadingText.cn
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-5">
+    <div
+      className={`min-h-screen bg-black px-6 py-5 text-white transition-all duration-300 ease-out ${
+        leaving ? "scale-[1.01] opacity-0 blur-sm" : "scale-100 opacity-100 blur-0"
+      }`}
+    >
       <div className="mx-auto max-w-[1600px]">
         <header className="mb-12 flex items-start justify-between gap-6">
           <div>

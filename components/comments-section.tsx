@@ -25,7 +25,7 @@ const ARTALK_SCRIPT_ID = "artalk-client-script"
 const ARTALK_STYLE_ID = "artalk-client-style"
 const ARTALK_DEFAULT_EMOTICONS_URL = "https://cdn.jsdelivr.net/gh/ArtalkJS/Emoticons/grps/default.json"
 const ARTALK_EMOTICONS_ASSET_ORIGIN = "https://comment.daimao.online"
-const ARTALK_LANQUEER_EMOTICONS_URL = `${ARTALK_EMOTICONS_ASSET_ORIGIN}/artalk-emoticons/lanqueer.json`
+const ARTALK_LANQUEER_EMOTICONS_URL = `${ARTALK_EMOTICONS_ASSET_ORIGIN}/artalk-emoticons/lanqueer-webp.json`
 const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
 const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
 

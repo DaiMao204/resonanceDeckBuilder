@@ -28,6 +28,8 @@ const ARTALK_EMOTICONS_ASSET_ORIGIN = "https://comment.daimao.online"
 const ARTALK_LANQUEER_EMOTICONS_URL = `${ARTALK_EMOTICONS_ASSET_ORIGIN}/artalk-emoticons/lanqueer-webp.json`
 const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
 const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
+const preloadedEmoticonImageUrls = new Set<string>()
+const activePreloadImages = new Set<HTMLImageElement>()
 
 export function CommentsSection({ currentLanguage }: CommentsProps) {
   const { getTranslatedString } = useLanguage()
@@ -128,8 +130,76 @@ function normalizeRemoteEmoticonUrls(value: unknown): unknown {
   return value
 }
 
+function collectRemoteEmoticonImageUrls(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.flatMap(collectRemoteEmoticonImageUrls)
+  }
+
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>
+    const urls = Array.isArray(record.items) ? collectRemoteEmoticonImageUrls(record.items) : []
+    if (typeof record.val === "string" && /^https?:\/\/.+\.(gif|webp|png|jpe?g)$/i.test(record.val)) {
+      urls.push(record.val)
+    }
+    return urls
+  }
+
+  return []
+}
+
+function scheduleEmoticonPreload(callback: () => void) {
+  if (typeof window === "undefined") return
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(callback, { timeout: 2000 })
+    return
+  }
+
+  window.setTimeout(callback, 300)
+}
+
+function preloadRemoteEmoticonImages(value: unknown) {
+  if (typeof window === "undefined") return
+
+  const urls = collectRemoteEmoticonImageUrls(value).filter((url) => {
+    if (preloadedEmoticonImageUrls.has(url)) return false
+    preloadedEmoticonImageUrls.add(url)
+    return true
+  })
+  if (!urls.length) return
+
+  let index = 0
+  const preloadBatch = () => {
+    const batch = urls.slice(index, index + 6)
+    index += batch.length
+    for (const url of batch) {
+      const image = new Image()
+      activePreloadImages.add(image)
+      image.decoding = "async"
+      image.onload = image.onerror = () => activePreloadImages.delete(image)
+      image.src = url
+    }
+    if (index < urls.length) scheduleEmoticonPreload(preloadBatch)
+  }
+
+  // 蓝鹊儿动图较多，进入页面后分批预热浏览器缓存，避免打开面板时才集中加载。
+  scheduleEmoticonPreload(preloadBatch)
+}
+
 async function loadArtalkEmoticons() {
   const emoticonGroups: unknown[] = []
+
+  try {
+    const lanqueerEmoticons = normalizeRemoteEmoticonUrls(await loadJson(ARTALK_LANQUEER_EMOTICONS_URL))
+    preloadRemoteEmoticonImages(lanqueerEmoticons)
+    if (Array.isArray(lanqueerEmoticons)) {
+      emoticonGroups.push(...lanqueerEmoticons)
+    } else if (lanqueerEmoticons) {
+      emoticonGroups.push(lanqueerEmoticons)
+    }
+  } catch (error) {
+    console.warn("Failed to load Lanqueer Artalk emoticons:", error)
+  }
 
   try {
     const emoticons = await loadJson(ARTALK_DEFAULT_EMOTICONS_URL)
@@ -142,18 +212,6 @@ async function loadArtalkEmoticons() {
     emoticonGroups.push(...defaultGroups)
   } catch (error) {
     console.warn("Failed to load filtered Artalk emoticons:", error)
-  }
-
-  // 本地蓝鹊儿 GIF 表情包独立加载，避免默认表情包接口失败时影响项目资源路径。
-  try {
-    const lanqueerEmoticons = normalizeRemoteEmoticonUrls(await loadJson(ARTALK_LANQUEER_EMOTICONS_URL))
-    if (Array.isArray(lanqueerEmoticons)) {
-      emoticonGroups.push(...lanqueerEmoticons)
-    } else if (lanqueerEmoticons) {
-      emoticonGroups.push(lanqueerEmoticons)
-    }
-  } catch (error) {
-    console.warn("Failed to load Lanqueer Artalk emoticons:", error)
   }
 
   return emoticonGroups

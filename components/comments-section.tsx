@@ -24,7 +24,8 @@ const ARTALK_VERSION = "2.9.1"
 const ARTALK_SCRIPT_ID = "artalk-client-script"
 const ARTALK_STYLE_ID = "artalk-client-style"
 const ARTALK_DEFAULT_EMOTICONS_URL = "https://cdn.jsdelivr.net/gh/ArtalkJS/Emoticons/grps/default.json"
-const ARTALK_LANQUEER_EMOTICONS_URL = "https://comment.daimao.online/artalk-emoticons/lanqueer.json"
+const ARTALK_EMOTICONS_ASSET_ORIGIN = "https://comment.daimao.online"
+const ARTALK_LANQUEER_EMOTICONS_URL = `${ARTALK_EMOTICONS_ASSET_ORIGIN}/artalk-emoticons/lanqueer.json`
 const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
 const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
 
@@ -108,6 +109,25 @@ async function loadJson(url: string) {
   return response.json()
 }
 
+function normalizeRemoteEmoticonUrls(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map(normalizeRemoteEmoticonUrls)
+  }
+
+  if (value && typeof value === "object") {
+    const record = { ...(value as Record<string, unknown>) }
+    if (typeof record.val === "string" && record.val.startsWith("/")) {
+      record.val = `${ARTALK_EMOTICONS_ASSET_ORIGIN}${record.val}`
+    }
+    if (Array.isArray(record.items)) {
+      record.items = record.items.map(normalizeRemoteEmoticonUrls)
+    }
+    return record
+  }
+
+  return value
+}
+
 async function loadArtalkEmoticons() {
   const emoticonGroups: unknown[] = []
 
@@ -126,7 +146,7 @@ async function loadArtalkEmoticons() {
 
   // 本地蓝鹊儿 GIF 表情包独立加载，避免默认表情包接口失败时影响项目资源路径。
   try {
-    const lanqueerEmoticons = await loadJson(ARTALK_LANQUEER_EMOTICONS_URL)
+    const lanqueerEmoticons = normalizeRemoteEmoticonUrls(await loadJson(ARTALK_LANQUEER_EMOTICONS_URL))
     if (Array.isArray(lanqueerEmoticons)) {
       emoticonGroups.push(...lanqueerEmoticons)
     } else if (lanqueerEmoticons) {

@@ -49,6 +49,7 @@
 - 评论区改为使用自建 Artalk 服务。
 - 优化界面加载和语言切换流程，减少加载时间。
 - 支持短链分享，同时兼容旧链接方式。
+- 增加BWIKI配队支持，可以从BWIKI配队攻略一键跳转。
 
 ---
 
@@ -92,6 +93,7 @@
 - 댓글 영역은 자체 호스팅 Artalk 서비스를 사용하도록 변경했습니다.
 - 화면 로딩과 언어 전환 흐름을 최적화하여 로딩 시간을 줄였습니다.
 - 짧은 링크 공유를 지원하며 기존 링크 방식과도 호환됩니다.
+- BWIKI 덱 구성 지원을 추가하여 BWIKI 공략에서 덱 구성 페이지로 바로 이동할 수 있습니다.
 
 ---
 
@@ -135,6 +137,7 @@ You can select characters, equipment, skill cards, and battle settings on the si
 - Reworked comments to use a self-hosted Artalk service.
 - Optimized interface loading and language switching to reduce loading time.
 - Added short-link sharing while keeping compatibility with the old link format.
+- Added BWIKI team setup support, allowing direct jumps from BWIKI team guides to the deck builder.
 
 ---
 

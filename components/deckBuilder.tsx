@@ -38,8 +38,21 @@ const EQUIPMENT_URL_KEYS = [
   ["ac", "accessory"],
 ] as const
 
+const EQUIPMENT_NAME_ALIASES: Record<string, string> = {
+  世界线之盒: "β世界线之盒",
+}
+
 function normalizeWikiParamName(value: string) {
-  return value.replace(/\s+/g, "").trim().toLocaleLowerCase()
+  return value
+    .replace(/^[αβγ]\s*/i, "")
+    .replace(/[\s·・\-—_【】\[\]（）()《》<>]/g, "")
+    .trim()
+    .toLocaleLowerCase()
+}
+
+function getWikiNameVariants(value: string) {
+  const normalized = normalizeWikiParamName(value)
+  return Array.from(new Set([normalized, normalized.replace(/[之的]/g, "")])).filter(Boolean)
 }
 
 function findCharacterIdByWikiName(
@@ -67,14 +80,38 @@ function findEquipmentIdByWikiName(
 ) {
   if (!name || !data.equipments) return null
 
-  const normalizedName = normalizeWikiParamName(name)
-  const equipment = Object.values(data.equipments).find((item) => {
+  const normalizedNames = getWikiNameVariants(name)
+  const aliasName = EQUIPMENT_NAME_ALIASES[name.trim()]
+  const normalizedAliasNames = aliasName ? getWikiNameVariants(aliasName) : []
+  const candidates = Object.values(data.equipments).filter((item) => {
     if (item.type && item.type !== type) return false
 
-    const rawName = normalizeWikiParamName(item.name)
-    const translatedName = normalizeWikiParamName(getTranslatedString(item.name) || item.name)
-    return rawName === normalizedName || translatedName === normalizedName
+    const rawNames = getWikiNameVariants(item.name)
+    const translatedNames = getWikiNameVariants(getTranslatedString(item.name) || item.name)
+    const equipmentNames = [...rawNames, ...translatedNames]
+    const targetNames = [...normalizedNames, ...normalizedAliasNames]
+    return (
+      equipmentNames.some((equipmentName) => targetNames.includes(equipmentName))
+    )
   })
+
+  const equipment =
+    candidates[0] ||
+    Object.values(data.equipments).find((item) => {
+      if (item.type && item.type !== type) return false
+
+      const equipmentNames = [
+        ...getWikiNameVariants(item.name),
+        ...getWikiNameVariants(getTranslatedString(item.name) || item.name),
+      ]
+      const targetNames = [...normalizedNames, ...normalizedAliasNames].filter((targetName) => targetName.length >= 3)
+
+      return equipmentNames.some((equipmentName) =>
+        targetNames.some(
+          (targetName) => equipmentName.includes(targetName) || targetName.includes(equipmentName),
+        ),
+      )
+    })
 
   return equipment ? String(equipment.id) : null
 }

@@ -55,7 +55,7 @@ export default function Page({ params }: PageProps) {
   }, [searchParams, pathname, lang])
 
   if (loading || isLoading) {
-    return <LoadingScreen message="Loading..." />
+    return <LoadingScreen language={lang} />
   }
 
   if (error) {

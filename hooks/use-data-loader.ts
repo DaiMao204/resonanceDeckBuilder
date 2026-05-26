@@ -6,6 +6,157 @@ import { dummyData } from "../dummy"
 
 // Flag to control data source - 相关 数据 使用 相关
 const USE_DUMMY = false
+const SUPPORTED_LANGUAGES = ["ko", "en", "jp", "cn", "tw"]
+
+function getCurrentLanguage(): string {
+  if (typeof window !== "undefined") {
+    const pathParts = window.location.pathname.split("/")
+    if (pathParts.length > 1) {
+      const langFromPath = pathParts[1]
+      if (SUPPORTED_LANGUAGES.includes(langFromPath)) {
+        return langFromPath
+      }
+    }
+
+    const browserLang = navigator.language.split("-")[0]
+    if (SUPPORTED_LANGUAGES.includes(browserLang)) {
+      return browserLang
+    }
+  }
+
+  return "cn"
+}
+
+async function fetchJson<T>(url: string): Promise<T> {
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Failed to load ${url}: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+async function loadSplitDatabase(currentLang: string): Promise<Database> {
+  const [
+    characters,
+    cards,
+    skills,
+    breakthroughs,
+    talents,
+    images,
+    equipments,
+    homeSkills,
+    charSkillMap,
+    itemSkillMap,
+    languageData,
+  ] = await Promise.all([
+    fetchJson<Database["characters"]>("/db/char_db.json"),
+    fetchJson<Database["cards"]>("/db/card_db.json"),
+    fetchJson<Database["skills"]>("/db/skill_db.json"),
+    fetchJson<Database["breakthroughs"]>("/db/break_db.json"),
+    fetchJson<Database["talents"]>("/db/talent_db.json"),
+    fetchJson<Database["images"]>("/db/img_db.json"),
+    fetchJson<NonNullable<Database["equipments"]>>("/db/equip_db.json"),
+    fetchJson<NonNullable<Database["homeSkills"]>>("/db/home_skill_db.json"),
+    fetchJson<NonNullable<Database["charSkillMap"]>>("/db/char_skill_map.json"),
+    fetchJson<NonNullable<Database["itemSkillMap"]>>("/db/item_skill_map.json"),
+    fetchJson<Record<string, string | null>>(`/db/lang_${currentLang}.json`),
+  ])
+
+  return {
+    characters,
+    cards,
+    skills,
+    breakthroughs,
+    talents,
+    images,
+    languages: {
+      [currentLang]: languageData,
+    },
+    equipments,
+    homeSkills,
+    charSkillMap,
+    itemSkillMap,
+  }
+}
+
+async function loadBootstrapDatabase(currentLang: string): Promise<Database> {
+  try {
+    return await fetchJson<Database>(`/db/bootstrap_${currentLang}.json`)
+  } catch (error) {
+    console.warn("Failed to load bootstrap database, falling back to split database:", error)
+    return loadSplitDatabase(currentLang)
+  }
+}
+
+function prepareDatabase(database: Database): Database {
+  const characters = database.characters || {}
+  const images = database.images || {}
+  const equipments = database.equipments || {}
+  const equipmentTypes = database.equipmentTypes || {}
+
+  // 角色卡图和旧字段在加载后统一补齐，bootstrap 与拆分数据共用同一处理流程。
+  Object.keys(characters).forEach((charId) => {
+    const charImgKey = `char_${charId}`
+    if (images[charImgKey]) {
+      characters[charId].img_card = images[charImgKey]
+    }
+
+    const char = characters[charId]
+    const qualityToRarity: Record<string, string> = {
+      oneStar: "N-",
+      twoStar: "N",
+      threeStar: "R",
+      fourStar: "SR",
+      FiveStar: "SSR",
+      SixStar: "UR",
+    }
+
+    char.rarity = qualityToRarity[char.quality] || "N-"
+    char.desc = char.identity || `char_desc_${charId}`
+  })
+
+  Object.keys(equipments).forEach((equipId) => {
+    const equipment = equipments[equipId]
+    const tagId = equipment.equipTagId
+    if (equipmentTypes[tagId]) {
+      equipment.type = equipmentTypes[tagId]
+    }
+
+    // 装备类型缺失时按图鉴 tag 区间补默认类型。
+    if (!equipment.type) {
+      if (tagId >= 12600155 && tagId <= 12600160) {
+        equipment.type = "weapon"
+      } else if (tagId >= 12600161 && tagId <= 12600161) {
+        equipment.type = "armor"
+      } else if (tagId >= 12600162 && tagId <= 12600162) {
+        equipment.type = "accessory"
+      } else {
+        equipment.type = "weapon"
+      }
+    }
+
+    const equipImgKey = `equip_${equipId}`
+    if (images[equipImgKey]) {
+      equipment.url = images[equipImgKey]
+    }
+
+    if (equipment.skillList && !Array.isArray(equipment.skillList)) {
+      const skillListObj = equipment.skillList as unknown as Record<string, any>
+      equipment.skillList = Object.keys(skillListObj).map((key) => ({
+        skillId: Number(skillListObj[key].skillId || key),
+      }))
+    }
+  })
+
+  return {
+    ...database,
+    characters,
+    images,
+    equipments,
+    equipmentTypes,
+  }
+}
 
 export function useDataLoader() {
   const [data, setData] = useState<Database | null>(null)
@@ -18,178 +169,8 @@ export function useDataLoader() {
         if (USE_DUMMY) {
           setData(dummyData)
         } else {
-          // 当前 浏览器 语言 或 URL 路径相关 语言 相关 提取
           const currentLang = getCurrentLanguage()
-
-          // 相关 路径 使用相关 数据 文件 加载
-          const [
-            charactersResponse,
-            cardsResponse,
-            skillsResponse,
-            breakthroughsResponse,
-            talentsResponse,
-            imagesResponse,
-            equipmentsResponse,
-            homeSkillsResponse,
-            charSkillMapResponse, // char_skill_map.json 添加
-            itemSkillMapResponse, // item_skill_map.json 添加
-            languageResponse,
-          ] = await Promise.all([
-            fetch("/db/char_db.json"),
-            fetch("/db/card_db.json"),
-            fetch("/db/skill_db.json"),
-            fetch("/db/break_db.json"),
-            fetch("/db/talent_db.json"),
-            fetch("/db/img_db.json"),
-            fetch("/db/equip_db.json"),
-            fetch("/db/home_skill_db.json"),
-            fetch("/db/char_skill_map.json"), // char_skill_map.json 添加
-            fetch("/db/item_skill_map.json"), // item_skill_map.json 添加
-            fetch(`/db/lang_${currentLang}.json`),
-          ])
-
-          const [
-            characters,
-            cards,
-            skills,
-            breakthroughs,
-            talents,
-            images,
-            equipments,
-            homeSkills,
-            charSkillMap,
-            itemSkillMap,
-            languageData,
-          ] = await Promise.all([
-            charactersResponse.json(),
-            cardsResponse.json(),
-            skillsResponse.json(),
-            breakthroughsResponse.json(),
-            talentsResponse.json(),
-            imagesResponse.json(),
-            equipmentsResponse.json(),
-            homeSkillsResponse.json(),
-            charSkillMapResponse.json(), // char_skill_map.json 添加
-            itemSkillMapResponse.json(), // item_skill_map.json 添加
-            languageResponse.json(),
-          ])
-
-          // 语言 数据 相关 - 当前 语言仅 相关
-          const languages: Record<string, any> = {}
-          languages[currentLang] = languageData
-
-          // 当前 语言 相关 提取相关 函数
-          function getCurrentLanguage(): string {
-            // 浏览器 相关 相关仅 相关
-            if (typeof window !== "undefined") {
-              // URL 路径相关 语言 相关 提取 尝试
-              const pathParts = window.location.pathname.split("/")
-              if (pathParts.length > 1) {
-                const langFromPath = pathParts[1]
-                if (["ko", "en", "jp", "cn", "tw"].includes(langFromPath)) {
-                  return langFromPath
-                }
-              }
-
-              // URL相关 语言 相关 相关 相关 浏览器 语言 设置 使用
-              const browserLang = navigator.language.split("-")[0]
-              if (["ko", "en", "jp", "cn", "tw"].includes(browserLang)) {
-                return browserLang
-              }
-            }
-
-            // 默认值 相关
-            return "cn"
-          }
-
-          // Add image URLs to characters
-          Object.keys(characters).forEach((charId) => {
-            const charImgKey = `char_${charId}`
-            if (images[charImgKey]) {
-              characters[charId].img_card = images[charImgKey]
-            }
-          })
-
-          // Process characters to add backward compatibility fields
-          Object.keys(characters).forEach((charId) => {
-            const char = characters[charId]
-
-            // Map quality to rarity for backward compatibility
-            const qualityToRarity: Record<string, string> = {
-              oneStar: "N-",
-              twoStar: "N",
-              threeStar: "R",
-              fourStar: "SR",
-              FiveStar: "SSR",
-              SixStar: "UR",
-            }
-
-            // Add rarity field for backward compatibility
-            char.rarity = qualityToRarity[char.quality] || "N-"
-
-            // Add desc field for backward compatibility
-            char.desc = char.identity || `char_desc_${charId}`
-          })
-
-          // Process equipment types
-          const equipmentTypes = {}
-
-          // Add type to equipment based on equipTagId
-          Object.keys(equipments).forEach((equipId) => {
-            const equipment = equipments[equipId]
-            const tagId = equipment.equipTagId
-            if (equipmentTypes[tagId]) {
-              equipment.type = equipmentTypes[tagId]
-            }
-
-            // 装备 类型 没有 相关 默认值 设置 添加
-            if (!equipment.type) {
-              // equipTagId相关 相关 类型 设置
-              if (tagId >= 12600155 && tagId <= 12600160) {
-                equipment.type = "weapon"
-              } else if (tagId >= 12600161 && tagId <= 12600161) {
-                equipment.type = "armor"
-              } else if (tagId >= 12600162 && tagId <= 12600162) {
-                equipment.type = "accessory"
-              } else {
-                // 默认值 weapon相关 设置
-                equipment.type = "weapon"
-              }
-            }
-
-            // Add image URL if available
-            const equipImgKey = `equip_${equipId}`
-            if (images[equipImgKey]) {
-              equipment.url = images[equipImgKey]
-            }
-
-            // Ensure skillList is properly initialized if it exists
-            if (equipment.skillList && Array.isArray(equipment.skillList)) {
-              // skillList is already properly formatted, no need to modify
-            } else if (equipment.skillList) {
-              // If skillList exists but is not an array, convert it to proper format
-              const skillListObj = equipment.skillList as unknown as Record<string, any>
-              const skillListArray = Object.keys(skillListObj).map((key) => ({
-                skillId: Number(skillListObj[key].skillId || key),
-              }))
-              equipment.skillList = skillListArray
-            }
-          })
-
-          setData({
-            characters,
-            cards,
-            skills,
-            breakthroughs,
-            talents,
-            images,
-            languages,
-            equipments,
-            equipmentTypes,
-            homeSkills,
-            charSkillMap, // char_skill_map 添加
-            itemSkillMap, // item_skill_map 添加
-          })
+          setData(prepareDatabase(await loadBootstrapDatabase(currentLang)))
         }
       } catch (err) {
         setError(err instanceof Error ? err : new Error(String(err)))

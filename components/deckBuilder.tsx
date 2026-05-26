@@ -13,6 +13,7 @@ import { useLanguage } from "../contexts/language-context"
 import { decodePresetFromUrlParam } from "../utils/presetCodec"
 import { loadDeckPresetFromShortlink } from "../utils/deck-shortlink"
 import { logEventWrapper } from "../lib/firebase-config"
+import type { Database } from "../types"
 import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 添加
 import { LoadDeckModal } from "./ui/modal/LoadDeckModal" // 添加
 import { getCurrentDeckId, setCurrentDeckId, removeCurrentDeckId, type SavedDeck } from "../utils/local-storage" // 添加
@@ -20,7 +21,7 @@ import { getCurrentDeckId, setCurrentDeckId, removeCurrentDeckId, type SavedDeck
 interface DeckBuilderProps {
   urlDeckCode: string | null
   urlDeckShortCode: string | null
-  data: import("../types").Database | null
+  data: Database | null
 }
 
 interface CardExtraInfo {
@@ -29,6 +30,126 @@ interface CardExtraInfo {
   cost: number
   amount: number
   img_url: string | undefined
+}
+
+const EQUIPMENT_URL_KEYS = [
+  ["wp", "weapon"],
+  ["ar", "armor"],
+  ["ac", "accessory"],
+] as const
+
+function normalizeWikiParamName(value: string) {
+  return value.replace(/\s+/g, "").trim().toLocaleLowerCase()
+}
+
+function findCharacterIdByWikiName(
+  data: Database,
+  name: string | null,
+  getTranslatedString: (key: string) => string,
+) {
+  if (!name) return -1
+
+  const normalizedName = normalizeWikiParamName(name)
+  const character = Object.values(data.characters).find((item) => {
+    const rawName = normalizeWikiParamName(item.name)
+    const translatedName = normalizeWikiParamName(getTranslatedString(item.name) || item.name)
+    return rawName === normalizedName || translatedName === normalizedName
+  })
+
+  return character?.id ?? -1
+}
+
+function findEquipmentIdByWikiName(
+  data: Database,
+  name: string | null,
+  type: "weapon" | "armor" | "accessory",
+  getTranslatedString: (key: string) => string,
+) {
+  if (!name || !data.equipments) return null
+
+  const normalizedName = normalizeWikiParamName(name)
+  const equipment = Object.values(data.equipments).find((item) => {
+    if (item.type && item.type !== type) return false
+
+    const rawName = normalizeWikiParamName(item.name)
+    const translatedName = normalizeWikiParamName(getTranslatedString(item.name) || item.name)
+    return rawName === normalizedName || translatedName === normalizedName
+  })
+
+  return equipment ? String(equipment.id) : null
+}
+
+function readWikiAwakeningLevel(value: string | null) {
+  if (!value) return null
+
+  const level = Number.parseInt(value, 10)
+  if (!Number.isFinite(level)) return null
+
+  return Math.max(0, Math.min(5, level))
+}
+
+function applyWikiTemplateParamsToPreset(
+  preset: any,
+  searchParams: Pick<URLSearchParams, "get">,
+  data: Database,
+  getTranslatedString: (key: string) => string,
+) {
+  const nextPreset = { ...preset }
+  const nextRoleList = Array.isArray(preset.roleList) ? [...preset.roleList] : [-1, -1, -1, -1, -1]
+  const nextAwakening = { ...(preset.awakening || {}) }
+  const nextEquipment: Record<number, [string | null, string | null, string | null]> = {
+    ...(preset.equipment || {}),
+  }
+
+  // Wiki 模板通过 c1-c5 传入角色名，网站在中文数据中匹配对应角色 ID。
+  for (let slot = 0; slot < 5; slot++) {
+    const characterId = findCharacterIdByWikiName(data, searchParams.get(`c${slot + 1}`), getTranslatedString)
+    if (characterId !== -1) {
+      nextRoleList[slot] = characterId
+    }
+  }
+
+  // lv1-lv5 表示模板中的最低觉醒，按槽位写入对应角色。
+  for (let slot = 0; slot < 5; slot++) {
+    const characterId = nextRoleList[slot]
+    const level = readWikiAwakeningLevel(searchParams.get(`lv${slot + 1}`))
+    if (characterId !== -1 && level !== null) {
+      nextAwakening[characterId] = level
+    }
+  }
+
+  // wp/ar/ac 分别表示高配版武器、护甲、挂件，按角色槽位写入装备配置。
+  for (let slot = 0; slot < 5; slot++) {
+    const currentEquipment = nextEquipment[slot] || [null, null, null]
+    EQUIPMENT_URL_KEYS.forEach(([paramPrefix, equipmentType], typeIndex) => {
+      const equipmentId = findEquipmentIdByWikiName(
+        data,
+        searchParams.get(`${paramPrefix}${slot + 1}`),
+        equipmentType,
+        getTranslatedString,
+      )
+
+      if (equipmentId) {
+        currentEquipment[typeIndex] = equipmentId
+      }
+    })
+
+    if (currentEquipment.some(Boolean)) {
+      nextEquipment[slot] = currentEquipment
+    }
+  }
+
+  nextPreset.roleList = nextRoleList
+
+  if (Object.keys(nextAwakening).length > 0) {
+    nextPreset.awakening = nextAwakening
+  }
+
+  if (Object.keys(nextEquipment).length > 0) {
+    nextPreset.equipment = nextEquipment
+  }
+
+  return nextPreset
 }
 
 export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: DeckBuilderProps) {
@@ -121,7 +242,8 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
             : decodePresetFromUrlParam(urlDeckCode)
 
           if (preset) {
-            const result = importPresetObject(preset, true) // 标记为 URL 导入，沿用原有导入兼容逻辑
+            const mergedPreset = applyWikiTemplateParamsToPreset(preset, searchParams, data, getTranslatedString)
+            const result = importPresetObject(mergedPreset, true) // 标记为 URL 导入，沿用原有导入兼容逻辑
             if (result.success) {
               showToast(getTranslatedString(result.message), "success")
 
@@ -160,6 +282,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     getTranslatedString,
     currentLanguage,
     initialLoadComplete,
+    searchParams,
   ])
 
   // 技能 说明相关 #r 标签 实际 值相关 相关 函数

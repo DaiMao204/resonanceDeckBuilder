@@ -4,19 +4,19 @@ import { useState, useCallback } from "react"
 import type { AwakeningInfo } from "./types"
 
 export function useAwakening() {
-  // 각 캐릭터의 각성 단계 상태
+  // 相关 角色的 觉醒 相关 状态
   const [awakening, setAwakening] = useState<AwakeningInfo>({})
 
-  // 각성 단계 설정
+  // 觉醒 相关 设置
   const setCharacterAwakening = useCallback((characterId: number, stage: number | null) => {
     setAwakening((prev) => {
       const newAwakening = { ...prev }
 
       if (stage === null) {
-        // 각성 단계 제거 (선택 취소)
+        // 觉醒 相关 移除 (选择 相关)
         delete newAwakening[characterId]
       } else {
-        // 각성 단계 설정
+        // 觉醒 相关 设置
         newAwakening[characterId] = stage
       }
 
@@ -24,7 +24,7 @@ export function useAwakening() {
     })
   }, [])
 
-  // 캐릭터 제거 시 각성 정보도 제거
+  // 角色 移除 相关 觉醒 信息相关 移除
   const removeCharacterAwakening = useCallback((characterId: number) => {
     setAwakening((prev) => {
       const newAwakening = { ...prev }
@@ -33,7 +33,7 @@ export function useAwakening() {
     })
   }, [])
 
-  // 모든 각성 정보 초기화
+  // 所有 觉醒 信息 初始化
   const clearAllAwakening = useCallback(() => {
     setAwakening({})
   }, [])

@@ -2,11 +2,11 @@
 import { useState, useMemo } from "react"
 import { SearchModal, type SearchModalProps } from "./SearchModal"
 import type { Equipment } from "../../../types"
-// 필요한 import 추가
+// 相关 import 添加
 import { Info } from "lucide-react"
 import { EquipmentDetailsModal } from "../../../components/equipment-details-modal"
 
-// props 타입 업데이트
+// props 类型 更新
 export interface EquipmentSearchModalProps extends Omit<SearchModalProps, "children" | "searchControl"> {
   equipments: Equipment[]
   onSelectEquipment: (equipId: string | null) => void
@@ -23,45 +23,45 @@ export function EquipmentSearchModal({
   getSkill,
   ...searchModalProps
 }: EquipmentSearchModalProps) {
-  // 검색 및 정렬 상태 관리
+  // 搜索 以及 排序 状态 管理
   const [searchTerm, setSearchTerm] = useState("")
   const [sortBy, setSortBy] = useState<"quality" | "name">("quality")
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
 
-  // EquipmentSearchModal 컴포넌트 내부에 상태 추가
+  // EquipmentSearchModal 组件 相关 状态 添加
   const [showEquipmentDetails, setShowEquipmentDetails] = useState<string | null>(null)
 
-  // 검색어 변경 핸들러
+  // 搜索相关 变更 处理函数
   const handleSearchChange = (value: string) => {
     setSearchTerm(value)
   }
 
-  // 정렬 기준 변경 핸들러
+  // 排序 相关 变更 处理函数
   const handleSortByChange = (value: string) => {
     setSortBy(value as "quality" | "name")
   }
 
-  // 정렬 방향 변경 핸들러
+  // 排序 相关 变更 处理函数
   const handleSortDirectionChange = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
   }
 
-  // 필터링 및 정렬된 장비 목록
+  // 相关 以及 排序相关 装备 列表
   const filteredEquipments = useMemo(() => {
-    // 검색어로 필터링
+    // 搜索相关 相关
     const filtered = equipments.filter((equipment) =>
       getTranslatedString(equipment.name).toLowerCase().includes(searchTerm.toLowerCase()),
     )
 
-    // 정렬
+    // 排序
     return [...filtered].sort((a, b) => {
       let result = 0
 
       if (sortBy === "name") {
-        // 이름으로 정렬
+        // 名称相关 排序
         result = getTranslatedString(a.name).localeCompare(getTranslatedString(b.name))
       } else {
-        // 품질로 정렬 (Orange > Golden > Purple > Blue > Green)
+        // 相关 排序 (Orange > Golden > Purple > Blue > Green)
         const qualityOrder: Record<string, number> = {
           Orange: 5,
           Golden: 4,
@@ -73,7 +73,7 @@ export function EquipmentSearchModal({
         result = (qualityOrder[b.quality] || 0) - (qualityOrder[a.quality] || 0)
       }
 
-      // 정렬 방향 적용
+      // 排序 相关 应用
       return sortDirection === "asc" ? -result : result
     })
   }, [equipments, searchTerm, sortBy, sortDirection, getTranslatedString])
@@ -145,7 +145,7 @@ export function EquipmentSearchModal({
                         alt={getTranslatedString(equipment.name)}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          // 이미지 로드 실패 시 기본 텍스트 표시
+                          // 图片 加载 相关 相关 默认 相关 显示
                           e.currentTarget.style.display = "none"
                           e.currentTarget.parentElement?.classList.add("flex", "items-center", "justify-center")
                         }}
@@ -158,12 +158,12 @@ export function EquipmentSearchModal({
                       </div>
                     )}
 
-                    {/* 장비 정보 버튼 추가 - 검색창에서는 모바일에서도 표시 */}
+                    {/* 装备 信息 按钮 添加 - 搜索相关 相关 显示 */}
                     <button
                       className="absolute top-1 right-1 bg-black bg-opacity-60 rounded-full p-0.5 sm:p-1 flex items-center justify-center z-10"
                       onClick={(e) => {
-                        e.preventDefault() // 기본 동작 방지
-                        e.stopPropagation() // 이벤트 전파 방지
+                        e.preventDefault() // 默认 相关 防止
+                        e.stopPropagation() // 相关 相关 防止
                         setShowEquipmentDetails(equipment.id.toString())
                       }}
                     >
@@ -183,7 +183,7 @@ export function EquipmentSearchModal({
         </div>
       </SearchModal>
 
-      {/* 장비 상세 정보 모달 */}
+      {/* 装备 相关 信息 弹窗 */}
       {showEquipmentDetails && (
         <EquipmentDetailsModal
           isOpen={!!showEquipmentDetails}

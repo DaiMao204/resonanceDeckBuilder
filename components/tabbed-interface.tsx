@@ -8,18 +8,18 @@ interface Tab {
   content: ReactNode
 }
 
-// TabbedInterface에 onTabChange 콜백 추가
+// TabbedInterface相关 onTabChange 回调 添加
 interface TabbedInterfaceProps {
   tabs: Tab[]
   defaultTabId?: string
   isPhotoMode?: boolean
-  onTabChange?: (tabId: string) => void // 탭 변경 콜백 추가
+  onTabChange?: (tabId: string) => void // 标签页 变更 回调 添加
 }
 
 export function TabbedInterface({ tabs, defaultTabId, isPhotoMode = false, onTabChange }: TabbedInterfaceProps) {
   const [activeTabId, setActiveTabId] = useState(defaultTabId || tabs[0]?.id)
 
-  // 탭 변경 시 콜백 호출
+  // 标签页 变更 相关 回调 调用
   const handleTabChange = (tabId: string) => {
     setActiveTabId(tabId)
     if (onTabChange) {
@@ -27,12 +27,12 @@ export function TabbedInterface({ tabs, defaultTabId, isPhotoMode = false, onTab
     }
   }
 
-  // 현재 활성화된 탭 찾기
+  // 当前 相关 标签页 查找
   const activeTab = tabs.find((tab) => tab.id === activeTabId)
 
   return (
     <div className="w-full">
-      {/* 사진 모드가 아닐 때만 탭 버튼 표시 */}
+      {/* 相关 相关 相关 相关仅 标签页 按钮 显示 */}
       {!isPhotoMode && (
         <div className="flex border-b border-[hsla(var(--neon-white),0.3)]">
           {tabs.map((tab) => (

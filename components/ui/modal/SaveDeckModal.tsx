@@ -30,59 +30,59 @@ export function SaveDeckModal({
   const [isNewDeck, setIsNewDeck] = useState(true)
   const [placeholderName, setPlaceholderName] = useState("")
 
-  // 모달이 열릴 때 저장된 덱 목록 로드 및 기본 덱 이름 설정
+  // 弹窗 相关 相关 保存相关 卡组 列表 加载 以及 默认 卡组 名称 设置
   useEffect(() => {
     if (isOpen) {
-      // 저장된 덱 목록 로드
+      // 保存相关 卡组 列表 加载
       const decks = getSavedDecks().map((deck) => ({ id: deck.id, name: deck.name }))
       setSavedDecks(decks)
 
-      // 현재 편집 중인 덱 ID 가져오기
+      // 当前 相关 相关 卡组 ID 读取
       const currentDeckId = getCurrentDeckId()
       setSelectedDeckId(currentDeckId)
       setIsNewDeck(!currentDeckId)
 
-      // 항상 현재 덱 구성을 기반으로 기본 이름 생성
+      // 始终 当前 卡组 相关 相关 默认 名称 生成
       const defaultName = generateDefaultDeckName(preset)
       setPlaceholderName(defaultName)
 
-      // 현재 선택된 덱이 있으면 해당 덱 이름을 입력 필드에 설정
+      // 当前 选择相关 卡组 相关 对应 卡组 名称 输入 相关 设置
       if (currentDeckId) {
         const currentDeck = decks.find((deck) => deck.id === currentDeckId)
         if (currentDeck) {
           setDeckName(currentDeck.name)
         }
       } else {
-        // 새 덱인 경우 이름 필드를 비워서 placeholder가 보이도록 함
+        // 相关 卡组相关 相关 名称 相关 相关 placeholder 相关 相关
         setDeckName("")
       }
     }
   }, [isOpen, preset, getCharacterName])
 
-  // 기본 덱 이름 생성 함수
+  // 默认 卡组 名称 生成 函数
   const generateDefaultDeckName = (preset: Preset): string => {
     try {
-      // 리더 캐릭터 이름
+      // 队长 角色 名称
       const leaderName = preset.header !== -1 ? getCharacterName(preset.header) : ""
 
-      // 나머지 캐릭터 이름들 (빈 슬롯 제외)
+      // 相关 角色 名称相关 (空 相关 相关)
       const otherCharNames = preset.roleList
         .filter((charId) => charId !== -1 && charId !== preset.header)
         .map((charId) => getCharacterName(charId))
-        .filter((name) => name) // 빈 이름 제외
+        .filter((name) => name) // 空 名称 相关
         .join(", ")
 
-      // 리더 이름 - 나머지 캐릭터 이름들
+      // 队长 名称 - 相关 角色 名称相关
       if (leaderName) {
         return otherCharNames ? `${leaderName} - ${otherCharNames}` : leaderName
       }
 
-      // 리더가 없지만 다른 캐릭터가 있는 경우
+      // 队长 相关仅 其他 角色 存在 相关
       if (otherCharNames) {
         return otherCharNames
       }
 
-      // 아무 캐릭터도 없는 경우
+      // 相关 角色相关 没有 相关
       return getTranslatedString("new_deck")
     } catch (error) {
       console.error("Error generating default deck name:", error)
@@ -90,38 +90,38 @@ export function SaveDeckModal({
     }
   }
 
-  // 덱 저장 처리
+  // 卡组 保存 处理
   const handleSaveDeck = () => {
     try {
-      // 덱 이름이 비어있으면 placeholder 이름 사용
+      // 卡组 名称 相关 placeholder 名称 使用
       const nameToUse = deckName.trim() || placeholderName
 
-      // 덱 저장
+      // 卡组 保存
       const deckId = !isNewDeck && selectedDeckId ? selectedDeckId : undefined
       const savedDeck = saveDeck(nameToUse, preset, deckId)
 
-      // 성공 콜백 호출
+      // 相关 回调 调用
       onSaveSuccess(savedDeck.id)
 
-      // 모달 닫기
+      // 弹窗 关闭
       onClose()
     } catch (error) {
       console.error("Failed to save deck:", error)
-      // 에러 처리 (실제 구현에서는 에러 메시지 표시 등 추가)
+      // 相关 处理 (实际 相关 相关 相关 显示 相关 添加)
     }
   }
 
-  // 덱 선택 변경 처리
+  // 卡组 选择 变更 处理
   const handleDeckSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
     if (value === "new") {
       setIsNewDeck(true)
       setSelectedDeckId(null)
-      setDeckName("") // 이름 필드를 비워서 placeholder가 보이도록 함
+      setDeckName("") // 名称 相关 相关 placeholder 相关 相关
     } else {
       setIsNewDeck(false)
       setSelectedDeckId(value)
-      // 선택한 덱의 이름을 입력 필드에 설정
+      // 选择相关 卡组的 名称 输入 相关 设置
       const selectedDeck = savedDecks.find((deck) => deck.id === value)
       if (selectedDeck) {
         setDeckName(selectedDeck.name)
@@ -129,7 +129,7 @@ export function SaveDeckModal({
     }
   }
 
-  // 현재 선택된 덱 ID
+  // 当前 选择相关 卡组 ID
   const currentDeckId = getCurrentDeckId()
 
   return (
@@ -140,7 +140,7 @@ export function SaveDeckModal({
       maxWidth="max-w-md"
     >
       <div className="p-4">
-        {/* 덱 선택 (새 덱 또는 기존 덱 덮어쓰기) */}
+        {/* 卡组 选择 (相关 卡组 或 现有 卡组 相关) */}
         <div className="mb-4">
           <label htmlFor="deck-selection" className="block text-sm font-medium mb-1">
             {getTranslatedString("deck_selection") || "Deck Selection"}
@@ -161,7 +161,7 @@ export function SaveDeckModal({
           </select>
         </div>
 
-        {/* 덱 이름 입력 */}
+        {/* 卡组 名称 输入 */}
         <div className="mb-4">
           <label htmlFor="deck-name" className="block text-sm font-medium mb-1">
             {getTranslatedString("deck_name")}
@@ -176,7 +176,7 @@ export function SaveDeckModal({
           />
         </div>
 
-        {/* 버튼 */}
+        {/* 按钮 */}
         <div className="flex justify-end space-x-2 mt-6">
           <button
             onClick={onClose}

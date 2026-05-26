@@ -28,8 +28,8 @@ interface CharacterSlotProps {
   equipments?: Equipment[]
   data: any
   hasAnyCharacter: boolean
-  awakeningStage?: number | null // 각성 단계 추가
-  onAwakeningSelect?: (characterId: number, stage: number | null) => void // 각성 선택 콜백 추가
+  awakeningStage?: number | null // 觉醒 相关 添加
+  onAwakeningSelect?: (characterId: number, stage: number | null) => void // 觉醒 选择 回调 添加
 }
 
 export function CharacterSlot({
@@ -59,7 +59,7 @@ export function CharacterSlot({
   const characterSlotRef = useRef<HTMLDivElement>(null)
   const [slotWidth, setSlotWidth] = useState(0)
 
-  // 캐릭터 슬롯의 너비를 측정하여 버튼 크기를 동적으로 조정
+  // 角色 相关的 宽度 相关 按钮 大小 相关 相关
   useEffect(() => {
     const updateSlotWidth = () => {
       if (characterSlotRef.current) {
@@ -67,7 +67,7 @@ export function CharacterSlot({
       }
     }
 
-    // 초기 로드 시 및 창 크기 변경 시 너비 업데이트
+    // 相关 加载 相关 以及 相关 大小 变更 相关 宽度 更新
     updateSlotWidth()
     window.addEventListener("resize", updateSlotWidth)
 
@@ -88,13 +88,13 @@ export function CharacterSlot({
     }
   }
 
-  // 캐릭터 상세 정보 모달 열기
+  // 角色 相关 信息 弹窗 打开
   const handleOpenCharacterDetails = () => {
     if (isEmpty) return
     setShowCharacterDetails(true)
   }
 
-  // 각성 선택 핸들러
+  // 觉醒 选择 处理函数
   const handleAwakeningSelect = (stage: number | null) => {
     if (onAwakeningSelect && !isEmpty) {
       onAwakeningSelect(characterId, stage)
@@ -140,7 +140,7 @@ export function CharacterSlot({
   const armorEquipment = equipment.armor ? getEquipment(equipment.armor) : null
   const accessoryEquipment = equipment.accessory ? getEquipment(equipment.accessory) : null
 
-  // 캐릭터 등급에 따른 테두리 색상 및 그림자 효과 직접 설정
+  // 角色 相关 相关 边框 颜色 以及 阴影 效果 直接 设置
   const getRarityBorderStyle = (rarity: string) => {
     switch (rarity) {
       case "UR":
@@ -171,7 +171,7 @@ export function CharacterSlot({
     }
   }
 
-  // 캐릭터 슬롯 스타일 - 직접 인라인 스타일로 적용
+  // 角色 相关 相关 - 直接 相关 相关 应用
   const characterSlotStyle =
     !isEmpty && character
       ? {
@@ -180,13 +180,13 @@ export function CharacterSlot({
         }
       : {}
 
-  // 버튼 크기 계산 - 슬롯 너비의 25%
-  const buttonSize = Math.max(slotWidth * 0.25, 20) // 최소 20px 보장
+  // 按钮 大小 计算 - 相关 宽度的 25%
+  const buttonSize = Math.max(slotWidth * 0.25, 20) // 相关 20px 保证
 
-  // 왕관 아이콘 크기 계산 - 슬롯 너비의 33%
-  const crownSize = Math.max(slotWidth * 0.33, 24) // 최소 24px 보장
+  // 相关 图标 大小 计算 - 相关 宽度的 33%
+  const crownSize = Math.max(slotWidth * 0.33, 24) // 相关 24px 保证
 
-  // 1. 공통 장비 슬롯 클래스를 만들어 재사용합니다.
+  // 1. 相关 装备 相关 类 仅相关 相关使用相关.
   const getEquipmentSlotClass = (equipment: any) => `
   w-full aspect-square rounded-lg overflow-hidden cursor-pointer relative flex items-center justify-center
   ${isEmpty ? "opacity-50 pointer-events-none" : ""}
@@ -195,7 +195,7 @@ export function CharacterSlot({
 
   return (
     <div className="flex flex-col relative" ref={characterSlotRef}>
-      {/* Character Card - 모바일에서도 적절한 크기로 표시되도록 수정 */}
+      {/* Character Card - 相关 相关 大小相关 显示相关 修改 */}
       <div
         className={`
           relative w-full aspect-[3/4] rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden
@@ -229,9 +229,9 @@ export function CharacterSlot({
 
             {/* Content */}
             <div className="relative z-10 p-1 lg:p-3 flex flex-col h-full">
-              {/* Character action buttons - 상단에 위치 */}
+              {/* Character action buttons - 相关 位置 */}
               <div className="flex justify-between w-full">
-                {/* 리더 임명 버튼 또는 리더 왕관 뱃지 - 왼쪽 위 */}
+                {/* 队长 相关 按钮 或 队长 相关 相关 - 相关 相关 */}
                 <div
                   style={{
                     width: `${buttonSize}px`,
@@ -275,7 +275,7 @@ export function CharacterSlot({
                     ))}
                 </div>
 
-                {/* 정보 버튼 - 오른쪽 위 */}
+                {/* 信息 按钮 - 相关 相关 */}
                 {!isEmpty && (
                   <button
                     onClick={(e) => {
@@ -296,7 +296,7 @@ export function CharacterSlot({
                 )}
               </div>
               <div className="mt-auto flex flex-col">
-                {/* 각성 단계 표시 - 이름 위 왼쪽 정렬로 표시, 반응형으로 조정 */}
+                {/* 觉醒 相关 显示 - 名称 相关 相关 排序相关 显示, 相关 相关 */}
                 {!isEmpty && (
                   <div className="w-max mb-1 inline-block px-0">
                     <div className="bg-purple-600 rounded-full px-1 py-0.5 lg:px-2 lg:py-1 shadow-lg flex items-center justify-center">
@@ -308,7 +308,7 @@ export function CharacterSlot({
                   </div>
                 )}
 
-                {/* 이름을 하단으로 이동, 각성 표시와 겹치지 않도록 패딩 추가 */}
+                {/* 名称 相关 相关, 觉醒 显示和 相关 相关 填充 添加 */}
 
                 <h3 className="w-max mb-0 rounded-full inline-block bg-gray-800 bg-opacity-60 text-xs sm:text-lg lg:text-xl xl:text-2xl font-semibold text-white neon-text truncate px-1 pb-0">
                   {getTranslatedString(character.name)}
@@ -319,9 +319,9 @@ export function CharacterSlot({
         ) : null}
       </div>
 
-      {/* Equipment Slots - 모바일에서도 적절한 크기로 표시되도록 수정 */}
+      {/* Equipment Slots - 相关 相关 大小相关 显示相关 修改 */}
       <div className="mt-1 sm:mt-2 grid grid-cols-3 gap-0.5 sm:gap-1">
-        {/* Weapon Slot - Sword 아이콘 사용 */}
+        {/* Weapon Slot - Sword 图标 使用 */}
         <div className={getEquipmentSlotClass(weaponEquipment)} onClick={() => handleEquipmentClick("weapon")}>
           {!weaponEquipment ? (
             <Sword className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(var(--neon-white))]" />
@@ -349,12 +349,12 @@ export function CharacterSlot({
                 </div>
               )}
 
-              {/* 장비 이름 - 슬롯 내부 하단에 표시 (모바일에서는 숨김) */}
+              {/* 装备 名称 - 相关 相关 相关 显示 (相关 隐藏) */}
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[0.5rem] sm:text-sm text-center truncate neon-text hidden xl:block">
                 {getTranslatedString(weaponEquipment.name)}
               </div>
 
-              {/* 장비 정보 버튼 - 슬롯 내부 오른쪽 상단에 표시 */}
+              {/* 装备 信息 按钮 - 相关 相关 相关 相关 显示 */}
               <button
                 className="equipment-info-btn hidden lg:flex"
                 onClick={(e) => {
@@ -368,7 +368,7 @@ export function CharacterSlot({
           )}
         </div>
 
-        {/* Armor Slot - Shield 아이콘 사용 */}
+        {/* Armor Slot - Shield 图标 使用 */}
         <div className={getEquipmentSlotClass(armorEquipment)} onClick={() => handleEquipmentClick("armor")}>
           {!armorEquipment ? (
             <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(var(--neon-white))]" />
@@ -396,12 +396,12 @@ export function CharacterSlot({
                 </div>
               )}
 
-              {/* 장비 이름 - 슬롯 내부 하단에 표시 (모바일에서는 숨김) */}
+              {/* 装备 名称 - 相关 相关 相关 显示 (相关 隐藏) */}
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[0.5rem] sm:text-sm text-center truncate neon-text hidden xl:block">
                 {getTranslatedString(armorEquipment.name)}
               </div>
 
-              {/* 장비 정보 버튼 - 슬롯 내부 오른쪽 상단에 표시 */}
+              {/* 装备 信息 按钮 - 相关 相关 相关 相关 显示 */}
               <button
                 className="equipment-info-btn hidden lg:flex"
                 onClick={(e) => {
@@ -415,7 +415,7 @@ export function CharacterSlot({
           )}
         </div>
 
-        {/* Accessory Slot - Gem 아이콘 사용 */}
+        {/* Accessory Slot - Gem 图标 使用 */}
         <div className={getEquipmentSlotClass(accessoryEquipment)} onClick={() => handleEquipmentClick("accessory")}>
           {!accessoryEquipment ? (
             <Gem className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(var(--neon-white))]" />
@@ -443,12 +443,12 @@ export function CharacterSlot({
                 </div>
               )}
 
-              {/* 장비 이름 - 슬롯 내부 하단에 표시 (모바일에서는 숨김) */}
+              {/* 装备 名称 - 相关 相关 相关 显示 (相关 隐藏) */}
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[0.5rem] sm:text-sm text-center truncate neon-text hidden xl:block">
                 {getTranslatedString(accessoryEquipment.name)}
               </div>
 
-              {/* 장비 정보 버튼 - 슬롯 내부 오른쪽 상단에 표시 */}
+              {/* 装备 信息 按钮 - 相关 相关 相关 相关 显示 */}
               <button
                 className="equipment-info-btn hidden lg:flex"
                 onClick={(e) => {
@@ -496,7 +496,7 @@ export function CharacterSlot({
         />
       )}
 
-      {/* 캐릭터 상세 정보 모달 */}
+      {/* 角色 相关 信息 弹窗 */}
       {showCharacterDetails && character && (
         <CharacterDetailsModal
           isOpen={showCharacterDetails}
@@ -511,7 +511,7 @@ export function CharacterSlot({
         />
       )}
 
-      {/* 장비 상세 정보 모달 */}
+      {/* 装备 相关 信息 弹窗 */}
       {showEquipmentDetails && (
         <EquipmentDetailsModal
           isOpen={!!showEquipmentDetails}

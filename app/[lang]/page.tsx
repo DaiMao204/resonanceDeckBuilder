@@ -7,7 +7,7 @@ import { LoadingScreen } from "../../components/loading-screen"
 import { useDataLoader } from "../../hooks/use-data-loader"
 import { LanguageProvider } from "../../contexts/language-context"
 
-// Firebase Analytics 관련 import 수정
+// 统一封装后的 Firebase Analytics 事件记录。
 import { logEventWrapper } from "../../lib/firebase-config"
 
 interface PageProps {
@@ -26,13 +26,13 @@ export default function Page({ params }: PageProps) {
   const { data, loading, error } = useDataLoader()
 
   useEffect(() => {
-    // URL에서 code 파라미터 추출
+    // 同时读取旧长链接 code 和新短链接 s，保证历史分享链接仍可访问。
     const codeParam = searchParams.get("code")
     const shortCodeParam = searchParams.get("s")
     setDeckCode(codeParam)
     setDeckShortCode(shortCodeParam)
 
-    // logEvent 호출 부분 수정 (analytics 전달 제거)
+    // 记录分享链接访问来源，短链和旧长链用不同类型区分。
     if (shortCodeParam || codeParam) {
       if (typeof window !== "undefined") {
         logEventWrapper("deck_shared_visit", {
@@ -45,7 +45,7 @@ export default function Page({ params }: PageProps) {
 
     setIsLoading(false)
 
-    // 다른 logEvent 호출 부분도 수정
+    // 记录普通页面访问。
     if (typeof window !== "undefined") {
       logEventWrapper("page_view", {
         page_path: pathname,

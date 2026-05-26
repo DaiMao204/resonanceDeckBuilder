@@ -13,11 +13,11 @@ export function HelpModal({ getTranslatedString: propGetTranslatedString, ...mod
   // Use the provided getTranslatedString or the one from context
   const getTranslatedString = propGetTranslatedString || contextGetTranslatedString
 
-  // 모든 버튼 크기와 모양 통일 - 고정 너비 추가
+  // 所有 按钮 大小和 相关 相关 - 相关 宽度 添加
   const buttonBaseClass =
     "neon-button flex items-center justify-center w-12 h-12 rounded-lg transition-colors duration-200 shadow-md relative overflow-hidden flex-shrink-0"
 
-  // 버튼 아이콘 스타일 클래스
+  // 按钮 图标 相关 类
   const iconClass = "w-6 h-6 text-[hsl(var(--neon-white))] relative z-10"
 
   return (
@@ -75,7 +75,7 @@ export function HelpModal({ getTranslatedString: propGetTranslatedString, ...mod
           </div>
         </div>
 
-            {/* Save Button - 새로 추가 */}
+            {/* Save Button - 相关 添加 */}
             <div className="flex items-start">
           <div className={`${buttonBaseClass} mr-4`}>
             <Save className={iconClass} />
@@ -88,7 +88,7 @@ export function HelpModal({ getTranslatedString: propGetTranslatedString, ...mod
           </div>
         </div>
 
-        {/* Load Button - 새로 추가 */}
+        {/* Load Button - 相关 添加 */}
         <div className="flex items-start">
           <div className={`${buttonBaseClass} mr-4`}>
             <FolderOpen className={iconClass} />

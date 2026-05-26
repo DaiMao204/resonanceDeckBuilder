@@ -30,19 +30,19 @@ export function CharacterDetailsModal({
   selectedAwakeningStage = null,
   onAwakeningSelect,
 }: CharacterDetailsModalProps) {
-  // 홈 스킬 데이터를 저장할 상태 추가
+  // 相关 技能 数据 保存相关 状态 添加
   const [homeSkills, setHomeSkills] = useState<any[]>([])
 
-  // 컴포넌트 마운트 시 홈 스킬 데이터 로드
+  // 组件 挂载 相关 相关 技能 数据 加载
   useEffect(() => {
-    // 캐릭터에 homeSkillList가 있는 경우에만 처리
+    // 角色相关 homeSkillList 存在 相关仅 处理
     if (character && character.homeSkillList && data) {
       const loadHomeSkills = async () => {
         try {
-          // home_skill_db.json 데이터 로드 (이미 data에 있다면 그것을 사용)
+          // home_skill_db.json 数据 加载 (相关 data相关 相关 相关 使用)
           let homeSkillDb = data.homeSkills
 
-          // data에 homeSkills가 없다면 API로 가져오기 시도
+          // data相关 homeSkills 相关 API相关 读取 尝试
           if (!homeSkillDb) {
             try {
               const response = await fetch("/api/db/home_skill_db.json")
@@ -53,22 +53,22 @@ export function CharacterDetailsModal({
             }
           }
 
-          // homeSkillType별로 param 값을 누적하기 위한 맵
+          // homeSkillType相关 param 值 累加相关 相关 相关
           const accumulatedParams: Record<string, number> = {}
 
-          // 캐릭터의 homeSkillList에서 정보 추출
+          // 角色的 homeSkillList相关 信息 提取
           const skills = character.homeSkillList
             .map((homeSkill: any) => {
               const skillData = homeSkillDb[homeSkill.id]
               if (!skillData) return null
 
-              // param 값이 있으면 저장
+              // param 值 相关 保存
               const paramValue = homeSkill.param || skillData?.param || 0
 
-              // homeSkillType이 있으면 누적 값 계산
+              // homeSkillType 相关 累加 值 计算
               const homeSkillType = skillData.homeSkillType || homeSkill.homeSkillType || homeSkill.id
 
-              // 이전에 같은 타입이 있었다면 누적
+              // 相关 相同 类型 相关 累加
               if (accumulatedParams[homeSkillType] !== undefined) {
                 accumulatedParams[homeSkillType] += paramValue
               } else {
@@ -115,21 +115,21 @@ export function CharacterDetailsModal({
   const processSkillDescription = (skill: any, description: string) => {
     if (!skill || !description) return description
 
-    // 번역된 설명 가져오기
+    // 相关 说明 读取
     const translatedDesc = getTranslatedString(description)
 
     // Check if desParamList exists and has items
     if (skill.desParamList && skill.desParamList.length > 0) {
-      // 모든 #r 태그를 찾아서 배열로 저장
+      // 所有 #r 标签 相关 数组相关 保存
       const rTags = translatedDesc.match(/#r/g) || []
 
-      // #r 태그가 없으면 원본 반환
+      // #r 标签 相关 相关 返回
       if (rTags.length === 0) return translatedDesc
 
       let processedDesc = translatedDesc
       let rTagIndex = 0
 
-      // desParamList의 각 항목을 순회하면서 #r 태그를 순서대로 대체
+      // desParamList的 相关 相关 相关 #r 标签 相关 相关
       for (let i = 0; i < skill.desParamList.length && rTagIndex < rTags.length; i++) {
         const param = skill.desParamList[i]
         const paramValue = param.param
@@ -164,13 +164,13 @@ export function CharacterDetailsModal({
   const processHomeSkillDesc = (desc: string, paramValue: number) => {
     if (!desc) return desc
 
-    // %s% 패턴을 찾아 100을 곱한 값으로 교체 (예: 0.2 -> 20%)
+    // %s% 模式 相关 100 相关 值相关 替换 (相关: 0.2 -> 20%)
     let processedDesc = desc.replace(/%s%/g, () => {
       const percentValue = Math.round(paramValue * 100)
       return `${percentValue}`
     })
 
-    // 일반 %s 패턴을 찾아 값으로 교체
+    // 相关 %s 模式 相关 值相关 替换
     processedDesc = processedDesc.replace(/%s/g, paramValue.toString())
 
     return processedDesc
@@ -178,10 +178,10 @@ export function CharacterDetailsModal({
 
   // Format text with color tags and other HTML tags
 
-  // 각성 항목 선택 핸들러
+  // 觉醒 相关 选择 处理函数
   const handleAwakeningSelect = (stage: number) => {
     if (onAwakeningSelect) {
-      // 이미 선택된 항목을 다시 클릭하면 선택 취소
+      // 相关 选择相关 相关 重新 点击相关 选择 相关
       if (selectedAwakeningStage === stage) {
         onAwakeningSelect(null)
       } else {
@@ -190,7 +190,7 @@ export function CharacterDetailsModal({
     }
   }
 
-  // 이미지 URL 가져오기 함수
+  // 图片 URL 读取 函数
   const getImageUrl = (type: "talent" | "break", id: number) => {
     if (!data || !data.images) return null
 
@@ -229,7 +229,7 @@ export function CharacterDetailsModal({
                 </div>
               </div>
 
-              {/* Character Description moved below portrait - 포맷팅 적용 */}
+              {/* Character Description moved below portrait - 格式化 应用 */}
               <div className="mt-4 character-detail-section">
                 <h3 className="character-detail-section-title">
                   {getTranslatedString("character.description") || "Description"}
@@ -266,16 +266,16 @@ export function CharacterDetailsModal({
           <div className="space-y-3 p-4">
             {character.talentList && character.talentList.length > 0 ? (
               character.talentList.map((talent, index) => {
-                // 공명 이미지 URL 가져오기
+                // 共振 图片 URL 读取
                 const talentImageUrl = getImageUrl("talent", talent.talentId)
 
-                // 해당 공명 단계에 맞는 홈 스킬 찾기
+                // 对应 共振 相关 相关 相关 技能 查找
                 const relatedHomeSkills = homeSkills.filter((skill) => skill.resonanceLv === index + 1)
 
                 return (
                   <div key={`talent-${index}`} className="p-3 bg-black bg-opacity-50 rounded-lg">
                     <div className="flex">
-                      {/* 공명 이미지 또는 번호 표시 */}
+                      {/* 共振 图片 或 相关 显示 */}
                       <div className="w-12 h-12 flex-shrink-0 mr-3 rounded-md overflow-hidden flex items-center justify-center">
                         {talentImageUrl ? (
                           <img
@@ -295,7 +295,7 @@ export function CharacterDetailsModal({
                               ? getTranslatedString(data.talents[talent.talentId].name)
                               : `Talent ${talent.talentId}`}
                           </div>
-                          {/* 공명 단계 표시 */}
+                          {/* 共振 相关 显示 */}
                           <div className="ml-2 text-xs px-2 py-0.5 bg-gray-600 rounded-full text-white">
                             {"Lv."} {index + 1}
                           </div>
@@ -308,7 +308,7 @@ export function CharacterDetailsModal({
                           )}
                         </div>
 
-                        {/* 관련 홈 스킬 표시 */}
+                        {/* 相关 相关 技能 显示 */}
                         {relatedHomeSkills.length > 0 && (
                           <div className="mt-2 border-t border-gray-700 pt-2">
                             {relatedHomeSkills.map((skill, skillIndex) => (
@@ -345,11 +345,11 @@ export function CharacterDetailsModal({
         content: (
           <div className="space-y-3 p-4">
             {character.breakthroughList && character.breakthroughList.length > 0 ? (
-              // 각성 항목 선택 가능하도록 수정
+              // 觉醒 相关 选择 相关 修改
               character.breakthroughList
                 .slice(1)
                 .map((breakthrough, index) => {
-                  // 각성 이미지 URL 가져오기
+                  // 觉醒 图片 URL 读取
                   const breakImageUrl = getImageUrl("break", breakthrough.breakthroughId)
 
                   return (
@@ -363,7 +363,7 @@ export function CharacterDetailsModal({
                       onClick={() => handleAwakeningSelect(index + 1)}
                     >
                       <div className="flex">
-                        {/* 각성 이미지 또는 번호 표시 */}
+                        {/* 觉醒 图片 或 相关 显示 */}
                         <div
                           className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center mr-3 overflow-hidden ${
                             selectedAwakeningStage !== null && index + 1 <= selectedAwakeningStage
@@ -389,7 +389,7 @@ export function CharacterDetailsModal({
                                 ? getTranslatedString(data.breakthroughs[breakthrough.breakthroughId].name)
                                 : `Breakthrough ${breakthrough.breakthroughId}`}
                             </div>
-                            {/* 각성 단계 표시 */}
+                            {/* 觉醒 相关 显示 */}
                             <div className="ml-2 text-xs px-2 py-0.5 bg-gray-600 rounded-full text-white">
                               {"Lv."} {index + 1}
                             </div>
@@ -429,7 +429,7 @@ export function CharacterDetailsModal({
         </div>
       }
       maxWidth="max-w-2xl"
-      closeOnOutsideClick={true} // 외부 클릭으로 닫히지 않도록 설정
+      closeOnOutsideClick={true} // 相关 点击相关 相关 相关 设置
     />
   )
 
@@ -456,7 +456,7 @@ export function CharacterDetailsModal({
     const skillId = skillItem.skillId
     const skillQuantity = skillItem.num || 0
 
-    // 스킬 정보 직접 가져오기
+    // 技能 信息 直接 读取
     const skill = getSkill ? getSkill(skillId) : null
 
     if (!skill) {
@@ -476,14 +476,14 @@ export function CharacterDetailsModal({
       )
     }
 
-    // 스킬 이미지 URL 찾기
+    // 技能 图片 URL 查找
     let skillImageUrl = null
     if (data && data.images) {
-      // 스킬 ID로 이미지 찾기
+      // 技能 ID相关 图片 查找
       if (data.images[`skill_${skillId}`]) {
         skillImageUrl = data.images[`skill_${skillId}`]
       }
-      // 카드 ID로 이미지 찾기
+      // 卡牌 ID相关 图片 查找
       else if (skill.cardID && data.images[`card_${skill.cardID}`]) {
         skillImageUrl = data.images[`card_${skill.cardID}`]
       }
@@ -532,7 +532,7 @@ export function CharacterDetailsModal({
               <div className="text-sm text-gray-400 mt-1">{formatColorText(processedDescription)}</div>
             )}
 
-            {/* 필살기(인덱스 2)일 경우 리더 스킬 조건 표시 */}
+            {/* 必杀技(相关卡组相关 2)相关 相关 队长 技能 条件 显示 */}
             {index === 2 && skill.leaderCardConditionDesc && (
               <div className="text-sm mt-2" style={{ color: "#800020" }}>
                 <strong>{getTranslatedString("leader_skill_condition")}: </strong>

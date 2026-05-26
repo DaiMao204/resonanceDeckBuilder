@@ -7,11 +7,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // ✅ headers()는 이제 await 필요
+  // ✅ headers() 相关 await 相关
   const headersList = await headers()
   const pathname = headersList.get("x-pathname") || ""
 
-  // 언어 추출
+  // 语言 提取
   let lang = "en"
   const pathParts = pathname.split("/").filter(Boolean)
   if (pathParts.length > 0 && ["en", "ko", "jp", "cn", "tw"].includes(pathParts[0])) {

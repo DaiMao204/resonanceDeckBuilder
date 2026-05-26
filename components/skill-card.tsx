@@ -11,8 +11,8 @@ interface SkillCardProps {
   onEdit: () => void
   isDisabled: boolean
   characterImage?: string
-  useType: number // 추가: 카드 사용 조건 타입
-  useParam: number // 추가: 카드 사용 조건 파라미터
+  useType: number // 添加: 卡牌 使用 条件 类型
+  useParam: number // 添加: 卡牌 使用 条件 相关
 }
 
 export function SkillCard({
@@ -26,18 +26,18 @@ export function SkillCard({
   useType,
   useParam,
 }: SkillCardProps) {
-  // 사용 조건 텍스트 가져오기
+  // 使用 条件 相关 读取
 
   const shouldShowParam = () => {
     if (useType < 3) return false
 
     const condListLength = card.ExCondList?.length || 0
 
-    // useType이 ExCondList 범위에 있는지 확인
+    // useType ExCondList 相关 存在相关 检查
     if (card.ExCondList && useType >= 3 && useType < 3 + condListLength) {
       const condIndex = useType - 3
       const cond = card.ExCondList[condIndex]
-      // isNumCond가 true인지 확인
+      // isNumCond true相关 检查
       return cond.isNumCond === true
     }
 
@@ -57,23 +57,23 @@ export function SkillCard({
     }
 
     if (useType >= 3) {
-      // ExCondList 범위에 속하는지 확인
+      // ExCondList 相关 相关 检查
       const condListLength = card.ExCondList?.length || 0
 
       if (card.ExCondList && useType >= 3 && useType < 3 + condListLength) {
         const condIndex = useType - 3
         const cond = card.ExCondList[condIndex]
-        // card-settings-modal.tsx에서는 text_${cond.des} 형식으로 키를 생성
+        // card-settings-modal.tsx相关 text_${cond.des} 相关 键 生成
         const textKey = `text_${cond.des}`
         return getTranslatedString(textKey) || textKey
       }
 
-      // ExActList에서 값 가져오기
+      // ExActList相关 值 读取
       if (card.ExActList && useType >= 3 + condListLength) {
         const actIndex = useType - 3 - condListLength
         if (actIndex >= 0 && actIndex < card.ExActList.length) {
           const act = card.ExActList[actIndex]
-          // card-settings-modal.tsx에서는 text_${act.des} 형식으로 키를 생성
+          // card-settings-modal.tsx相关 text_${act.des} 相关 键 生成
           const textKey = `text_${act.des}`
           return getTranslatedString(textKey) || textKey
         }
@@ -124,14 +124,14 @@ export function SkillCard({
         </div>
       )}
 
-      {/* Cost badge - 더 작게 만들기 */}
+      {/* Cost badge - 相关 相关 仅相关 */}
       <div className="absolute top-0 right-0 px-0.5 py-0 text-white font-bold sm:text-3xl text-xs z-10">
         {extraInfo.cost}
       </div>
 
       {/* Card content */}
       <div className="relative z-1 p-0 flex flex-col h-full">
-        {/* 사용 조건 오버레이 */}
+        {/* 使用 条件 覆盖层 */}
         {useType > 0 && useType !== 1 && (
           <div className="absolute top-0 left-0 w-full p-1 bg-black bg-opacity-50 text-white text-xs z-10 flex items-center justify-center">
             {useType === 2 ? (
@@ -178,11 +178,11 @@ export function SkillCard({
         {/* Empty space in the middle */}
         <div className="flex-grow"></div>
 
-        {/* 스킬 이미지 - 크기 증가 및 위치 조정 */}
+        {/* 技能 图片 - 大小 增加 以及 位置 相关 */}
         <div className="flex justify-center mb-2 lg:mb-8 mt-auto">
           <div className="w-1/2 relative">
             {" "}
-            {/* 이미지 크기를 1/4에서 1/2로 증가 */}
+            {/* 图片 大小 1/4相关 1/2相关 增加 */}
             <div className="aspect-square transform rotate-45 overflow-hidden bg-black bg-opacity-30 border border-[hsla(var(--neon-white),0.5)] shadow-[0_0_5px_rgba(255,255,255,0.3)]">
               {extraInfo.img_url && (
                 <img
@@ -195,7 +195,7 @@ export function SkillCard({
           </div>
         </div>
 
-        {/* Card name - 두 줄까지 표시 가능하도록 수정 */}
+        {/* Card name - 相关 相关 显示 相关 修改 */}
         <div className="text-white font-bold lg:text-[1rem] text-[0.6rem] line-clamp-2 mt-auto neon-text user-select-none px-0.5 pb-0.5">
           {formatColorText(getTranslatedString(card.name))}
         </div>

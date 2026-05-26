@@ -7,17 +7,17 @@ import { Globe, Download, Upload, RefreshCw, Share2, HelpCircle, Save, FolderOpe
 import { StylizedTitle } from "./stylized-title"
 import { HelpModal } from "./ui/modal/HelpModal"
 import { useLanguage } from "../contexts/language-context"
-import { ScreenshotButton } from "./screenshot-button" // 추가
+import { ScreenshotButton } from "./screenshot-button" // 添加
 
 interface TopBarProps {
   onClear: () => void
   onImport: () => Promise<void>
   onExport: () => void
   onShare: () => void
-  onSave: () => void // 추가: 저장 버튼 핸들러
-  onLoad: () => void // 추가: 불러오기 버튼 핸들러
+  onSave: () => void // 添加: 保存 按钮 处理函数
+  onLoad: () => void // 添加: 加载 按钮 处理函数
   onSortCharacters?: () => void
-  contentRef: React.RefObject<HTMLElement> // 추가: 캡처할 컨텐츠 참조
+  contentRef: React.RefObject<HTMLElement> // 添加: 截图相关 相关 引用
 }
 
 export function TopBar({
@@ -37,7 +37,7 @@ export function TopBar({
   const [showHelpPopup, setShowHelpPopup] = useState(false)
   const languageMenuRef = useRef<HTMLDivElement>(null)
   const helpPopupRef = useRef<HTMLDivElement>(null)
-  // 언어 버튼 참조 추가
+  // 语言 按钮 引用 添加
   const languageButtonRef = useRef<HTMLButtonElement>(null)
 
   // Add scroll effect
@@ -49,28 +49,28 @@ export function TopBar({
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // 언어 변경 핸들러
+  // 语言 变更 处理函数
   const handleLanguageChange = (lang: string) => {
-    // 현재 언어와 같은 언어 선택 시 드롭다운만 닫기
+    // 当前 语言和 相同 语言 选择 相关 相关仅 关闭
     if (currentLanguage === lang) {
       setShowLanguageMenu(false)
       return
     }
 
-    // 언어 변경
+    // 语言 变更
     changeLanguage(lang)
 
-    // 메뉴 닫기
+    // 相关 关闭
     setShowLanguageMenu(false)
   }
 
-  // 언어 메뉴 토글 핸들러 수정 - 드롭다운이 언어 버튼의 왼쪽 선에 맞춰서 나오도록 변경
+  // 语言 相关 相关 处理函数 修改 - 相关 语言 按钮的 相关 相关 相关 相关 变更
   const toggleLanguageMenu = () => {
     if (!showLanguageMenu && languageButtonRef.current) {
-      // 버튼 위치 계산
+      // 按钮 位置 计算
       const rect = languageButtonRef.current.getBoundingClientRect()
 
-      // 드롭다운 메뉴 위치 설정 - 버튼 왼쪽에 맞춤
+      // 相关 相关 位置 设置 - 按钮 相关 相关
       document.documentElement.style.setProperty("--language-dropdown-top", `${rect.bottom}px`)
       document.documentElement.style.setProperty("--language-dropdown-left", `${rect.left}px`)
       document.documentElement.style.setProperty("--language-dropdown-right", "auto")
@@ -78,12 +78,12 @@ export function TopBar({
     setShowLanguageMenu(!showLanguageMenu)
   }
 
-  // 도움말 버튼 클릭 핸들러
+  // 相关 按钮 点击 处理函数
   const toggleHelpPopup = () => {
     setShowHelpPopup(!showHelpPopup)
   }
 
-  // 모달 외부 클릭 시 닫기
+  // 弹窗 相关 点击 相关 关闭
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -109,10 +109,10 @@ export function TopBar({
     }
   }, [showLanguageMenu, showHelpPopup])
 
-  // 상단 바 컴포넌트의 버튼 크기 조정 - 작은 화면에서 더 작게 표시
+  // 相关 相关 组件的 按钮 大小 相关 - 较小 相关 相关 相关 显示
   const buttonBaseClass = `neon-button flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg transition-colors duration-200 shadow-md relative overflow-hidden`
 
-  // 버튼 아이콘 스타일 클래스 - 작은 화면에서 더 작게 표시
+  // 按钮 图标 相关 类 - 较小 相关 相关 相关 显示
   const iconClass = `w-4 h-4 sm:w-5 sm:h-5 text-[hsl(var(--neon-white))] relative z-10`
 
   return (
@@ -124,9 +124,9 @@ export function TopBar({
         style={{ width: "100%" }}
       >
         <div className="container mx-auto px-4">
-          {/* 큰 화면에서는 타이틀과 버튼이 같은 행에 표시되고, 작은 화면에서는 버튼이 아래로 내려감 */}
+          {/* 较大 相关 相关和 按钮 相同 相关 显示相关, 较小 相关 按钮 相关 相关 */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            {/* Logo/Title - 스크롤 시 숨김 */}
+            {/* Logo/Title - 滚动 相关 隐藏 */}
             <div className={`flex items-center ${scrolled ? "hidden" : ""}`}>
               <a href={`/${currentLanguage}`} className="cursor-pointer hover:opacity-80 transition-opacity">
                 <StylizedTitle
@@ -136,8 +136,8 @@ export function TopBar({
               </a>
             </div>
 
-            {/* 버튼들 - 작은 화면에서는 가로 스크롤, 큰 화면에서는 오른쪽 정렬 */}
-            {/* 간격 조절 - space-x-3에서 space-x-1로 변경하여 더 많은 버튼이 화면에 들어오도록 함 */}
+            {/* 按钮相关 - 较小 相关 相关 滚动, 较大 相关 相关 排序 */}
+            {/* 间距 相关 - space-x-3相关 space-x-1相关 变更相关 相关 相关 按钮 相关 相关 相关 */}
             <div className="flex items-center space-x-1 sm:space-x-2 mt-2 md:mt-0 overflow-x-auto py-1 justify-end">
               {/* Language Selector */}
               <div className="relative language-dropdown">
@@ -179,7 +179,7 @@ export function TopBar({
                 )}
               </div>
 
-              {/* Screenshot Button - 캡처 버튼으로 변경 */}
+              {/* Screenshot Button - 截图 按钮相关 变更 */}
               <ScreenshotButton targetRef={contentRef} getTranslatedString={getTranslatedString} />
 
               {/* Share Button */}
@@ -192,7 +192,7 @@ export function TopBar({
                 <Share2 className={iconClass} />
               </button>
 
-              {/* Save Button - 추가 */}
+              {/* Save Button - 添加 */}
               <button
                 onClick={onSave}
                 className={`${buttonBaseClass} save-button`}
@@ -202,7 +202,7 @@ export function TopBar({
                 <Save className={iconClass} />
               </button>
 
-              {/* Load Button - 추가 */}
+              {/* Load Button - 添加 */}
               <button
                 onClick={onLoad}
                 className={`${buttonBaseClass} load-button`}
@@ -212,7 +212,7 @@ export function TopBar({
                 <FolderOpen className={iconClass} />
               </button>
 
-              {/* Sort Characters Button - 추가 */}
+              {/* Sort Characters Button - 添加 */}
               {onSortCharacters && (
                 <button
                   onClick={onSortCharacters}
@@ -268,7 +268,7 @@ export function TopBar({
         </div>
       </div>
 
-      {/* 도움말 모달 - 전체 화면을 덮도록 수정하고 TopBar 바깥으로 이동 */}
+      {/* 相关 弹窗 - 相关 相关 相关 修改相关 TopBar 相关 相关 */}
       {showHelpPopup && (
         <HelpModal
           isOpen={showHelpPopup}

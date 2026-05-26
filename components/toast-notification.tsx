@@ -18,7 +18,7 @@ export function Toast({ message, type, duration = 3000, onClose }: ToastProps) {
     return () => clearTimeout(timer)
   }, [duration, onClose])
 
-  // 기존 Toast 컴포넌트의 bgColor 부분을 다음과 같이 변경합니다.
+  // 现有 Toast 组件的 bgColor 相关 相关和 相关 变更相关.
   const bgColor =
     type === "success"
       ? "bg-white border-green-500 text-black"
@@ -26,7 +26,7 @@ export function Toast({ message, type, duration = 3000, onClose }: ToastProps) {
         ? "bg-white border-red-500 text-black"
         : "bg-white border-blue-500 text-black"
 
-  // 또한 Toast 컴포넌트의 return 부분에서 클래스를 다음과 같이 변경합니다.
+  // 相关 Toast 组件的 return 相关 类 相关和 相关 变更相关.
   return (
     <div className={`fixed bottom-4 right-4 p-4 rounded-lg border-l-4 shadow-md ${bgColor} z-50`}>
       <div className="flex items-center justify-between">
@@ -45,11 +45,11 @@ interface ToastManagerProps {
 
 export function useToast() {
   const [toasts, setToasts] = useState<Array<{ id: number; message: string; type: "success" | "error" | "info" }>>([])
-  const nextIdRef = useRef(0) // useRef를 사용하여 컴포넌트 렌더링 간에 값이 유지되도록 함
+  const nextIdRef = useRef(0) // useRef 使用相关 组件 相关 相关 值 保持相关 相关
 
   const showToast = (message: string, type: "success" | "error" | "info" = "info") => {
     const id = nextIdRef.current
-    nextIdRef.current += 1 // ID 증가
+    nextIdRef.current += 1 // ID 增加
     setToasts((prev) => [...prev, { id, message, type }])
     return id
   }

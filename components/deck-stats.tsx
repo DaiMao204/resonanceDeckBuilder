@@ -16,7 +16,7 @@ interface DeckStatsProps {
   availableCards: { card: Card; extraInfo: CardExtraInfo; characterImage?: string }[]
   getTranslatedString: (key: string) => string
   data: any
-  statusEffects: any[] // 상위 컴포넌트에서 계산된 statusEffects를 받음
+  statusEffects: any[] // 相关 组件相关 计算相关 statusEffects 相关
   includeDerivedCards: boolean
   setIncludeDerivedCards: (include: boolean) => void
 }
@@ -74,7 +74,7 @@ export function DeckStats({
     })
   }, [activeCards, includeDerivedCards, data])
 
-  // 색상 순서 배열 추가
+  // 颜色 相关 数组 添加
   const colorOrder = ["Red", "Green", "Blue", "Yellow", "Purple", "Unknown"]
 
   // Color mapping for the chart
@@ -98,17 +98,17 @@ export function DeckStats({
       const originalColor = card.color || "Unknown"
       const quantity = extraInfo.amount || 1 // Use amount if available, otherwise default to 1
 
-      // 원본 색상 이름을 저장 (차트 색상 매핑용)
+      // 相关 颜色 名称 保存 (相关 颜色 映射相关)
       const colorKey = originalColor
 
-      // 색상 이름 번역
+      // 颜色 名称 相关
       const translatedColor = getTranslatedString(`color_${originalColor.toLowerCase()}`) || originalColor
 
       if (!colors[colorKey]) {
         colors[colorKey] = { count: 0, cards: [], translatedName: translatedColor }
       }
 
-      // 캐릭터 이름 가져오기
+      // 角色 名称 读取
       let characterName = ""
       if (card.ownerId && card.ownerId !== -1 && data?.characters) {
         const character = data.characters[card.ownerId.toString()]
@@ -116,7 +116,7 @@ export function DeckStats({
           characterName = getTranslatedString(character.name) || character.name
         }
       } else if (selectedCard?.ownerId && selectedCard.ownerId !== -1 && data?.characters) {
-        // selectedCard에서 ownerId 확인
+        // selectedCard相关 ownerId 检查
         const character = data.characters[selectedCard.ownerId.toString()]
         if (character) {
           characterName = getTranslatedString(character.name) || character.name
@@ -134,7 +134,7 @@ export function DeckStats({
         colors[colorKey].cards.push({
           name: extraInfo.name,
           quantity,
-          characterName: characterName || "", // 캐릭터 이름이 없으면 빈 문자열로 설정
+          characterName: characterName || "", // 角色 名称 相关 空 相关 设置
         })
       }
     })
@@ -146,10 +146,10 @@ export function DeckStats({
           translatedName: data.translatedName,
           count: data.count,
           cards: data.cards,
-          // 색상 순서 인덱스 추가
+          // 颜色 相关 相关卡组相关 添加
           orderIndex: colorOrder.indexOf(color) !== -1 ? colorOrder.indexOf(color) : colorOrder.length,
         }))
-        // 색상 순서에 따라 정렬
+        // 颜色 相关 相关 排序
         .sort((a, b) => a.orderIndex - b.orderIndex)
     )
   }, [filteredCards, getTranslatedString, data])
@@ -259,7 +259,7 @@ export function DeckStats({
         </div>
       </div>
 
-      {/* Status Effects - 상위 컴포넌트에서 계산된 statusEffects를 사용 */}
+      {/* Status Effects - 相关 组件相关 计算相关 statusEffects 使用 */}
       <div className="neon-container p-4 mt-4">
         <h3 className="text-lg font-semibold mb-4 neon-text">
           {getTranslatedString("status_effects") || "Status Effects"}
@@ -282,7 +282,7 @@ export function DeckStats({
                   {effect.name}
                 </span>
 
-                {/* 툴팁 */}
+                {/* 提示框 */}
                 <div
                   className="absolute left-0 bottom-full mb-2 w-64 bg-black bg-opacity-90 p-2 rounded text-xs text-gray-300 
                              invisible group-hover:visible z-10 border border-gray-700 pointer-events-none"

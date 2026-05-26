@@ -32,7 +32,7 @@ export function SearchModal({ searchControl, ...modalProps }: SearchModalProps) 
     searchPlaceholder = "Search...",
   } = searchControl
 
-  // 검색 컨트롤을 모달 타이틀로 이동
+  // 搜索 相关 弹窗 相关 相关
   const enhancedTitle = (
     <>
       {modalProps.title}

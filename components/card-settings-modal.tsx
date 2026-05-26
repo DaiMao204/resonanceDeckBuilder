@@ -18,7 +18,7 @@ interface CardSettingsModalProps {
   characterImage?: string
 }
 
-// CardSettingsModal에서 selectedCard의 저장된 정보 활용
+// CardSettingsModal相关 selectedCard的 保存相关 信息 相关
 export function CardSettingsModal({
   isOpen,
   onClose,
@@ -35,14 +35,14 @@ export function CardSettingsModal({
   const [useParam, setUseParam] = useState(initialUseParam)
   const [useParamMap, setUseParamMap] = useState<Record<string, number>>(initialUseParamMap)
 
-  // 숫자 입력값 변경 핸들러
+  // 相关 输入值 变更 处理函数
   const handleParamChange = (optionIndex: number, value: number, minNum: number, maxNum: number) => {
-    // 범위 내로 값 조정
+    // 相关 相关 值 相关
     let adjustedValue = value
     if (value < minNum) adjustedValue = minNum
     if (value > maxNum) adjustedValue = maxNum
 
-    // 상태 업데이트 - Use option index as key, not condId
+    // 状态 更新 - Use option index as key, not condId
     const newParamMap = {
       ...useParamMap,
       [optionIndex.toString()]: adjustedValue,
@@ -50,15 +50,15 @@ export function CardSettingsModal({
 
     setUseParamMap(newParamMap)
 
-    // 숫자를 편집하면 자동으로 해당 옵션 선택
+    // 相关 相关 相关 对应 相关 选择
     setUseType(optionIndex)
     setUseParam(adjustedValue)
 
-    // 변경사항 즉시 저장
+    // 变更相关 相关 保存
     onSave(card.id.toString(), optionIndex, adjustedValue, newParamMap)
   }
 
-  // 아이콘 렌더링 함수
+  // 图标 相关 函数
   const renderIcon = (iconText: string | undefined) => {
     if (!iconText) return null
 
@@ -85,16 +85,16 @@ export function CardSettingsModal({
         return <span>{iconText}</span>
     }
   }
-  // 옵션 선택 시 호출되는 함수
+  // 相关 选择 相关 调用相关 函数
   const handleOptionSelect = (newUseType: number, paramValue = -1) => {
     setUseType(newUseType)
     setUseParam(paramValue)
 
-    // 즉시 저장 적용 (창은 닫히지 않음)
+    // 相关 保存 应用 (相关 相关 相关)
     onSave(card.id.toString(), newUseType, paramValue, useParamMap)
   }
 
-  // ExCondList와 ExActList에서 사용할 아이콘 매핑
+  // ExCondList和 ExActList相关 使用相关 图标 映射
   const getIconForCondition = (typeEnum: string | undefined) => {
     if (!typeEnum) return undefined
 
@@ -142,13 +142,13 @@ export function CardSettingsModal({
         className="flex flex-col md:flex-row flex-grow overflow-hidden"
         style={{ backgroundColor: "var(--modal-content-bg)" }}
       >
-        {/* 왼쪽 - 카드 정보 */}
+        {/* 相关 - 卡牌 信息 */}
         <div
           className="w-full md:w-3/5 p-4 md:border-r border-b md:border-b-0 border-[hsl(var(--neon-white),0.3)] overflow-y-auto"
           style={{ backgroundColor: "var(--modal-content-bg)" }}
         >
           <div className="flex mb-4">
-            {/* 카드 이미지 */}
+            {/* 卡牌 图片 */}
             <div className="w-24 h-24 bg-black border border-[hsl(var(--neon-white),0.3)] rounded-md overflow-hidden mr-4">
               {extraInfo.img_url && (
                 <img
@@ -160,7 +160,7 @@ export function CardSettingsModal({
             </div>
 
             <div className="flex-1">
-              {/* 카드 이름과 비용 */}
+              {/* 卡牌 名称和 费用 */}
               <div className="border-b border-[hsl(var(--neon-white),0.3)] pb-2 mb-2">
                 <div className="text-xl font-bold neon-text">{formatColorText(getTranslatedString(card.name))}</div>
                 <div className="flex items-center mt-1">
@@ -177,18 +177,18 @@ export function CardSettingsModal({
             </div>
           </div>
 
-          {/* 카드 설명 - 포맷팅 적용 */}
+          {/* 卡牌 说明 - 格式化 应用 */}
           <div className="text-gray-300 mb-4">{formatColorText(extraInfo.desc)}</div>
         </div>
 
-        {/* 오른쪽 - 사용 설정 */}
+        {/* 相关 - 使用 设置 */}
         <div className="w-full md:w-2/5 p-4 overflow-y-auto" style={{ backgroundColor: "var(--modal-content-bg)" }}>
           <h3 className="text-lg font-medium mb-4 neon-text">
             {getTranslatedString("usage_settings") || "Usage Settings"}
           </h3>
 
           <div className="space-y-3">
-            {/* 즉시 사용 옵션 */}
+            {/* 相关 使用 相关 */}
             <div
               className={`skill-option ${useType === 1 ? "skill-option-selected" : "skill-option-unselected"}`}
               onClick={() => handleOptionSelect(1)}
@@ -196,7 +196,7 @@ export function CardSettingsModal({
               <div className="font-medium">{getTranslatedString("use_immediately") || "Use Immediately"}</div>
             </div>
 
-            {/* 사용 안함 옵션 */}
+            {/* 使用 相关 相关 */}
             <div
               className={`skill-option ${useType === 2 ? "skill-option-selected" : "skill-option-unselected"}`}
               onClick={() => handleOptionSelect(2)}
@@ -204,7 +204,7 @@ export function CardSettingsModal({
               <div className="font-medium">{getTranslatedString("do_not_use") || "Do Not Use"}</div>
             </div>
 
-            {/* ExCondList 기반 조건 옵션 */}
+            {/* ExCondList 相关 条件 相关 */}
             {card.ExCondList &&
               card.ExCondList.map((cond, index) => {
                 // Calculate option index (starting from 3 after the default options)
@@ -215,11 +215,11 @@ export function CardSettingsModal({
                   cond.interValNum && cond.numDuration ? minNum + (cond.interValNum - 1) * cond.numDuration : 100
                 const step = cond.numDuration || 1
 
-                // 현재 값 계산 - Use option index as key, not condId
+                // 当前 值 计算 - Use option index as key, not condId
                 const currentValue =
                   useParamMap[optionIndex.toString()] !== undefined ? useParamMap[optionIndex.toString()] : minNum
 
-                // 언어팩 키 생성
+                // 语言包 键 生成
                 const textKey = `text_${cond.des}`
                 let text = getTranslatedString(textKey)
                 let specialChar = ""
@@ -227,7 +227,7 @@ export function CardSettingsModal({
                 console.log(specialChar)
                 if (match) {
                   specialChar = match[0]
-                  text = text.slice(0, -1) // 마지막 문자 제거
+                  text = text.slice(0, -1) // 最后 相关 移除
                 }
 
                 return (
@@ -238,15 +238,15 @@ export function CardSettingsModal({
                   >
                     <div className="flex items-center">
                       <div className="font-medium flex items-center">
-                        {/* 텍스트 */}
+                        {/* 相关 */}
                         <span>{text}</span>
                         {specialChar?<span>{specialChar}</span>:null}
-                        {/* 아이콘 */}
+                        {/* 图标 */}
                         {cond.typeEnum && (
                           <span className="mx-1">{renderIcon(getIconForCondition(cond.typeEnum))}</span>
                         )}
 
-                        {/* 숫자 입력 (isNumCond가 true인 경우) */}
+                        {/* 相关 输入 (isNumCond true相关 相关) */}
                         {isNumCond && (
                           <div className="ml-2 flex items-center" onClick={(e) => e.stopPropagation()}>
                             <button
@@ -277,7 +277,7 @@ export function CardSettingsModal({
                 )
               })}
 
-            {/* ExActList 기반 액션 옵션 - 카드에 ExActList가 있는 경우 추가 */}
+            {/* ExActList 相关 相关 相关 - 卡牌相关 ExActList 存在 相关 添加 */}
             {card.ExActList &&
               card.ExActList.map((act, index) => {
                 // Calculate option index (starting after ExCondList options)
@@ -291,7 +291,7 @@ export function CardSettingsModal({
                 const currentValue =
                   useParamMap[optionIndex.toString()] !== undefined ? useParamMap[optionIndex.toString()] : minNum
 
-                // 언어팩 키 생성
+                // 语言包 键 生成
                 const textKey = `text_${act.des}`
 
                 return (
@@ -302,7 +302,7 @@ export function CardSettingsModal({
                   >
                     <div className="flex items-center">
                       <div className="font-medium flex items-center">
-                        {/* 텍스트 */}
+                        {/* 相关 */}
                         <span>{getTranslatedString(textKey) || textKey}</span>
                         {isNumCond && (
                           <div className="ml-2 flex items-center" onClick={(e) => e.stopPropagation()}>

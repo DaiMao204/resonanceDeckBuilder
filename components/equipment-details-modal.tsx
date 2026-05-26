@@ -64,7 +64,7 @@ export function EquipmentDetailsModal({
         </div>
       }
       maxWidth="max-w-md"
-      closeOnOutsideClick={true} // 외부 클릭으로 닫히지 않도록 설정
+      closeOnOutsideClick={true} // 相关 点击相关 相关 相关 设置
     >
       <div className="p-4">
         <div className="flex mb-4">
@@ -99,7 +99,7 @@ export function EquipmentDetailsModal({
           </div>
         </div>
 
-        {/* Equipment Description - 포맷팅 적용 */}
+        {/* Equipment Description - 格式化 应用 */}
         <div className="mb-4 character-detail-section">
           <h5 className="character-detail-section-title">
             {getTranslatedString("equipment_description") || "Description"}
@@ -107,7 +107,7 @@ export function EquipmentDetailsModal({
           <p className="text-sm text-gray-300">{formatColorText(getTranslatedString(equipment.des))}</p>
         </div>
 
-        {/* Equipment Effects - 스킬 리스트에서 효과 표시 */}
+        {/* Equipment Effects - 技能 相关 效果 显示 */}
         {equipment.skillList && equipment.skillList.length > 0 && getSkill && (
           <div className="mb-4 character-detail-section">
             <h5 className="character-detail-section-title">{getTranslatedString("equipment_effects") || "Effects"}</h5>
@@ -126,7 +126,7 @@ export function EquipmentDetailsModal({
           </div>
         )}
 
-        {/* Equipment Acquisition Methods - 획득 방법 추가 */}
+        {/* Equipment Acquisition Methods - 相关 相关 添加 */}
         {equipment.Getway && equipment.Getway.length > 0 && (
           <div className="mb-4 character-detail-section">
             <h5 className="character-detail-section-title">

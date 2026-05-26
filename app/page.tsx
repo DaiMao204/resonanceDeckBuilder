@@ -20,21 +20,21 @@ import { redirect } from "next/navigation"
 import { headers } from "next/headers"
 
 export default function Home() {
-  // 브라우저의 언어 코드 감지
+  // 浏览器的 语言 相关 检测
   const headersList = headers()
   const acceptLanguage = headersList.get("accept-language") || ""
 
-  // 지원하는 언어 목록
+  // 相关 语言 列表
   const supportedLanguages = ["en", "ko", "jp", "cn", "tw"]
   const defaultLanguage = "cn"
 
-  // 브라우저 언어 코드 추출 (예: 'en-US' -> 'en')
+  // 浏览器 语言 相关 提取 (相关: 'en-US' -> 'en')
   const preferredLanguage = acceptLanguage.split(",")[0].split("-")[0]
 
-  // 지원하는 언어인지 확인
+  // 相关 语言相关 检查
   const detectedLanguage = defaultLanguage
 
-  // 감지된 언어로 리다이렉트
+  // 检测相关 语言相关 重定向
   redirect(`/${detectedLanguage}`)
 }
 

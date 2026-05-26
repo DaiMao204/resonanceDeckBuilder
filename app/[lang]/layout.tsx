@@ -34,11 +34,11 @@ interface LayoutProps {
 }
 
 export default function LangLayout({ children, params }: LayoutProps) {
-  // ✅ 바로 여기! use()로 params 해제
+  // ✅ 相关 相关! use()相关 params 相关
   const { lang } = use(params)
   const meta = metadataByLanguage[lang] ?? metadataByLanguage["en"]
 
-  // ✅ document.title 직접 조작 (원할 경우)
+  // ✅ document.title 直接 相关 (相关 相关)
   useEffect(() => {
     document.title = meta.title
   }, [lang])

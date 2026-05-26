@@ -24,21 +24,21 @@ export function ScreenshotButton({ targetRef, getTranslatedString }: ScreenshotB
       }
       setIsCapturing(true)
 
-      // 캡처 모드 클래스 추가 - 테두리 효과 제거를 위한 클래스
+      // 截图 相关 类 添加 - 边框 效果 移除 相关 类
       if (targetRef.current) {
         targetRef.current.classList.add("capture-mode")
       }
 
-      // DOM이 업데이트될 시간을 주기 위해 약간 지연
+      // DOM 更新相关 相关 相关 相关 相关 相关
       await new Promise((resolve) => setTimeout(resolve, 300))
 
-      // 스크린샷 캡처
+      // 截图 截图
       const dataUrl = await htmlToImage.toPng(targetRef.current, {
         quality: 1,
         pixelRatio: window.devicePixelRatio || 1,
       })
 
-      // 다운로드 링크 생성 및 클릭
+      // 相关加载 相关 生成 以及 点击
       const link = document.createElement("a")
       link.download = `deck-builder-screenshot-${new Date().toISOString().slice(0, 19).replace(/:/g, "-")}.png`
       link.href = dataUrl
@@ -46,7 +46,7 @@ export function ScreenshotButton({ targetRef, getTranslatedString }: ScreenshotB
     } catch (error) {
       console.error("Screenshot capture failed:", error)
     } finally {
-      // 캡처 모드 클래스 제거
+      // 截图 相关 类 移除
       if (targetRef.current) {
         targetRef.current.classList.remove("capture-mode")
       }
@@ -68,7 +68,7 @@ export function ScreenshotButton({ targetRef, getTranslatedString }: ScreenshotB
         {isCapturing && <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>}
       </button>
 
-      {/* 캡처 중 오버레이 - DOM 외부에 위치하지만 화면 위에 표시됨 */}
+      {/* 截图 相关 覆盖层 - DOM 相关 位置相关仅 相关 相关 显示相关 */}
       {isCapturing && (
         <div className="fixed inset-0 flex items-center justify-center z-[9999] pointer-events-none">
           <div className="bg-black bg-opacity-70 text-white px-6 py-3 rounded-lg shadow-lg">

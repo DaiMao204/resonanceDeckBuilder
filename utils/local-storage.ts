@@ -1,10 +1,10 @@
 import type { Preset } from "../types"
 
-// 로컬스토리지 키 상수
+// localStorage 键 相关
 const DECKS_STORAGE_KEY = "resonance_saved_decks"
 const CURRENT_DECK_KEY = "resonance_current_deck"
 
-// 저장된 덱 타입 정의
+// 保存相关 卡组 类型 相关的
 export interface SavedDeck {
   id: string
   name: string
@@ -13,7 +13,7 @@ export interface SavedDeck {
   updatedAt: number
 }
 
-// 모든 저장된 덱 가져오기
+// 所有 保存相关 卡组 读取
 export function getSavedDecks(): SavedDeck[] {
   try {
     const decksJson = localStorage.getItem(DECKS_STORAGE_KEY)
@@ -25,25 +25,25 @@ export function getSavedDecks(): SavedDeck[] {
   }
 }
 
-// 특정 ID의 덱 가져오기
+// 相关 ID的 卡组 读取
 export function getSavedDeckById(id: string): SavedDeck | null {
   const decks = getSavedDecks()
   return decks.find((deck) => deck.id === id) || null
 }
 
-// 덱 저장하기
+// 卡组 保存相关
 export function saveDeck(name: string, preset: Preset, deckId?: string): SavedDeck {
   try {
     const decks = getSavedDecks()
     const now = Date.now()
 
-    // 새 덱 ID 생성 또는 기존 ID 사용
+    // 相关 卡组 ID 生成 或 现有 ID 使用
     const id = deckId || `deck_${now}_${Math.random().toString(36).substring(2, 9)}`
 
-    // 기존 덱 찾기
+    // 现有 卡组 查找
     const existingDeckIndex = decks.findIndex((deck) => deck.id === id)
 
-    // 새 덱 객체 생성
+    // 相关 卡组 对象 生成
     const newDeck: SavedDeck = {
       id,
       name: name,
@@ -52,17 +52,17 @@ export function saveDeck(name: string, preset: Preset, deckId?: string): SavedDe
       updatedAt: now,
     }
 
-    // 기존 덱 업데이트 또는 새 덱 추가
+    // 现有 卡组 更新 或 相关 卡组 添加
     if (existingDeckIndex >= 0) {
       decks[existingDeckIndex] = newDeck
     } else {
       decks.push(newDeck)
     }
 
-    // 로컬스토리지에 저장
+    // localStorage相关 保存
     localStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
 
-    // 현재 편집 중인 덱 ID 저장
+    // 当前 相关 相关 卡组 ID 保存
     setCurrentDeckId(id)
 
     return newDeck
@@ -72,19 +72,19 @@ export function saveDeck(name: string, preset: Preset, deckId?: string): SavedDe
   }
 }
 
-// 덱 삭제하기
+// 卡组 删除相关
 export function deleteDeck(id: string): boolean {
   try {
     const decks = getSavedDecks()
     const filteredDecks = decks.filter((deck) => deck.id !== id)
 
-    // 덱이 존재하지 않으면 false 반환
+    // 卡组 相关 相关 false 返回
     if (filteredDecks.length === decks.length) return false
 
-    // 로컬스토리지에 저장
+    // localStorage相关 保存
     localStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(filteredDecks))
 
-    // 현재 편집 중인 덱이 삭제된 덱이면 현재 덱 ID 제거
+    // 当前 相关 相关 卡组 删除相关 卡组相关 当前 卡组 ID 移除
     if (getCurrentDeckId() === id) {
       removeCurrentDeckId()
     }
@@ -96,22 +96,22 @@ export function deleteDeck(id: string): boolean {
   }
 }
 
-// 현재 편집 중인 덱 ID 저장
+// 当前 相关 相关 卡组 ID 保存
 export function setCurrentDeckId(id: string): void {
   localStorage.setItem(CURRENT_DECK_KEY, id)
 }
 
-// 현재 편집 중인 덱 ID 가져오기
+// 当前 相关 相关 卡组 ID 读取
 export function getCurrentDeckId(): string | null {
   return localStorage.getItem(CURRENT_DECK_KEY)
 }
 
-// 현재 편집 중인 덱 ID 제거
+// 当前 相关 相关 卡组 ID 移除
 export function removeCurrentDeckId(): void {
   localStorage.removeItem(CURRENT_DECK_KEY)
 }
 
-// 현재 편집 중인 덱 가져오기
+// 当前 相关 相关 卡组 读取
 export function getCurrentDeck(): SavedDeck | null {
   const currentId = getCurrentDeckId()
   if (!currentId) return null

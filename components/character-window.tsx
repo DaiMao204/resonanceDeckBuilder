@@ -25,8 +25,8 @@ interface CharacterWindowProps {
   equipments?: Equipment[]
   data: any
   getSkill?: (skillId: number) => any
-  awakening?: Record<number, number> // 각성 정보 추가
-  onAwakeningSelect?: (characterId: number, stage: number | null) => void // 각성 선택 콜백 추가
+  awakening?: Record<number, number> // 觉醒 信息 添加
+  onAwakeningSelect?: (characterId: number, stage: number | null) => void // 觉醒 选择 回调 添加
 }
 
 export function CharacterWindow({
@@ -57,28 +57,28 @@ export function CharacterWindow({
   const [slotHasExistingCharacter, setSlotHasExistingCharacter] = useState(false)
 
   const handleOpenSelector = (slot: number) => {
-    // 슬롯에 이미 캐릭터가 있는지 확인
+    // 相关 相关 角色 存在相关 检查
     const hasExistingCharacter = selectedCharacters[slot] !== -1
     setSlotHasExistingCharacter(hasExistingCharacter)
 
-    // 슬롯 정보 저장 및 검  !== -1
+    // 相关 信息 保存 以及 相关 !== -1
     setSlotHasExistingCharacter(hasExistingCharacter)
 
-    // 슬롯 정보 저장 및 검색 모달 열기
+    // 相关 信息 保存 以及 搜索 弹窗 打开
     setSelectedSlot(slot)
     setSearchTerm("")
     setShowSelector(true)
   }
 
-  // 캐릭터 선택 모달에서 -1(없음)을 선택했을 때 처리하는 로직 추가
+  // 角色 选择 弹窗相关 -1(相关) 选择相关 相关 处理相关 相关 添加
   const handleCharacterSelect = (characterId: number) => {
     if (selectedSlot !== -1) {
-      // 슬롯에 이미 캐릭터가 있었다면 먼저 제거
+      // 相关 相关 角色 相关 相关 移除
       if (slotHasExistingCharacter) {
         onRemoveCharacter(selectedSlot)
       }
 
-      // 새 캐릭터 추가 (characterId가 -1이면 슬롯을 비움)
+      // 相关 角色 添加 (characterId -1相关 相关 置空)
       if (characterId !== -1) {
         onAddCharacter(characterId, selectedSlot)
       }
@@ -120,7 +120,7 @@ export function CharacterWindow({
 
   return (
     <div className="w-full">
-      {/* 항상 5개의 캐릭터 슬롯이 한 줄에 표시되도록 수정 */}
+      {/* 始终 5相关的 角色 相关 相关 相关 显示相关 修改 */}
       <div className="grid grid-cols-5 gap-1 sm:gap-2 md:gap-4">
         {selectedCharacters.map((characterId, index) => (
           <CharacterSlot
@@ -147,7 +147,7 @@ export function CharacterWindow({
         ))}
       </div>
 
-      {/* 새로운 캐릭터 검색 모달 컴포넌트 사용 */}
+      {/* 新的 角色 搜索 弹窗 组件 使用 */}
       <CharacterSearchModal
         isOpen={showSelector}
         onClose={() => {

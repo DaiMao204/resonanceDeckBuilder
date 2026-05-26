@@ -14,7 +14,7 @@ interface LoadDeckModalProps {
   getTranslatedString: (key: string) => string
   onLoadDeck: (deck: SavedDeck) => void
   onDeleteDeck: (deckId: string) => void
-  onShareDeck?: (deck: SavedDeck) => void // 공유 기능 추가
+  onShareDeck?: (deck: SavedDeck) => void // 相关 相关 添加
 }
 
 export function LoadDeckModal({
@@ -28,21 +28,21 @@ export function LoadDeckModal({
   const [savedDecks, setSavedDecks] = useState<SavedDeck[]>([])
   const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null)
 
-  // 모달이 열릴 때 저장된 덱 목록 로드
+  // 弹窗 相关 相关 保存相关 卡组 列表 加载
   useEffect(() => {
     if (isOpen) {
       loadSavedDecks()
     }
   }, [isOpen])
 
-  // 저장된 덱 목록 로드
+  // 保存相关 卡组 列表 加载
   const loadSavedDecks = () => {
     const decks = getSavedDecks()
-    // 최신 수정일 기준으로 정렬
+    // 相关 修改相关 相关 排序
     decks.sort((a, b) => b.updatedAt - a.updatedAt)
     setSavedDecks(decks)
 
-    // 첫 번째 덱 선택 (있는 경우)
+    // 第一个 卡组 选择 (存在 相关)
     if (decks.length > 0) {
       setSelectedDeckId(decks[0].id)
     } else {
@@ -50,7 +50,7 @@ export function LoadDeckModal({
     }
   }
 
-  // 덱 불러오기 처리
+  // 卡组 加载 处理
   const handleLoadDeck = () => {
     if (!selectedDeckId) return
 
@@ -61,29 +61,29 @@ export function LoadDeckModal({
     }
   }
 
-  // 덱 삭제 처리
+  // 卡组 删除 处理
   const handleDeleteDeck = (deckId: string, e: React.MouseEvent) => {
-    e.stopPropagation() // 클릭 이벤트 전��� 방지
+    e.stopPropagation() // 点击 相关 相关��� 防止
 
     if (confirm(getTranslatedString("confirm_delete_deck") || "Are you sure you want to delete this deck?")) {
       const success = deleteDeck(deckId)
       if (success) {
         onDeleteDeck(deckId)
-        loadSavedDecks() // 덱 목록 다시 로드
+        loadSavedDecks() // 卡组 列表 重新 加载
       }
     }
   }
 
-  // 덱 공유 처리
+  // 卡组 相关 处理
   const handleShareDeck = (deck: SavedDeck, e: React.MouseEvent) => {
-    e.stopPropagation() // 클릭 이벤트 전파 방지
+    e.stopPropagation() // 点击 相关 相关 防止
 
     if (onShareDeck) {
       onShareDeck(deck)
     }
   }
 
-  // 날짜 포맷팅 함수
+  // 相关 格式化 函数
   const formatDate = (timestamp: number) => {
     return new Date(timestamp).toLocaleString()
   }
@@ -116,7 +116,7 @@ export function LoadDeckModal({
                   <div className="flex justify-between items-center">
                     <div className="font-medium">{deck.name}</div>
                     <div className="flex items-center space-x-2">
-                      {/* 공유 버튼 추가 */}
+                      {/* 相关 按钮 添加 */}
                       {onShareDeck && (
                         <button
                           onClick={(e) => handleShareDeck(deck, e)}
@@ -126,7 +126,7 @@ export function LoadDeckModal({
                           <Share2 className="w-4 h-4" />
                         </button>
                       )}
-                      {/* 삭제 버튼 */}
+                      {/* 删除 按钮 */}
                       <button
                         onClick={(e) => handleDeleteDeck(deck.id, e)}
                         className="p-1 text-gray-400 hover:text-red-500 transition-colors"
@@ -145,7 +145,7 @@ export function LoadDeckModal({
           </div>
         )}
 
-        {/* 버튼 */}
+        {/* 按钮 */}
         <div className="flex justify-end space-x-2 mt-6">
           <button
             onClick={onClose}

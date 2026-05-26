@@ -20,14 +20,14 @@ export function usePresets(
     otherCard: number
   },
   equipment: EquipmentSlot[],
-  awakening: AwakeningInfo, // 각성 정보 추가
+  awakening: AwakeningInfo, // 觉醒 信息 添加
   clearAll: () => void,
   importPresetObject: (preset: any) => Result,
 ) {
-  // 프리셋 객체 생성
+  // 预设 对象 生成
   const createPresetObject = useCallback(
     (includeEquipment = false, includeAwakening = false) => {
-      // 선택된 카드를 필요한 형식으로 변환
+      // 选择相关 卡牌 相关 相关 相关
       const cardsForPreset: SelectedCard[] = selectedCards.some((card) => card.id === DISCARD_CARD_ID)
         ? selectedCards
         : [
@@ -43,7 +43,7 @@ export function usePresets(
           ]
 
       const formattedCardList = cardsForPreset.map((card) => {
-        // 기본 카드 객체 생성
+        // 默认 卡牌 对象 生成
         const cardObj: PresetCard = {
           id: card.id,
           ownerId: card.ownerId || -1,
@@ -56,7 +56,7 @@ export function usePresets(
           equipIdList: [],
         }
 
-        // 장비 소스 정보 추가
+        // 装备 来源 信息 添加
         if (card.sources) {
           const equipmentSources = card.sources.filter((source) => source.type === "equipment")
           if (equipmentSources.length > 0) {
@@ -64,12 +64,12 @@ export function usePresets(
           }
         }
 
-        // skillId가 없는 경우에만 데이터에서 찾아서 설정
+        // skillId 没有 相关仅 数据相关 相关 设置
         if (cardObj.skillId === -1 && data) {
           const cardData = data.cards[card.id]
 
           if (cardData) {
-            // 해당 카드 ID를 가진 스킬 찾기
+            // 对应 卡牌 ID 相关 技能 查找
             let foundSkillId = -1
             for (const skillId in data.skills) {
               const skill = data.skills[skillId]
@@ -80,7 +80,7 @@ export function usePresets(
               }
             }
 
-            // 특수 스킬인지 확인
+            // 相关 技能相关 检查
             const isSpecialSkill =
               data.specialSkillIds && foundSkillId > 0 && data.specialSkillIds.includes(foundSkillId)
 
@@ -88,7 +88,7 @@ export function usePresets(
               cardObj.ownerId = 10000001
             }
 
-            // skillIndex 설정
+            // skillIndex 设置
             if (cardObj.skillIndex === -1 && cardObj.ownerId > 0 && foundSkillId > 0) {
               const character = data.characters[cardObj.ownerId.toString()]
               if (character && character.skillList) {
@@ -101,7 +101,7 @@ export function usePresets(
           }
         }
 
-        // skillIndex가 -1이면 제거
+        // skillIndex -1相关 移除
         if (cardObj.skillIndex === -1) {
           delete cardObj.skillIndex
         }
@@ -109,13 +109,13 @@ export function usePresets(
         return cardObj
       })
 
-      // 카드 ID 맵 생성
+      // 卡牌 ID 相关 生成
       const cardIdMap: Record<string, number> = {}
       cardsForPreset.forEach((card) => {
         cardIdMap[card.id] = 1
       })
 
-      // 기본 프리셋 객체 생성
+      // 默认 预设 对象 生成
       const preset: Preset = {
         roleList: selectedCharacters,
         header: leaderCharacter,
@@ -124,16 +124,16 @@ export function usePresets(
         isLeaderCardOn: battleSettings.isLeaderCardOn,
         isSpCardOn: battleSettings.isSpCardOn,
         keepCardNum: battleSettings.keepCardNum,
-        discardType: battleSettings.discardType + 1, // discardType에 +1
+        discardType: battleSettings.discardType + 1, // discardType相关 +1
         otherCard: battleSettings.otherCard,
       }
 
-      // 장비 정보 포함 여부
+      // 装备 信息 相关 相关
       if (includeEquipment) {
-        // 장비 정보 생성
+        // 装备 信息 生成
         const equipmentData: Record<number, [string | null, string | null, string | null]> = {}
 
-        // 캐릭터가 있는 슬롯에 대해서만 장비 정보 추가
+        // 角色 存在 相关 相关仅 装备 信息 添加
         selectedCharacters.forEach((charId, index) => {
           if (charId !== -1) {
             const charEquipment = equipment[index]
@@ -143,13 +143,13 @@ export function usePresets(
           }
         })
 
-        // 장비 정보가 있는 경우에만 추가
+        // 装备 信息 存在 相关仅 添加
         if (Object.keys(equipmentData).length > 0) {
           preset.equipment = equipmentData
         }
       }
 
-      // 각성 정보 포함 여부
+      // 觉醒 信息 相关 相关
       if (includeAwakening && Object.keys(awakening).length > 0) {
         preset.awakening = awakening
       }
@@ -159,10 +159,10 @@ export function usePresets(
     [selectedCharacters, leaderCharacter, selectedCards, battleSettings, equipment, awakening, data],
   )
 
-  // 프리셋 내보내기
+  // 预设 导出
   const exportPreset = useCallback(() => {
     try {
-      const preset = createPresetObject(false, false) // 장비 정보와 각성 정보 제외
+      const preset = createPresetObject(false, false) // 装备 信息和 觉醒 信息 相关
       const base64String = encodePreset(preset)
       navigator.clipboard.writeText(base64String)
       return { success: true, message: "export_success" }
@@ -171,29 +171,29 @@ export function usePresets(
     }
   }, [createPresetObject])
 
-  // 프리셋을 문자열로 내보내기
+  // 预设 相关 导出
   const exportPresetToString = useCallback(() => {
     try {
-      const preset = createPresetObject(false, false) // 장비 정보 각성 정보 제외
+      const preset = createPresetObject(false, false) // 装备 信息 觉醒 信息 相关
       return encodePreset(preset)
     } catch (error) {
       return ""
     }
   }, [createPresetObject])
 
-  // 클립보드에서 프리셋 가져오기
+  // 相关 预设 读取
   const importPreset = useCallback(async () => {
     try {
       const base64Text = await navigator.clipboard.readText()
 
-      // 프리셋 디코딩
+      // 预设 相关
       const preset = decodePreset(base64Text)
 
       if (!preset) {
         throw new Error("invalid_preset_format")
       }
 
-      // 프리셋 구조 검증
+      // 预设 相关 校验
       if (!preset.roleList || !Array.isArray(preset.roleList) || preset.roleList.length !== 5) {
         throw new Error("invalid_rolelist")
       }
@@ -202,14 +202,14 @@ export function usePresets(
         throw new Error("invalid_cardlist")
       }
 
-      // 프리셋 객체 가져오기
+      // 预设 对象 读取
       return importPresetObject(preset)
     } catch (error) {
       return { success: false, message: "import_failed" }
     }
   }, [importPresetObject])
 
-  // 프리셋 문자열 디코딩
+  // 预设 相关 相关
   const decodePresetString = useCallback((base64Text: string) => {
     try {
       const preset = decodePreset(base64Text)
@@ -218,7 +218,7 @@ export function usePresets(
         return null
       }
 
-      // 프리셋 구조 검증
+      // 预设 相关 校验
       if (!preset.roleList || !Array.isArray(preset.roleList) || preset.roleList.length !== 5) {
         return null
       }
@@ -234,13 +234,13 @@ export function usePresets(
     }
   }, [])
 
-  // 공유 URL 생성
+  // 生成分享链接：优先生成短链，短链服务不可用时回退到旧的长 code 链接。
   const createShareableUrl = useCallback(async (presetOverride?: any) => {
     try {
-      const preset = presetOverride || createPresetObject(true, true) // 장비 정보와 각성 정보 포함
+      const preset = presetOverride || createPresetObject(true, true) // 包含装备和觉醒信息
       const encodedPreset = encodePresetForUrl(preset)
 
-      // 현재 URL에서 기본 경로 가져오기
+      // 以当前语言路径生成分享链接，避免分享后跳到其它语言。
       const baseUrl = window.location.origin
       const langPath = window.location.pathname.split("/")[1] || "ko"
 
@@ -257,16 +257,16 @@ export function usePresets(
     }
   }, [createPresetObject])
 
-  // 루트 공유 URL 생성
+  // 生成根路径分享链接，保留旧入口兼容。
   const createRootShareableUrl = useCallback(() => {
     try {
-      const preset = createPresetObject(true, true) // 장비 정보와 각성 정보 포함
+      const preset = createPresetObject(true, true) // 包含装备和觉醒信息
       const encodedPreset = encodePresetForUrl(preset)
 
-      // 루트 URL 가져오기
+      // 获取站点根 URL。
       const rootUrl = window.location.origin
 
-      // 공유 URL 생성
+      // 根路径仍使用旧长链接格式。
       const shareableUrl = `${rootUrl}?code=${encodedPreset}`
       return { success: true, url: shareableUrl }
     } catch (error) {

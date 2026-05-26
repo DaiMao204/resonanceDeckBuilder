@@ -1,10 +1,12 @@
 const DEFAULT_SHORTENER_URL = "https://deck.daimao.online"
 const SHORTENER_TIMEOUT_MS = 5000
 
+// 读取短链服务地址；未配置环境变量时使用当前线上服务。
 function getShortenerBaseUrl() {
   return (process.env.NEXT_PUBLIC_DECK_SHORTENER_URL || DEFAULT_SHORTENER_URL).replace(/\/+$/, "")
 }
 
+// 给短链请求加超时，避免分享按钮在接口异常时长时间无响应。
 async function fetchWithTimeout(url: string, init: RequestInit = {}) {
   const controller = new AbortController()
   const timeout = window.setTimeout(() => controller.abort(), SHORTENER_TIMEOUT_MS)
@@ -19,6 +21,7 @@ async function fetchWithTimeout(url: string, init: RequestInit = {}) {
   }
 }
 
+// 保存完整卡组配置，成功时返回短码；失败时返回 null 并交给旧长链接回退。
 export async function saveDeckPresetToShortlink(preset: any): Promise<string | null> {
   try {
     const response = await fetchWithTimeout(`${getShortenerBaseUrl()}/api/decks`, {
@@ -39,6 +42,7 @@ export async function saveDeckPresetToShortlink(preset: any): Promise<string | n
   }
 }
 
+// 根据短码读取完整卡组配置；读取失败时返回 null。
 export async function loadDeckPresetFromShortlink(code: string): Promise<any | null> {
   try {
     const safeCode = encodeURIComponent(code)

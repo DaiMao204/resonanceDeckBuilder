@@ -14,16 +14,16 @@ export function StatusEffects({ selectedCards, availableCards, getTranslatedStri
   const [tagData, setTagData] = useState<Record<string, any>>({})
   const [tagColorMapping, setTagColorMapping] = useState<Record<string, string[]>>({})
 
-  // Load tag data와 tag color mapping data
+  // Load tag data和 tag color mapping data
   useEffect(() => {
     const loadData = async () => {
       try {
-        // 태그 데이터 로드
+        // 标签 数据 加载
         const tagResponse = await fetch("/api/db/tag_db.json")
         const tagData = await tagResponse.json()
         setTagData(tagData)
 
-        // 태그 색상 매핑 데이터 로드
+        // 标签 颜色 映射 数据 加载
         const tagColorResponse = await fetch("/api/db/tag_color_mapping.json")
         const tagColorData = await tagColorResponse.json()
         setTagColorMapping(tagColorData)
@@ -53,10 +53,10 @@ export function StatusEffects({ selectedCards, availableCards, getTranslatedStri
 
   // Get status effects from tagList
   const statusEffects = useMemo(() => {
-    // 모든 태그 ID를 색상 코드에 매핑하는 객체 생성
+    // 所有 标签 ID 颜色 相关 映射相关 对象 生成
     const tagToColorMap: Record<string, string> = {}
 
-    // 색상 코드별 태그 ID 배열을 순회하며 매핑 생성
+    // 颜色 相关 标签 ID 数组 相关 映射 生成
     Object.entries(tagColorMapping).forEach(([colorCode, tagIds]) => {
       tagIds.forEach((tagId) => {
         tagToColorMap[tagId.toString()] = colorCode
@@ -68,7 +68,7 @@ export function StatusEffects({ selectedCards, availableCards, getTranslatedStri
     activeCards.forEach(({ card }) => {
       if (card.tagList && Array.isArray(card.tagList)) {
         card.tagList.forEach((tagItem) => {
-          // tagList는 객체 배열이며 각 객체에는 tagId 속성이 있음
+          // tagList 对象 数组相关 相关 对象相关 tagId 相关 相关
           if (tagItem && tagItem.tagId) {
             effectIds.add(tagItem.tagId.toString())
           }
@@ -82,7 +82,7 @@ export function StatusEffects({ selectedCards, availableCards, getTranslatedStri
         const tag = tagData[tagId]
         if (!tag) return null
 
-        // 색상 매핑에 있는 태그만 포함
+        // 颜色 映射相关 存在 标签仅 相关
         const colorCode = tagToColorMap[tagId]
         if (!colorCode) return null
 
@@ -94,7 +94,7 @@ export function StatusEffects({ selectedCards, availableCards, getTranslatedStri
           id: tagId,
           name: tagName,
           color: colorCode,
-          description: tagDesc, // 태그 설명 추가
+          description: tagDesc, // 标签 说明 添加
         }
       })
       .filter(Boolean)
@@ -120,7 +120,7 @@ export function StatusEffects({ selectedCards, availableCards, getTranslatedStri
                 {effect.name}
               </span>
 
-              {/* 툴팁 */}
+              {/* 提示框 */}
               <div
                 className="absolute left-0 bottom-full mb-2 w-64 bg-black bg-opacity-90 p-2 rounded text-xs text-gray-300 
                              invisible group-hover:visible z-10 border border-gray-700 pointer-events-none"

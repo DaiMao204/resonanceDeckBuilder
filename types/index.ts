@@ -145,7 +145,7 @@ export interface Equipment {
   type?: string // weapon, armor, accessory
   url?: string
   skillList?: Array<{ skillId: number }>
-  Getway?: Array<{ DisplayName: string }> // 획득 방법 배열 추가
+  Getway?: Array<{ DisplayName: string }> // 相关 相关 数组 添加
 }
 
 // Equipment Type Mapping

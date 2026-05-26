@@ -15,10 +15,12 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ||
 
 const CODE_ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+// 确保存储短链数据的目录存在，方便 NSSM 启动后直接写入。
 function ensureDataDir() {
   fs.mkdirSync(DATA_DIR, { recursive: true })
 }
 
+// 统一 JSON 响应和跨域头，供前端站点直接调用。
 function sendJson(res, statusCode, payload, origin) {
   const body = JSON.stringify(payload)
   res.writeHead(statusCode, {
@@ -29,6 +31,7 @@ function sendJson(res, statusCode, payload, origin) {
   res.end(body)
 }
 
+// 只允许配置过的站点跨域访问，避免接口被随意嵌入。
 function corsHeaders(origin) {
   const allowedOrigin = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0] || "*"
   return {
@@ -39,6 +42,7 @@ function corsHeaders(origin) {
   }
 }
 
+// 读取并限制请求体大小，防止异常大 payload 占用内存。
 function readBody(req) {
   return new Promise((resolve, reject) => {
     let size = 0
@@ -59,6 +63,7 @@ function readBody(req) {
   })
 }
 
+// 生成短码。短码只用于分享定位，不包含卡组明文。
 function randomCode(length = CODE_LENGTH) {
   let code = ""
   const bytes = crypto.randomBytes(length)
@@ -68,14 +73,17 @@ function randomCode(length = CODE_LENGTH) {
   return code
 }
 
+// 限制短码字符集，避免把路径穿越或奇怪字符带进文件路径。
 function isValidCode(code) {
   return typeof code === "string" && /^[0-9A-Za-z_-]{4,32}$/.test(code)
 }
 
+// 每个短码对应一个 JSON 文件，便于备份和人工迁移。
 function deckPath(code) {
   return path.join(DATA_DIR, `${code}.json`)
 }
 
+// 只做最小结构校验，详细兼容性交给前端原有导入逻辑处理。
 function isValidPreset(preset) {
   return (
     preset &&
@@ -85,6 +93,7 @@ function isValidPreset(preset) {
   )
 }
 
+// 创建短链记录；极小概率撞码时会重新生成。
 function createDeck(preset) {
   ensureDataDir()
 
@@ -107,6 +116,7 @@ function createDeck(preset) {
   throw new Error("code_generation_failed")
 }
 
+// 读取短码对应的卡组配置，不存在或不合法时返回 null。
 function getDeck(code) {
   if (!isValidCode(code)) return null
 
@@ -117,6 +127,7 @@ function getDeck(code) {
   return record.preset || null
 }
 
+// 简单路由：健康检查、保存卡组、读取卡组。
 async function handleRequest(req, res) {
   const origin = req.headers.origin || ""
   const url = new URL(req.url, `http://${req.headers.host || "localhost"}`)
@@ -170,6 +181,7 @@ async function handleRequest(req, res) {
 
 ensureDataDir()
 
+// 监听本机地址，由宝塔/Nginx 反向代理到公网 HTTPS 域名。
 const server = http.createServer((req, res) => {
   handleRequest(req, res).catch((error) => {
     console.error(error)

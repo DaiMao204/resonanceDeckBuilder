@@ -40,7 +40,7 @@ const isAnalyticsEnabled =
 export const analytics: Analytics | null =
   typeof window !== "undefined" && app && isAnalyticsEnabled ? getAnalytics(app) : null
 
-// 새로운 래핑된 logEvent 함수로 대체
+// 新的 相关 logEvent 函数相关 相关
 export const logEventWrapper = (eventName: string, eventParams?: Record<string, any>) => {
   if (!firebaseEnabled) {
     if (!isProd) console.log(`[DEV] Firebase disabled. Event skipped: ${eventName}`, eventParams)

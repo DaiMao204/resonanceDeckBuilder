@@ -13,9 +13,9 @@ import { useLanguage } from "../contexts/language-context"
 import { decodePresetFromUrlParam } from "../utils/presetCodec"
 import { loadDeckPresetFromShortlink } from "../utils/deck-shortlink"
 import { logEventWrapper } from "../lib/firebase-config"
-import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 추가
-import { LoadDeckModal } from "./ui/modal/LoadDeckModal" // 추가
-import { getCurrentDeckId, setCurrentDeckId, removeCurrentDeckId, type SavedDeck } from "../utils/local-storage" // 추가
+import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 添加
+import { LoadDeckModal } from "./ui/modal/LoadDeckModal" // 添加
+import { getCurrentDeckId, setCurrentDeckId, removeCurrentDeckId, type SavedDeck } from "../utils/local-storage" // 添加
 
 interface DeckBuilderProps {
   urlDeckCode: string | null
@@ -35,22 +35,22 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
   const { getTranslatedString, currentLanguage } = useLanguage()
   const searchParams = useSearchParams()
   const { showToast, ToastContainer } = useToast()
-  const contentRef = useRef<HTMLDivElement>(null) // 캡처할 컨텐츠 참조 추가
+  const contentRef = useRef<HTMLDivElement>(null) // 截图相关 相关 引用 添加
 
   const [initialLoadComplete, setInitialLoadComplete] = useState(false)
 
-  // 저장/불러오기 모달 상태 추가
+  // 保存/加载 弹窗 状态 添加
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [showLoadModal, setShowLoadModal] = useState(false)
 
-  // useDeckBuilder 훅 사용 - 실제 data 객체 전달
+  // useDeckBuilder 相关 使用 - 实际 data 对象 传递
   const {
     selectedCharacters,
     leaderCharacter,
     selectedCards,
     battleSettings,
     equipment,
-    awakening, // 각성 정보 추가
+    awakening, // 觉醒 信息 添加
     availableCards: availableCardsFromHook,
     getCharacter,
     getCard,
@@ -67,50 +67,50 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     updateCardSettings,
     updateBattleSettings,
     updateEquipment,
-    updateAwakening, // 각성 업데이트 함수 추가
+    updateAwakening, // 觉醒 更新 函数 添加
     clearAll,
     exportPreset,
     importPresetObject,
     createShareableUrl,
     decodePresetString,
     importPreset,
-    createPresetObject, // 추가: 프리셋 객체 생성 함수
+    createPresetObject, // 添加: 预设 对象 生成 函数
     setSelectedCharacters,
     setLeaderCharacter,
   } = useDeckBuilder(data)
 
-  // URL을 통해 덱 프리셋을 받아올 때 ownerId를 char_db에서 검색하여 카드에 캐릭터 초상화 표시 로직 개선
+  // URL 相关 卡组 预设 相关 相关 ownerId char_db相关 搜索相关 卡牌相关 角色 相关 显示 相关 相关
 
-  // findCharacterImageForCard 함수를 수정하여 더 강력하게 만들기
+  // findCharacterImageForCard 函数 修改相关 相关 相关 仅相关
   const findCharacterImageForCard = useCallback(
     (card: any) => {
       if (!data || !card) {
-        return "images/placeHolder Card.jpg" // 기본 이미지 경로
+        return "images/placeHolder Card.jpg" // 默认 图片 路径
       }
 
-      // 카드에 ownerId가 있고 유효한지 확인
+      // 卡牌相关 ownerId 相关 有效相关 检查
       if (card.ownerId && card.ownerId !== -1) {
-        // 1. 이미지 데이터베이스에서 char_{ownerId} 키로 직접 찾기
+        // 1. 图片 数据相关 char_{ownerId} 键相关 直接 查找
         if (data.images && data.images[`char_${card.ownerId}`]) {
           return data.images[`char_${card.ownerId}`]
         }
 
-        // 2. 캐릭터 객체에서 img_card 속성 찾기
+        // 2. 角色 对象相关 img_card 相关 查找
         const character = data.characters[card.ownerId.toString()]
         if (character && character.img_card) {
           return character.img_card
         }
       }
 
-      // ownerId가 없거나 이미지를 찾을 수 없으면 기본 이미지 반환
+      // ownerId 相关 图片 相关 相关 相关 默认 图片 返回
       return "images/placeHolder Card.jpg"
     },
     [data],
   )
 
-  // URL에서 코드 파라미터 처리 - 비동기 함수 사용 문제 해결
+  // 处理 URL 中的分享参数：优先读取短码，旧 code 长链接继续兼容。
   useEffect(() => {
-    // 이미 로드 완료된 경우 다시 실행하지 않음
+    // 已经完成初始导入后不再重复导入，避免覆盖用户后续编辑。
     if (initialLoadComplete || !data) return
 
     const loadFromUrl = async () => {
@@ -121,14 +121,14 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
             : decodePresetFromUrlParam(urlDeckCode)
 
           if (preset) {
-            const result = importPresetObject(preset, true) // isUrlImport 매개변수를 true로 설정
+            const result = importPresetObject(preset, true) // 标记为 URL 导入，沿用原有导入兼容逻辑
             if (result.success) {
               showToast(getTranslatedString(result.message), "success")
 
-              // URL에서 로드한 경우 현재 편집 중인 덱 ID 제거
+              // 从分享链接导入后，不再关联本地正在编辑的旧存档。
               removeCurrentDeckId()
 
-              // Firebase Analytics 이벤트 전송
+              // 记录分享链接导入事件，区分短链和旧长链。
               logEventWrapper("deck_shared_visit", {
                 deck_code: urlDeckShortCode || urlDeckCode,
                 deck_code_type: urlDeckShortCode ? "short" : "long",
@@ -140,11 +140,10 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
           console.error("Error decoding URL preset:", error)
         }
       } else {
-        // URL에서 로드하지 않은 경우 로컬스토리지에서 현재 편집 중인 덱 확인
+        // 没有分享参数时，保留未来恢复本地编辑草稿的入口。
         const currentDeckId = getCurrentDeckId()
         if (currentDeckId) {
-          // 현재 편집 중인 덱이 있으면 로드 모달 표시 여부 확인
-          // 실제 구현에서는 자동 로드 또는 사용자에게 물어볼 수 있음
+          // 如果存在正在编辑的本地卡组，后续可以在这里接自动恢复或弹窗询问。
         }
       }
 
@@ -163,26 +162,26 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     initialLoadComplete,
   ])
 
-  // 스킬 설명에서 #r 태그를 실제 값으로 대체하는 함수
+  // 技能 说明相关 #r 标签 实际 值相关 相关 函数
   const processSkillDescription = useCallback(
     (skill: any, description: string) => {
       if (!skill || !description) return description
 
-      // 번역된 설명 가져오기
+      // 相关 说明 读取
       const translatedDesc = getTranslatedString(description)
 
       // Check if desParamList exists and has items
       if (skill.desParamList && skill.desParamList.length > 0) {
-        // 모든 #r 태그를 찾아서 배열로 저장
+        // 所有 #r 标签 相关 数组相关 保存
         const rTags = translatedDesc.match(/#r/g) || []
 
-        // #r 태그가 없으면 원본 반환
+        // #r 标签 相关 相关 返回
         if (rTags.length === 0) return translatedDesc
 
         let processedDesc = translatedDesc
         let rTagIndex = 0
 
-        // desParamList의 각 항목을 순회하면서 #r 태그를 순서대로 대체
+        // desParamList的 相关 相关 相关 #r 标签 相关 相关
         for (let i = 0; i < skill.desParamList.length && rTagIndex < rTags.length; i++) {
           const param = skill.desParamList[i]
           const paramValue = param.param
@@ -215,20 +214,20 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     [getTranslatedString],
   )
 
-  // availableCards 부분에서 extraInfo 객체 생성 시 name 처리 수정
-  // 스킬 카드 정보 생성 부분 수정
+  // availableCards 相关 extraInfo 对象 生成 相关 name 处理 修改
+  // 技能 卡牌 信息 生成 相关 修改
   const availableCards = useMemo(() => {
     if (!data) return []
 
     const cardSet = new Set<string>()
     const validCharacters = selectedCharacters.filter((id) => id !== -1)
 
-    // 캐릭터 스킬 맵에서 카드 ID 수집
+    // 角色 技能 相关 卡牌 ID 相关
     validCharacters.forEach((charId) => {
       const charSkillMap = data.charSkillMap?.[charId.toString()]
       if (!charSkillMap) return
 
-      // 기본 스킬 처리
+      // 默认 技能 处理
       if (charSkillMap.skills && Array.isArray(charSkillMap.skills)) {
         charSkillMap.skills.forEach((skillId: number) => {
           const skill = data.skills[skillId.toString()]
@@ -238,7 +237,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         })
       }
 
-      // 관련 스킬 처리
+      // 相关 技能 处理
       if (charSkillMap.relatedSkills && Array.isArray(charSkillMap.relatedSkills)) {
         charSkillMap.relatedSkills.forEach((skillId: number) => {
           const skill = data.skills[skillId.toString()]
@@ -248,7 +247,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         })
       }
 
-      // 캐릭터에서 오지 않는 스킬 처리
+      // 角色相关 相关 相关 技能 处理
       if (charSkillMap.notFromCharacters && Array.isArray(charSkillMap.notFromCharacters)) {
         charSkillMap.notFromCharacters.forEach((skillId: number) => {
           const skill = data.skills[skillId.toString()]
@@ -259,19 +258,19 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
       }
     })
 
-    // 장비 스킬 맵에서 카드 ID 수집
+    // 装备 技能 相关 卡牌 ID 相关
     validCharacters.forEach((charId, slotIndex) => {
       const charEquipment = equipment[slotIndex]
 
-      // 각 장비 타입별로 처리
+      // 相关 装备 类型相关 处理
       const processEquipment = (equipId: string | null) => {
         if (!equipId) return
 
-        // 장비 스킬 맵에서 관련 스킬 찾기
+        // 装备 技能 相关 相关 技能 查找
         const itemSkillMap = data.itemSkillMap?.[equipId]
         if (!itemSkillMap || !itemSkillMap.relatedSkills) return
 
-        // 관련 스킬에서 카드 ID 수집
+        // 相关 技能相关 卡牌 ID 相关
         itemSkillMap.relatedSkills.forEach((skillId: number) => {
           const skill = data.skills[skillId.toString()]
           if (skill && skill.cardID) {
@@ -280,14 +279,14 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         })
       }
 
-      // 각 장비 타입에 대해 처리
+      // 相关 装备 类型相关 相关 处理
       if (charEquipment.weapon) processEquipment(charEquipment.weapon)
       if (charEquipment.armor) processEquipment(charEquipment.armor)
       if (charEquipment.accessory) processEquipment(charEquipment.accessory)
     })
 
-    // 중요: selectedCards에서 모든 카드 ID를 cardSet에 추가
-    // 이렇게 하면 장비에서 추가된 카드들도 포함됩니다
+    // 重要: selectedCards相关 所有 卡牌 ID cardSet相关 添加
+    // 相关 相关 装备相关 添加相关 卡牌相关 相关
     selectedCards.forEach((card) => {
       cardSet.add(card.id)
     })
@@ -298,36 +297,36 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         const card = data.cards[id]
         if (!card) return null
 
-        // 기본 extraInfo 객체 생성 - 일단 카드 이름으로 초기화
+        // 默认 extraInfo 对象 生成 - 相关 卡牌 名称相关 初始化
         const extraInfo: CardExtraInfo = {
           name: card.name || `card_name_${id}`,
           desc: "",
-          cost: 0, // 기본값 설정
-          amount: 0, // 기본 수량을 0으로 설정
+          cost: 0, // 默认值 设置
+          amount: 0, // 默认 数量 0相关 设置
           img_url: undefined,
         }
 
-        // 카드 ID에 해당하는 이미지 URL 찾기
+        // 卡牌 ID相关 对应相关 图片 URL 查找
         if (data.images && data.images[`card_${id}`]) {
           extraInfo.img_url = data.images[`card_${id}`]
         }
 
-        // 스킬 ID를 통해 추가 정보 찾기
+        // 技能 ID 相关 添加 信息 查找
         let skillId = -1
         let skillObj = null
         for (const sId in data.skills) {
           const skill = data.skills[sId]
           if (skill && skill.cardID && skill.cardID.toString() === id) {
-            // 스킬 이름을 extraInfo.name에 할당 - 번역된 이름 사용
+            // 技能 名称 extraInfo.name相关 相关 - 相关 名称 使用
             extraInfo.name = getTranslatedString(skill.name)
-            // 스킬 설명을 extraInfo.desc에 할당 - 번역 및 #r 값 교체 적용
+            // 技能 说明 extraInfo.desc相关 相关 - 相关 以及 #r 值 替换 应用
             extraInfo.desc = skill.description || ""
-            // 스킬 ID 저장
+            // 技能 ID 保存
             skillId = Number.parseInt(sId)
-            // 스킬 객체 저장
+            // 技能 对象 保存
             skillObj = skill
 
-            // 스킬 이미지 URL 찾기
+            // 技能 图片 URL 查找
             if (data.images && data.images[`skill_${sId}`]) {
               extraInfo.img_url = data.images[`skill_${sId}`]
             }
@@ -335,22 +334,22 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
           }
         }
 
-        // 스킬 설명 처리 - 번역 및 #r 값 교체
+        // 技能 说明 处理 - 相关 以及 #r 值 替换
         if (skillObj) {
           extraInfo.desc = processSkillDescription(skillObj, extraInfo.desc)
         } else {
-          // 스킬 객체가 없는 경우 기본 번역만 적용
+          // 技能 对象 没有 相关 默认 相关仅 应用
           extraInfo.desc = getTranslatedString(extraInfo.desc)
         }
 
-        // 카드 비용 정보 찾기 - cost_SN을 10000으로 나눈 값 사용
+        // 卡牌 费用 信息 查找 - cost_SN 10000相关 相关 值 使用
         if (card.cost_SN !== undefined) {
-          // cost_SN을 10000으로 나누고 내림 처리
+          // cost_SN 10000相关 相关 相关 处理
           const costValue = card.cost_SN > 0 ? Math.floor(card.cost_SN / 10000) : 0
           extraInfo.cost = costValue
         }
 
-        // 카드 수량 정보 찾기 - 캐릭터의 skillList에서 해당 스킬의 num 값 찾기
+        // 卡牌 数量 信息 查找 - 角色的 skillList相关 对应 技能的 num 值 查找
         if (skillId !== -1) {
           for (const charId of validCharacters) {
             const character = data.characters[charId.toString()]
@@ -364,11 +363,11 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
           }
         }
 
-        // 중요: selectedCards에서 해당 카드를 찾아 ownerId 정보 가져오기
+        // 重要: selectedCards相关 对应 卡牌 相关 ownerId 信息 读取
         const selectedCard = selectedCards.find((sc) => sc.id === id)
 
-        // 캐릭터 이미지 연결 - 더 강력한 로직 사용
-        // 선택된 카드가 있으면 그 카드 객체를 사용, 없으면 기본 카드 객체 사용
+        // 角色 图片 相关 - 相关 相关 相关 使用
+        // 选择相关 卡牌 相关 相关 卡牌 对象 使用, 相关 默认 卡牌 对象 使用
         const cardForImage = selectedCard || card
         const characterImage = findCharacterImageForCard(cardForImage)
 
@@ -385,16 +384,16 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     equipment,
   ])
 
-  // 클립보드에서 가져오기
+  // 相关 读取
   const handleImport = useCallback(async () => {
     try {
       const result = await importPreset()
       showToast(getTranslatedString(result.message), result.success ? "success" : "error")
 
-      // 클립보드에서 가져온 경우 현재 편집 중인 덱 ID 제거
+      // 相关 相关 相关 当前 相关 相关 卡组 ID 移除
       removeCurrentDeckId()
 
-      // Firebase Analytics 이벤트 전송
+      // Firebase Analytics 相关 相关
       const characterIds = selectedCharacters.filter((id) => id !== -1)
       logEventWrapper("deck_imported", {
         character_ids: JSON.stringify(characterIds),
@@ -406,13 +405,13 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     }
   }, [importPreset, showToast, getTranslatedString, selectedCharacters, currentLanguage])
 
-  // 클립보드로 내보내기
+  // 相关 导出
   const handleExport = useCallback(() => {
     try {
       const result = exportPreset()
       showToast(getTranslatedString(result.message), result.success ? "success" : "error")
 
-      // Firebase Analytics 이벤트 전송
+      // Firebase Analytics 相关 相关
       const characterIds = selectedCharacters.filter((id) => id !== -1)
       logEventWrapper("deck_exported", {
         character_ids: JSON.stringify(characterIds),
@@ -424,7 +423,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     }
   }, [exportPreset, showToast, getTranslatedString, selectedCharacters, currentLanguage])
 
-  // 공유 링크 생성
+  // 相关 相关 生成
   const handleShare = useCallback(async () => {
     try {
       const result = await createShareableUrl()
@@ -432,7 +431,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         navigator.clipboard.writeText(result.url)
         showToast(getTranslatedString("share_link_copied_alert"), "success")
 
-        // Firebase Analytics 이벤트 전송
+        // Firebase Analytics 相关 相关
         const characterIds = selectedCharacters.filter((id) => id !== -1)
         logEventWrapper("deck_shared", {
           character_ids: JSON.stringify(characterIds),
@@ -447,15 +446,15 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     }
   }, [createShareableUrl, showToast, getTranslatedString, selectedCharacters, currentLanguage])
 
-  // 초기화
+  // 初始化
   const handleClear = useCallback(() => {
     clearAll()
-    // 현재 편집 중인 덱 ID 제거
+    // 当前 相关 相关 卡组 ID 移除
     removeCurrentDeckId()
     showToast(getTranslatedString("deck_cleared"), "success")
   }, [clearAll, showToast, getTranslatedString])
 
-  // 각성 단계 선택 핸들러
+  // 觉醒 相关 选择 处理函数
   const handleAwakeningSelect = useCallback(
     (characterId: number, stage: number | null) => {
       updateAwakening(characterId, stage)
@@ -463,24 +462,24 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     [updateAwakening],
   )
 
-  // 덱 저장 모달 열기
+  // 卡组 保存 弹窗 打开
   const handleOpenSaveModal = useCallback(() => {
     setShowSaveModal(true)
   }, [])
 
-  // 덱 불러오기 모달 열기
+  // 卡组 加载 弹窗 打开
   const handleOpenLoadModal = useCallback(() => {
     setShowLoadModal(true)
   }, [])
 
-  // 덱 저장 성공 처리
+  // 卡组 保存 相关 处理
   const handleSaveSuccess = useCallback(
     (deckId: string) => {
       showToast(getTranslatedString("deck_saved"), "success")
-      // 현재 편집 중인 덱 ID 설정
+      // 当前 相关 相关 卡组 ID 设置
       setCurrentDeckId(deckId)
 
-      // Firebase Analytics 이벤트 전송
+      // Firebase Analytics 相关 相关
       const characterIds = selectedCharacters.filter((id) => id !== -1)
       logEventWrapper("deck_saved", {
         character_ids: JSON.stringify(characterIds),
@@ -490,18 +489,18 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     [showToast, getTranslatedString, selectedCharacters, currentLanguage],
   )
 
-  // 덱 불러오기 처리
+  // 卡组 加载 处理
   const handleLoadDeck = useCallback(
     (deck: SavedDeck) => {
       try {
-        // 덱 프리셋 불러오기
+        // 卡组 预设 加载
         const result = importPresetObject(deck.preset)
         if (result.success) {
-          // 현재 편집 중인 덱 ID 설정
+          // 当前 相关 相关 卡组 ID 设置
           setCurrentDeckId(deck.id)
           showToast(getTranslatedString("deck_loaded") || "Deck loaded successfully!", "success")
 
-          // Firebase Analytics 이벤트 전송
+          // Firebase Analytics 相关 相关
           const characterIds = selectedCharacters.filter((id) => id !== -1)
           logEventWrapper("deck_loaded", {
             character_ids: JSON.stringify(characterIds),
@@ -518,12 +517,12 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     [importPresetObject, showToast, getTranslatedString, selectedCharacters, currentLanguage],
   )
 
-  // 덱 삭제 처리
+  // 卡组 删除 处理
   const handleDeleteDeck = useCallback(
     (deckId: string) => {
       showToast(getTranslatedString("deck_deleted"), "success")
 
-      // 현재 편집 중인 덱이 삭제된 덱이면 현재 덱 ID 제거
+      // 当前 相关 相关 卡组 删除相关 卡组相关 当前 卡组 ID 移除
       if (getCurrentDeckId() === deckId) {
         removeCurrentDeckId()
       }
@@ -531,7 +530,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     [showToast, getTranslatedString],
   )
 
-  // 캐릭터 이름 가져오기 함수
+  // 角色 名称 读取 函数
   const getCharacterName = useCallback(
     (characterId: number): string => {
       if (!data || characterId === -1) return ""
@@ -544,17 +543,17 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     [data, getTranslatedString],
   )
 
-  // 저장된 덱 공유 핸들러 추가
+  // 保存相关 卡组 相关 处理函数 添加
   const handleShareSavedDeck = useCallback(
     async (deck: SavedDeck) => {
       try {
-        // 덱 프리셋으로 공유 URL 생성
+        // 卡组 预设相关 相关 URL 生成
         const result = await createShareableUrl(deck.preset)
         if (result.success && result.url) {
           navigator.clipboard.writeText(result.url)
           showToast(getTranslatedString("share_link_copied_alert"), "success")
 
-          // Firebase Analytics 이벤트 전송
+          // Firebase Analytics 相关 相关
           const characterIds = deck.preset.roleList.filter((id) => id !== -1)
           logEventWrapper("deck_shared", {
             deck_name: deck.name,
@@ -572,45 +571,45 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     [createShareableUrl, showToast, getTranslatedString, currentLanguage],
   )
 
-  // 캐릭터 정렬 함수 추가 - 항상 정의되도록 수정
+  // 角色 排序 函数 添加 - 始终 相关的相关 修改
   const handleSortCharacters = useCallback(() => {
     if (!data || !data.characters) return
 
-    // 현재 선택된 캐릭터 중 유효한 캐릭터만 필터링
+    // 当前 选择相关 角色 相关 有效 角色仅 相关
     const validCharacters = selectedCharacters
       .filter((id) => id !== -1)
       .map((id) => {
         const character = data.characters[id.toString()]
         return {
           id,
-          line: character?.line || 999, // 기본값 설정
-          subLine: character?.subLine || 0, // 기본값 설정
+          line: character?.line || 999, // 默认值 设置
+          subLine: character?.subLine || 0, // 默认值 设置
         }
       })
 
-    // line이 작을수록 오른쪽, line이 같으면 subLine이 클수록 오른쪽으로 정렬
+    // line 相关 相关, line 相关 subLine 相关 相关 排序
     validCharacters.sort((a, b) => {
-      if (a.line !== b.line) return a.line - b.line;      // line 오름차순
-      return b.subLine - a.subLine;                       // subLine 내림차순
+      if (a.line !== b.line) return a.line - b.line;      // line 相关
+      return b.subLine - a.subLine;                       // subLine 相关
     })
-    // 정렬된 캐릭터와 빈 슬롯(-1)을 조합하여 새 배열 생성
+    // 排序相关 角色和 空 相关(-1) 相关 相关 数组 生成
     const newSelectedCharacters = Array(5).fill(-1)
 
-    // 정렬된 캐릭터를 오른쪽부터 채우기
+    // 排序相关 角色 相关 相关
     validCharacters.forEach((char, index) => {
-      // 오른쪽부터 채우기 위해 역순으로 인덱스 계산
+      // 相关 相关 相关 相关 相关卡组相关 计算
       const slotIndex = 4 - index
       if (slotIndex >= 0) {
         newSelectedCharacters[slotIndex] = char.id
       }
     })
 
-    // 캐릭터 배열 업데이트
+    // 角色 数组 更新
     setSelectedCharacters(newSelectedCharacters)
 
-    // 리더 캐릭터 유효성 검사 및 업데이트
+    // 队长 角色 相关 相关 以及 更新
     if (leaderCharacter !== -1 && !newSelectedCharacters.includes(leaderCharacter)) {
-      // 리더가 더 이상 선택된 캐릭터에 없으면 첫 번째 유효한 캐릭터를 리더로 설정
+      // 队长 相关 相关 选择相关 角色相关 相关 第一个 有效 角色 队长相关 设置
       const firstValidChar = newSelectedCharacters.find((id) => id !== -1)
       if (firstValidChar !== undefined) {
         setLeaderCharacter(firstValidChar)
@@ -619,7 +618,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
       }
     }
 
-    // 정렬 완료 알림
+    // 排序 相关 相关
     showToast(getTranslatedString("characters_sorted") || "Characters sorted by position", "success")
   }, [
     data,
@@ -631,8 +630,8 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     getTranslatedString,
   ])
 
-  // 에러 처리
-  // 데이터가 없는 경우
+  // 相关 处理
+  // 数据 没有 相关
   if (!data) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -655,15 +654,15 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         onShare={handleShare}
         onSave={handleOpenSaveModal}
         onLoad={handleOpenLoadModal}
-        onSortCharacters={handleSortCharacters} // 정렬 함수 전달
+        onSortCharacters={handleSortCharacters} // 排序 函数 传递
         contentRef={contentRef}
       />
 
-      {/* 컨테이너의 패딩을 조정하여 모바일에서 더 많은 공간을 확보합니다. */}
+      {/* 相关的 填充 相关 相关 相关 相关 相关 相关. */}
       <div className="container mx-auto px-0 sm:px-3 md:px-4 pt-40 md:pt-28 pb-8">
-        {/* 캡처할 영역 */}
+        {/* 截图相关 相关 */}
         <div ref={contentRef} className="capture-content">
-          {/* 캐릭터 창 */}
+          {/* 角色 相关 */}
           <CharacterWindow
             selectedCharacters={selectedCharacters}
             leaderCharacter={leaderCharacter}
@@ -684,7 +683,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
             onAwakeningSelect={handleAwakeningSelect}
           />
 
-          {/* 스킬 창 */}
+          {/* 技能 相关 */}
           <div className="mt-8">
             <h2 className="neon-section-title">{getTranslatedString("skill.section.title") || "Skills"}</h2>
             <SkillWindow
@@ -700,7 +699,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
             />
           </div>
 
-          {/* 전투 설정 - 캡처 영역에 포함 */}
+          {/* 战斗 设置 - 截图 相关 相关 */}
           <BattleSettings
             settings={battleSettings}
             onUpdateSettings={updateBattleSettings}
@@ -776,27 +775,27 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         <span className="hidden sm:inline">·</span>
         <span className="hidden sm:inline">{getTranslatedString("footer.license") || "GPLv3"}</span>
       </div>
-      {/* 댓글 섹션 */}
+      {/* 相关 相关 */}
       <CommentsSection currentLanguage={currentLanguage} />
 
-      {/* 덱 저장 모달 */}
+      {/* 卡组 保存 弹窗 */}
       <SaveDeckModal
         isOpen={showSaveModal}
         onClose={() => setShowSaveModal(false)}
-        preset={createPresetObject(true, true)} // 장비 정보와 각성 정보 포함
+        preset={createPresetObject(true, true)} // 装备 信息和 觉醒 信息 相关
         getTranslatedString={getTranslatedString}
         onSaveSuccess={handleSaveSuccess}
         getCharacterName={getCharacterName}
       />
 
-      {/* 덱 불러오기 모달 */}
+      {/* 卡组 加载 弹窗 */}
       <LoadDeckModal
         isOpen={showLoadModal}
         onClose={() => setShowLoadModal(false)}
         getTranslatedString={getTranslatedString}
         onLoadDeck={handleLoadDeck}
         onDeleteDeck={handleDeleteDeck}
-        onShareDeck={handleShareSavedDeck} // 공유 기능 추가
+        onShareDeck={handleShareSavedDeck} // 相关 相关 添加
       />
     </div>
   )

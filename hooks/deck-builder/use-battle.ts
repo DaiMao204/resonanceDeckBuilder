@@ -4,7 +4,7 @@ import { useState, useCallback } from "react"
 import type { BattleSettings } from "./types"
 
 export function useBattle() {
-  // 전투 설정
+  // 战斗 设置
   const [battleSettings, setBattleSettingsState] = useState<BattleSettings>({
     isLeaderCardOn: true,
     isSpCardOn: true,
@@ -13,7 +13,7 @@ export function useBattle() {
     otherCard: 0,
   })
 
-  // 전투 설정 업데이트
+  // 战斗 设置 更新
   const updateBattleSettings = useCallback((settings: Partial<BattleSettings>) => {
     setBattleSettingsState((prev) => ({ ...prev, ...settings }))
   }, [])

@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
 
-// 모달 관리를 위한 전역 변수
+// 弹窗 管理 相关 相关 相关
 let modalCounter = 0
 
 export interface ModalProps {
@@ -26,15 +26,15 @@ export function Modal({
   closeOnOutsideClick = true,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
-  // 각 모달 인스턴스에 고유 ID 부여
+  // 相关 弹窗 相关 相关 ID 相关
   const [modalId] = useState(() => `modal-${modalCounter++}`)
-  // 모달의 z-index 관리
+  // 弹窗的 z-index 管理
   const [zIndex, setZIndex] = useState(100)
 
-  // 모달이 열릴 때 z-index 증가
+  // 弹窗 相关 相关 z-index 增加
   useEffect(() => {
     if (isOpen) {
-      // 현재 열린 모달 중 가장 높은 z-index 찾기
+      // 当前 相关 弹窗 相关 相关 最高 z-index 查找
       const modals = document.querySelectorAll(".neon-modal-backdrop")
       let maxZIndex = 100
 
@@ -45,16 +45,16 @@ export function Modal({
         }
       })
 
-      // 현재 모달의 z-index를 가장 높은 값 + 10으로 설정
+      // 当前 弹窗的 z-index 相关 最高 值 + 10相关 设置
       setZIndex(maxZIndex + 10)
     }
   }, [isOpen])
 
-  // ESC 키로 모달 닫기 - 가장 위에 있는 모달만 닫히도록 수정
+  // ESC 键相关 弹窗 关闭 - 相关 相关 存在 弹窗仅 相关 修改
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        // 현재 열린 모달 중 가장 높은 z-index를 가진 모달 찾기
+        // 当前 相关 弹窗 相关 相关 最高 z-index 相关 弹窗 查找
         const modals = document.querySelectorAll(".neon-modal-backdrop")
         let maxZIndex = 0
         let topModalId = ""
@@ -67,7 +67,7 @@ export function Modal({
           }
         })
 
-        // 현재 모달이 가장 위에 있는 경우에만 닫기
+        // 当前 弹窗 相关 相关 存在 相关仅 关闭
         if (topModalId === modalId) {
           onClose()
         }
@@ -83,12 +83,12 @@ export function Modal({
     }
   }, [isOpen, onClose, modalId])
 
-  // 모달이 열릴 때 body에 modal-open 클래스 추가
+  // 弹窗 相关 相关 body相关 modal-open 类 添加
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("modal-open")
     } else {
-      // 열린 모달이 없는 경우에만 modal-open 클래스 제거
+      // 相关 弹窗 没有 相关仅 modal-open 类 移除
       const openModals = document.querySelectorAll(".neon-modal-backdrop")
       if (openModals.length <= 1) {
         document.body.classList.remove("modal-open")
@@ -96,7 +96,7 @@ export function Modal({
     }
 
     return () => {
-      // 컴포넌트 언마운트 시 열린 모달이 없는 경우에만 modal-open 클래스 제거
+      // 组件 相关挂载 相关 相关 弹窗 没有 相关仅 modal-open 类 移除
       const openModals = document.querySelectorAll(".neon-modal-backdrop")
       if (openModals.length <= 1) {
         document.body.classList.remove("modal-open")
@@ -112,7 +112,7 @@ export function Modal({
       className="neon-modal-backdrop fixed inset-0 flex items-center justify-center"
       style={{ zIndex }}
       onClick={(e) => {
-        // 현재 모달의 backdrop을 클릭한 경우에만 닫기
+        // 当前 弹窗的 backdrop 点击相关 相关仅 关闭
         if (closeOnOutsideClick && e.target === e.currentTarget) {
           console.log("Modal backdrop clicked, closing modal")
           onClose(e)

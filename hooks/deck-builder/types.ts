@@ -1,6 +1,6 @@
 import type { Database } from "../../types"
 
-// 카드 소스 타입 - 카드가 어디서 왔는지 추적
+// 卡牌 来源 类型 - 卡牌 相关 相关 相关
 export type CardSource =
   | { type: "character"; id: number; skillId?: number; slotIndex?: number }
   | { type: "equipment"; id: string; skillId?: number; slotIndex?: number; equipType: "weapon" | "armor" | "accessory" }
@@ -10,7 +10,7 @@ export const DISCARD_CARD_ID = "10600474"
 export const DISCARD_SKILL_ID = 12303725
 export const DEFAULT_OWNER_ID = 10000001
 
-// 선택된 카드 타입
+// 选择相关 卡牌 类型
 export type SelectedCard = {
   id: string
   useType: number
@@ -20,23 +20,23 @@ export type SelectedCard = {
   skillId?: number
   skillIndex?: number
   sources: CardSource[]
-  // 스킬 정보 직접 저장을 위한 필드 추가
+  // 技能 信息 直接 保存 相关 相关 添加
   skillInfo?: {
     name: string
     description: string
     detailDescription?: string
     cardID?: number | null
     leaderCardConditionDesc?: string
-    // 추가 스킬 정보가 필요하면 여기에 추가
+    // 添加 技能 信息 相关 相关 添加
   }
-  // 카드 정보 직접 저장
+  // 卡牌 信息 直接 保存
   cardInfo?: {
     name: string
     color?: string
     cardType?: string
     tagList?: any[]
   }
-  // 추가 정보 (비용, 수량 등)
+  // 添加 信息 (费用, 数量 相关)
   extraInfo?: {
     cost: number
     amount: number
@@ -45,7 +45,7 @@ export type SelectedCard = {
   }
 }
 
-// 프리셋 카드 타입
+// 预设 卡牌 类型
 export type PresetCard = {
   id: string
   ownerId: number
@@ -58,14 +58,14 @@ export type PresetCard = {
   equipIdList: string[]
 }
 
-// 장비 슬롯 타입
+// 装备 相关 类型
 export type EquipmentSlot = {
   weapon: string | null
   armor: string | null
   accessory: string | null
 }
 
-// 전투 설정 타입
+// 战斗 设置 类型
 export type BattleSettings = {
   isLeaderCardOn: boolean
   isSpCardOn: boolean
@@ -74,12 +74,12 @@ export type BattleSettings = {
   otherCard: number
 }
 
-// 각성 정보 타입 추가
+// 觉醒 信息 类型 添加
 export type AwakeningInfo = {
-  [characterId: number]: number // 캐릭터 ID를 키로, 각성 단계를 값으로
+  [characterId: number]: number // 角色 ID 键相关, 觉醒 相关 值相关
 }
 
-// 프리셋 타입
+// 预设 类型
 export type Preset = {
   roleList: number[]
   header: number
@@ -91,10 +91,10 @@ export type Preset = {
   discardType: number
   otherCard: number
   equipment?: Record<number, [string | null, string | null, string | null]>
-  awakening?: AwakeningInfo // 각성 정보 추가
+  awakening?: AwakeningInfo // 觉醒 信息 添加
 }
 
-// 덱 빌더 상태 타입
+// 卡组 相关 状态 类型
 export interface DeckBuilderState {
   selectedCharacters: number[]
   leaderCharacter: number
@@ -102,10 +102,10 @@ export interface DeckBuilderState {
   battleSettings: BattleSettings
   equipment: EquipmentSlot[]
   isDarkMode: boolean
-  awakening: AwakeningInfo // 각성 정보 추가
+  awakening: AwakeningInfo // 觉醒 信息 添加
 }
 
-// 덱 빌더 액션 타입
+// 卡组 相关 相关 类型
 export interface DeckBuilderActions {
   setSelectedCharacters: (characters: number[] | ((prev: number[]) => number[])) => void
   setLeaderCharacter: (leader: number) => void
@@ -113,15 +113,15 @@ export interface DeckBuilderActions {
   setBattleSettings: (settings: Partial<BattleSettings>) => void
   setEquipment: (equipment: EquipmentSlot[] | ((prev: EquipmentSlot[]) => EquipmentSlot[])) => void
   setIsDarkMode: (isDarkMode: boolean | ((prev: boolean) => boolean)) => void
-  setAwakening: (awakening: AwakeningInfo | ((prev: AwakeningInfo) => AwakeningInfo)) => void // 각성 정보 설정 함수 추가
+  setAwakening: (awakening: AwakeningInfo | ((prev: AwakeningInfo) => AwakeningInfo)) => void // 觉醒 信息 设置 函数 添加
 }
 
-// 덱 빌더 컨텍스트 타입
+// 卡组 相关 相关 类型
 export interface DeckBuilderContext extends DeckBuilderState, DeckBuilderActions {
   data: Database | null
 }
 
-// 결과 타입
+// 相关和 类型
 export type Result = {
   success: boolean
   message: string

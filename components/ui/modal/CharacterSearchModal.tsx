@@ -55,7 +55,7 @@ export function CharacterSearchModal({
     }
   }
 
-  // CharacterSearchModal 컴포넌트 내부에 상태 추가
+  // CharacterSearchModal 组件 相关 状态 添加
   const [showCharacterDetails, setShowCharacterDetails] = useState<number | null>(null)
 
   return (
@@ -76,7 +76,7 @@ export function CharacterSearchModal({
       >
         <div className="p-4">
           <div className="grid grid-cols-4 gap-2">
-            {/* 없음 옵션 추가 */}
+            {/* 相关 相关 添加 */}
             <div onClick={() => onSelectCharacter(-1)} className="cursor-pointer">
               <div className="relative w-full aspect-[3/4] rounded-lg border-2 border-gray-700 overflow-hidden transition-all duration-200 hover:scale-105 hover:shadow-lg bg-black bg-opacity-70">
                 <div className="flex items-center justify-center h-full">
@@ -168,7 +168,7 @@ export function CharacterSearchModal({
         </div>
       </SearchModal>
 
-      {/* 캐릭터 상세 정보 모달 */}
+      {/* 角色 相关 信息 弹窗 */}
       {showCharacterDetails !== null && (
         <CharacterDetailsModal
           isOpen={showCharacterDetails !== null}

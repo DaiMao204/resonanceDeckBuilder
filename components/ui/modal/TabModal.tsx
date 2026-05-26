@@ -21,7 +21,7 @@ export function TabModal({ tabs, initialTabId, closeOnOutsideClick = true, ...mo
 
   const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0]
 
-  // TabModal은 Modal을 래핑하는 컴포넌트이므로, onClose를 그대로 전달
+  // TabModal Modal 相关 组件相关, onClose 相关 传递
   return (
     <Modal
       {...modalProps}

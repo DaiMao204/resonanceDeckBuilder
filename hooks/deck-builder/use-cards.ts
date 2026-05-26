@@ -6,23 +6,23 @@ import type { SelectedCard, CardSource } from "./types"
 import { getCardById, hasSource } from "./utils"
 
 export function useCards(data: Database | null) {
-  // 선택된 카드 참조 - 상태 업데이트 없이 현재 값에 접근하기 위함
+  // 选择相关 卡牌 引用 - 状态 更新 相关 当前 值相关 相关 相关
   const selectedCardsRef = useRef<SelectedCard[]>([])
 
-  // 선택된 카드 상태 업데이트 함수
+  // 选择相关 卡牌 状态 更新 函数
   const [, setSelectedCardsState] = useState<SelectedCard[]>([])
 
-  // 선택된 카드 업데이트 함수
+  // 选择相关 卡牌 更新 函数
   const setSelectedCards = useCallback((newCards: SelectedCard[] | ((prevCards: SelectedCard[]) => SelectedCard[])) => {
     if (typeof newCards === "function") {
       selectedCardsRef.current = newCards(selectedCardsRef.current)
     } else {
       selectedCardsRef.current = newCards
     }
-    setSelectedCardsState(selectedCardsRef.current) // 상태 업데이트로 리렌더링 트리거
+    setSelectedCardsState(selectedCardsRef.current) // 状态 更新相关 相关 相关
   }, [])
 
-  // 카드 ID로 카드 정보 가져오기
+  // 卡牌 ID相关 卡牌 信息 读取
   const getCard = useCallback(
     (id: string) => {
       return getCardById(data, id)
@@ -30,7 +30,7 @@ export function useCards(data: Database | null) {
     [data],
   )
 
-  // 카드 정보 가져오기
+  // 卡牌 信息 读取
   const getCardInfo = useCallback(
     (cardId: string) => {
       if (!data) return null
@@ -41,7 +41,7 @@ export function useCards(data: Database | null) {
     [data],
   )
 
-  // 카드 추가 함수 수정
+  // 卡牌 添加 函数 修改
   const addCard = useCallback(
     (
       cardId: string,
@@ -56,32 +56,32 @@ export function useCards(data: Database | null) {
       skillIndex?:number
     ) => {
       setSelectedCards((prev) => {
-        // 기존 카드 찾기
+        // 现有 卡牌 查找
         const existingCard = prev.find((card) => card.id === cardId)
 
-        // 새 소스 객체 생성
+        // 相关 来源 对象 生成
         const newSource: CardSource = {
           type: sourceType,
           id: sourceId,
           ...sourceInfo,
         } as CardSource
 
-        // ownerId 결정
+        // ownerId 相关
         const ownerId =
           sourceType === "equipment" ? 10000001 : sourceInfo?.ownerId !== undefined ? sourceInfo.ownerId : 10000001
         let skillId = -1
 
-        // 소스 타입이 character 또는 passive인 경우
+        // 来源 类型 character 或 passive相关 相关
         if (sourceType === "character" || sourceType === "passive") {
           if (sourceInfo?.skillId) {
             skillId = sourceInfo.skillId
           }
         }
 
-        // 카드 정보 가져오기
+        // 卡牌 信息 读取
         const card = data?.cards[cardId]
 
-        // 스킬 정보 가져오기
+        // 技能 信息 读取
         let skillInfo = undefined
         if (skillId !== -1 && data?.skills) {
           const skill = data.skills[skillId.toString()]
@@ -94,7 +94,7 @@ export function useCards(data: Database | null) {
               leaderCardConditionDesc: skill.leaderCardConditionDesc,
             }
           } else if (card && data?.skills) {
-            // 카드 ID로 스킬 찾기
+            // 卡牌 ID相关 技能 查找
             for (const sId in data.skills) {
               const skill = data.skills[sId]
               if (skill && skill.cardID && skill.cardID.toString() === cardId) {
@@ -112,16 +112,16 @@ export function useCards(data: Database | null) {
           }
         }
 
-        // 카드 추가 정보 생성
+        // 卡牌 添加 信息 生成
         let extraInfo = undefined
         if (card) {
-          // 비용 계산
+          // 费用 计算
           let cost = 0
           if (card.cost_SN !== undefined) {
             cost = Math.floor(card.cost_SN / 10000)
           }
 
-          // 수량 계산 (캐릭터의 skillList에서 찾기)
+          // 数量 计算 (角色的 skillList相关 查找)
           let amount = 0
           if (skillId !== -1 && sourceType === "character" && typeof sourceId === "number") {
             const character = data?.characters[sourceId.toString()]
@@ -133,7 +133,7 @@ export function useCards(data: Database | null) {
             }
           }
 
-          // 이미지 URL 찾기
+          // 图片 URL 查找
           let img_url = undefined
           if (data?.images) {
             if (data.images[`card_${cardId}`]) {
@@ -151,7 +151,7 @@ export function useCards(data: Database | null) {
           }
         }
 
-        // 카드 정보 생성
+        // 卡牌 信息 生成
         let cardInfo = undefined
         if (card) {
           cardInfo = {
@@ -163,9 +163,9 @@ export function useCards(data: Database | null) {
         }
 
         if (existingCard) {
-          // 이미 같은 소스가 있는지 확인
+          // 相关 相同 来源 存在相关 检查
           if (!hasSource(existingCard, newSource)) {
-            // 새 소스 추가
+            // 相关 来源 添加
             return prev.map((card) =>
               card.id === cardId
                 ? {
@@ -173,20 +173,20 @@ export function useCards(data: Database | null) {
                     sources: [...card.sources, newSource],
                     ...(ownerId !== -1 && { ownerId }),
                     ...(skillId !== -1 && { skillId }),
-                    // 스킬 정보가 없는 경우에만 추가
+                    // 技能 信息 没有 相关仅 添加
                     ...(skillInfo && !card.skillInfo && { skillInfo }),
-                    // 카드 정보가 없는 경우에만 추가
+                    // 卡牌 信息 没有 相关仅 添加
                     ...(cardInfo && !card.cardInfo && { cardInfo }),
-                    // 추가 정보가 없는 경우에만 추가
+                    // 添加 信息 没有 相关仅 添加
                     ...(extraInfo && !card.extraInfo && { extraInfo }),
                   }
                 : card,
             )
           }
-          return prev // 소스가 이미 있으면 변경 없음
+          return prev // 来源 相关 相关 变更 相关
         }
 
-        // 새 카드 추가
+        // 相关 卡牌 添加
         return [
           ...prev,
           {
@@ -207,7 +207,7 @@ export function useCards(data: Database | null) {
     [setSelectedCards, data, hasSource],
   )
 
-  // 카드 제거
+  // 卡牌 移除
   const removeCard = useCallback(
     (cardId: string) => {
       setSelectedCards((prev) => prev.filter((card) => card.id !== cardId))
@@ -215,7 +215,7 @@ export function useCards(data: Database | null) {
     [setSelectedCards],
   )
 
-  // 카드 순서 변경
+  // 卡牌 相关 变更
   const reorderCards = useCallback(
     (fromIndex: number, toIndex: number) => {
       setSelectedCards((prev) => {
@@ -228,7 +228,7 @@ export function useCards(data: Database | null) {
     [setSelectedCards],
   )
 
-  // 카드 설정 업데이트
+  // 卡牌 设置 更新
   const updateCardSettings = useCallback(
     (cardId: string, useType: number, useParam: number, useParamMap?: Record<string, number>) => {
       setSelectedCards((currentCards) => {

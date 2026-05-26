@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 모바일 최적화를 위한 추가 스타일 */
+/* 相关 相关 相关 添加 相关 */
 @layer utilities {
-  /* 모바일에서도 한 줄에 4장 이상 보이도록 그리드 설정 */
+  /* 相关 相关 相关 4相关 相关 相关 相关 设置 */
   .grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -17,16 +17,16 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* 스킬 카드 그리드를 위한 스타일 */
+  /* 技能 卡牌 相关 相关 相关 */
   .grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
-  /* 모바일에서 스킬 카드 스타일 */
+  /* 相关 技能 卡牌 相关 */
   @media (max-width: 640px) {
     .skill-card {
-      /* min-width: 60px; 이 줄을 제거 또는 주석 처리 */
-      /* max-width: 80px; 이 줄을 제거 또는 주석 처리 */
+      /* min-width: 60px; 相关 移除 或 相关 处理 */
+      /* max-width: 80px; 相关 移除 或 相关 处理 */
     }
 
     .skill-cost-badge {
@@ -34,7 +34,7 @@
     }
   }
 
-  /* 텍스트 선택 방지 */
+  /* 相关 选择 防止 */
   .user-select-none {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -42,12 +42,12 @@
     user-select: none;
   }
 
-  /* 포인터 이벤트 방지 */
+  /* 相关 相关 防止 */
   .pointer-events-none {
     pointer-events: none;
   }
 
-  /* 터치 동작 최적화 */
+  /* 触摸 相关 相关 */
   .touch-manipulation {
     touch-action: manipulation;
   }
@@ -57,18 +57,18 @@
   --foreground-rgb: 255, 255, 255;
   --background-rgb: 0, 0, 0;
 
-  /* 모달 영역별 검은 계열 색상 */
+  /* 弹窗 相关 相关 相关 颜色 */
   --modal-header-bg: #000000;
   --modal-content-bg: #0a0a0a;
   --modal-footer-bg: #050505;
 
-  /* 언어 드롭다운 위치 변수 */
+  /* 语言 相关 位置 相关 */
   --language-dropdown-top: 4rem;
   --language-dropdown-right: 1rem;
   --language-dropdown-left: auto;
 }
 
-/* 모바일 터치 영역 최적화 */
+/* 相关 触摸 相关 相关 */
 @media (max-width: 640px) {
   button:not(.character-action-btn):not(.equipment-info-btn),
   [role="button"]:not(.character-action-btn):not(.equipment-info-btn),
@@ -126,19 +126,19 @@
     padding-left: 12px;
   }
 
-  /* 토글 버튼 터치 영역 확대 */
+  /* 相关 按钮 触摸 相关 相关 */
   input[type="checkbox"] + label {
     min-height: 28px;
     min-width: 56px;
   }
 
-  /* 토글 버튼 내부 원형 버튼 크기 조정 */
+  /* 相关 按钮 相关 相关 按钮 大小 相关 */
   input[type="checkbox"] + label span {
     min-height: 20px;
     min-width: 20px;
   }
 
-  /* 캐릭터 검색 모달과 장비 검색 모달에서 그리드 조정 */
+  /* 角色 搜索 弹窗和 装备 搜索 弹窗相关 相关 相关 */
   .SearchModal .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -151,13 +151,13 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 모바일에서 롱프레스 최적화 */
+/* 相关 长按 相关 */
 body {
   -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-tap-highlight-color: transparent; /* 탭 하이라이트 제거 */
+  -webkit-tap-highlight-color: transparent; /* 标签页 相关 移除 */
 }
 
-/* 드래그 중인 카드와 관련된 스타일 */
+/* 拖拽 相关 卡牌和 相关相关 相关 */
 .dragging-card {
   opacity: 0.5 !important;
   z-index: 100 !important;
@@ -176,21 +176,21 @@ body {
   touch-action: none;
 }
 
-/* 드래그 중에는 스크롤 방지 */
+/* 拖拽 相关 滚动 防止 */
 body.dragging {
   overflow: hidden !important;
   touch-action: none !important;
   -webkit-overflow-scrolling: none !important;
 }
 
-/* 드래그 중인 요소의 부모 컨테이너 */
+/* 拖拽 相关 相关的 相关 相关 */
 .dnd-container {
   touch-action: none;
   -webkit-user-select: none;
   user-select: none;
 }
 
-/* 드래그 중인 요소 스타일 */
+/* 拖拽 相关 相关 相关 */
 .sortable-drag {
   opacity: 0.8;
   z-index: 100;
@@ -198,7 +198,7 @@ body.dragging {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* 드래그 중인 카드 스타일 */
+/* 拖拽 相关 卡牌 相关 */
 /*
 .dragging-card {
   opacity: 0.5;
@@ -220,7 +220,7 @@ body.dragging {
 }
 */
 
-/* 드래그 중에는 스크롤 방지 */
+/* 拖拽 相关 滚动 防止 */
 /*
 body.dragging {
   overflow: hidden;
@@ -338,7 +338,7 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* 네온 색상 - 하얀색 기반으로 변경 */
+    /* 相关 颜色 - 相关 相关 变更 */
     --neon-white: 0 0% 100%;
     --neon-blue: 210 100% 85%;
     --neon-purple: 270 100% 85%;
@@ -388,9 +388,9 @@ body {
   animation-delay: 0.15s;
 }
 
-/* 버튼 호버 효과 */
+/* 按钮 相关 效果 */
 @media (hover: hover) {
-  /* 호버 기능이 있는 디바이스에서만 호버 효과 적용 */
+  /* 相关 相关 存在 相关仅 相关 效果 应用 */
   .neon-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
@@ -448,27 +448,27 @@ body {
   }
 }
 
-/* 공통 네온 효과 클래스 - 재사용 가능한 컴포넌트 */
+/* 相关 相关 效果 类 - 相关使用 相关 组件 */
 @layer components {
-  /* 네온 텍스트 효과 */
+  /* 相关 相关 效果 */
   .neon-text {
     color: hsl(var(--neon-white));
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
   }
 
-  /* 네온 테두리 효과 */
+  /* 相关 边框 效果 */
   .neon-border {
     border: 1px solid hsla(var(--neon-white), 0.5);
     box-shadow: 0 0 3px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
   }
 
-  /* 네온 배경 효과 */
+  /* 相关 相关 效果 */
   .neon-bg {
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   }
 
-  /* 네온 버튼 */
+  /* 相关 按钮 */
   .neon-button {
     background-color: rgba(0, 0, 0, 0.7);
     border: 1px solid hsl(var(--neon-white));
@@ -482,7 +482,7 @@ body {
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
   }
 
-  /* 네온 컨테이너 */
+  /* 相关 相关 */
   .neon-container {
     background-color: black;
     border: 1px solid hsla(var(--neon-white), 0.5);
@@ -490,7 +490,7 @@ body {
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
   }
 
-  /* 네온 모달 배경 - 모든 모달의 배경으로 사용 */
+  /* 相关 弹窗 相关 - 所有 弹窗的 相关 使用 */
   .neon-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -500,10 +500,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* 스크롤 방지 */
+    overflow: hidden; /* 滚动 防止 */
   }
 
-  /* 네온 모달 */
+  /* 相关 弹窗 */
   .neon-modal {
     background-color: var(--modal-content-bg);
     border: 1px solid hsla(var(--neon-white), 0.5);
@@ -517,27 +517,27 @@ body {
     flex-direction: column;
   }
 
-  /* 네온 모달 헤더 */
+  /* 相关 弹窗 相关 */
   .neon-modal-header {
     background-color: var(--modal-header-bg);
     border-bottom: 1px solid hsla(var(--neon-white), 0.3);
     padding: 1rem;
   }
 
-  /* 모달 내용 부분 */
+  /* 弹窗 相关 相关 */
   .neon-modal p-4,
   .neon-modal > div:not(.neon-modal-header):not(.neon-modal-footer) {
     background-color: var(--modal-content-bg);
   }
 
-  /* 네온 모달 푸터 */
+  /* 相关 弹窗 相关 */
   .neon-modal-footer {
     background-color: var(--modal-footer-bg);
     border-top: 1px solid hsla(var(--neon-white), 0.3);
     padding: 1rem;
   }
 
-  /* 네온 섹션 제목 */
+  /* 相关 相关 相关 */
   .neon-section-title {
     font-size: 1.25rem;
     font-weight: 700;
@@ -546,7 +546,7 @@ body {
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
   }
 
-  /* 네온 토글 스위치 */
+  /* 相关 相关 相关位置 */
   .neon-toggle {
     position: relative;
     display: inline-block;
@@ -594,7 +594,7 @@ body {
     transform: translateX(1.5rem);
   }
 
-  /* 네온 입력 필드 */
+  /* 相关 输入 相关 */
   .neon-input {
     width: 100%;
     padding: 0.5rem;
@@ -605,7 +605,7 @@ body {
     box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
   }
 
-  /* 네온 선택 필드 */
+  /* 相关 选择 相关 */
   .neon-select {
     width: 100%;
     padding: 0.5rem;
@@ -616,7 +616,7 @@ body {
     box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
   }
 
-  /* 네온 카드 */
+  /* 相关 卡牌 */
   .neon-card {
     transition: all 0.2s;
     border: 1px solid hsla(var(--neon-white), 0.5);
@@ -631,7 +631,7 @@ body {
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 8px rgba(255, 255, 255, 0.5);
   }
 
-  /* 네온 드롭다운 */
+  /* 相关 相关 */
   .neon-dropdown {
     background-color: var(--modal-header-bg);
     border: 1px solid hsla(var(--neon-white), 0.5);
@@ -641,7 +641,7 @@ body {
     z-index: 50;
   }
 
-  /* 스킬 카드 */
+  /* 技能 卡牌 */
   .skill-card {
     border: 1px solid hsla(var(--neon-white), 0.5);
     border-radius: 0.6rem;
@@ -657,7 +657,7 @@ body {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 12px rgba(255, 255, 255, 0.3);
   }
 
-  /* 스킬 카드 코스트 배지 */
+  /* 技能 卡牌 相关 相关 */
   .skill-cost-badge {
     position: absolute;
     top: 0.5rem;
@@ -677,14 +677,14 @@ body {
     z-index: 20;
   }
 
-  /* 캐릭터 슬롯 */
+  /* 角色 相关 */
   .character-slot-empty {
     border: 1px solid hsla(var(--neon-white), 0.5);
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 12px rgba(255, 255, 255, 0.3);
     transition: all 0.2s ease-in-out;
   }
 
-  /* 캐릭터 슬롯 호버 효과 개선 */
+  /* 角色 相关 相关 效果 相关 */
   .character-slot-empty:hover {
     border-color: hsla(var(--neon-white), 0.8);
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
@@ -702,7 +702,7 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
   }
 
-  /* 모달 공통 스타일 */
+  /* 弹窗 相关 相关 */
   .modal-common {
     background-color: var(--modal-content-bg);
     border: 1px solid hsla(var(--neon-white), 0.5);
@@ -722,7 +722,7 @@ body {
     padding: 1rem;
   }
 
-  /* 스킬 설정 옵션 스타일 - 선택됐을 때와 선택 안됐을 때 차이 강화 */
+  /* 技能 设置 相关 相关 - 选择相关 相关和 选择 相关 相关 相关 相关 */
   .skill-option {
     padding: 0.75rem;
     border-radius: 0.5rem;
@@ -750,7 +750,7 @@ body {
     border: 1px solid hsla(var(--neon-white), 0.3);
   }
 
-  /* 검색 컨트롤 스타일 */
+  /* 搜索 相关 相关 */
   .search-control {
     display: flex;
     align-items: center;
@@ -797,7 +797,7 @@ body {
     cursor: pointer;
   }
 
-  /* 배틀 설정 드롭다운 */
+  /* 相关 设置 相关 */
   .battle-dropdown {
     width: 100%;
     padding: 0.5rem;
@@ -814,14 +814,14 @@ body {
     color: white;
   }
 
-  /* 드롭다운 옵션 스타일 - */
-  /* 브라우저 기본 스타일 오버라이드 시도 */
+  /* 相关 相关 相关 - */
+  /* 浏览器 默认 相关 相关 尝试 */
   .battle-dropdown option {
     background-color: #000000;
     color: white;
   }
 
-  /* 모달 닫기 버튼 */
+  /* 弹窗 关闭 按钮 */
   .modal-close-button {
     color: rgba(255, 255, 255, 0.3);
     transition: color 0.2s;
@@ -831,14 +831,14 @@ body {
     color: rgba(255, 255, 255, 0.5);
   }
 
-  /* 캐릭터 슬롯 버튼 */
+  /* 角色 相关 按钮 */
   .character-action-buttons {
     display: flex;
     gap: 0.25rem;
     z-index: 10;
   }
 
-  /* 캐릭터 액션 버튼 스타일 수정 */
+  /* 角色 相关 按钮 相关 修改 */
   .character-action-btn {
     background-color: rgba(0, 0, 0, 0.6);
     border: 1px solid hsla(var(--neon-white), 0.3);
@@ -855,7 +855,7 @@ body {
     padding: 0;
   }
 
-  /* 모바일에서 캐릭터 액션 버튼 크기 조정 */
+  /* 相关 角色 相关 按钮 大小 相关 */
   @media (max-width: 640px) {
     .character-action-btn {
       height: 1.5rem;
@@ -874,7 +874,7 @@ body {
     color: hsla(var(--neon-white), 1);
   }
 
-  /* 장비 정보 버튼 - 모바일에서도 잘 보이도록 수정 */
+  /* 装备 信息 按钮 - 相关 相关 相关 修改 */
   .equipment-info-btn {
     position: absolute;
     top: 0.1rem;
@@ -882,10 +882,10 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     border: 1px solid hsla(var(--neon-white), 0.3);
     border-radius: 9999px;
-    width: 1.5rem; /* 1rem에서 2rem으로 변경 */
-    height: 1.5rem; /* 1rem에서 2rem으로 변경 */
-    min-width: 1rem; /* 1rem에서 2rem으로 변경 */
-    min-height: 1rem; /* 1rem에서 2rem으로 변경 */
+    width: 1.5rem; /* 1rem相关 2rem相关 变更 */
+    height: 1.5rem; /* 1rem相关 2rem相关 变更 */
+    min-width: 1rem; /* 1rem相关 2rem相关 变更 */
+    min-height: 1rem; /* 1rem相关 2rem相关 变更 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -898,7 +898,7 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
     border-color: hsla(var(--neon-white), 0.5);
   }
-  /* 손패 유지 컨트롤 */
+  /* 相关 保持 相关 */
   .hand-retention-control {
     display: flex;
     align-items: center;
@@ -943,7 +943,7 @@ body {
     font-weight: 500;
   }
 
-  /* 장비 카드 */
+  /* 装备 卡牌 */
   .equipment-card {
     border: 1px solid hsla(var(--neon-white), 0.5);
     border-radius: 0.5rem;
@@ -957,7 +957,7 @@ body {
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 12px rgba(255, 255, 255, 0.3);
   }
 
-  /* 장비 슬롯 호버 효과 추가 */
+  /* 装备 相关 相关 效果 添加 */
   .equipment-slot-empty {
     background-color: black;
     border: 1px solid hsla(var(--neon-white), 0.5);
@@ -973,7 +973,7 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
   }
 
-  /* 캐릭터 정보창 스타일 */
+  /* 角色 信息相关 相关 */
   .character-detail-tab {
     padding: 0.75rem 0;
     font-size: 0.875rem;
@@ -1015,7 +1015,7 @@ body {
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
   }
 
-  /* 푸터 네온 버튼 스타일 추가 */
+  /* 相关 相关 按钮 相关 添加 */
   .neon-button-small {
     position: relative;
     color: hsl(var(--neon-white));
@@ -1036,7 +1036,7 @@ body {
   }
 }
 
-/* 이전 스타일 제거 (이미 컴포넌트로 정의됨) */
+/* 相关 相关 移除 (相关 组件相关 相关的相关) */
 .neon-text-purple,
 .neon-text-pink,
 .neon-text-cyan,
@@ -1048,16 +1048,16 @@ body {
 .neon-glow-pink,
 .neon-glow-cyan,
 .section-title {
-  /* 이전 스타일 제거 - 이미 컴포넌트로 정의됨 */
+  /* 相关 相关 移除 - 相关 组件相关 相关的相关 */
 }
 
-/* 모달이 열려있을 때 body 스크롤 방지를 위한 클래스 추가 */
+/* 弹窗 相关 相关 body 滚动 防止 相关 类 添加 */
 .modal-open {
   overflow-y: hidden;
-  padding-right: 15px; /* 스크롤바 너비만큼 패딩 추가 */
+  padding-right: 15px; /* 滚动相关 宽度仅相关 填充 添加 */
 }
 
-/* 토글 버튼 스타일 개선 */
+/* 相关 按钮 相关 相关 */
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -1104,10 +1104,10 @@ input:checked + .toggle-slider:before {
   transform: translateX(28px);
 }
 
-/* 스킬 카드 이름 스타일 추가 */
+/* 技能 卡牌 名称 相关 添加 */
 .skill-card-name {
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 1에서 2로 변경 */
+  -webkit-line-clamp: 2; /* 1相关 2相关 变更 */
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: keep-all;
@@ -1115,7 +1115,7 @@ input:checked + .toggle-slider:before {
   line-height: 1.25;
 }
 
-/* 추가: line-clamp-2 유틸리티 클래스 */
+/* 添加: line-clamp-2 相关 类 */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1123,7 +1123,7 @@ input:checked + .toggle-slider:before {
   overflow: hidden;
 }
 
-/* 화면 크기에 따른 폰트 사이즈 조정 */
+/* 相关 大小相关 相关 相关 相关 相关 */
 @media (max-width: 768px) {
   .skill-card-name {
     font-size: 0.7rem;
@@ -1142,7 +1142,7 @@ input:checked + .toggle-slider:before {
   }
 }
 
-/* 스킬 그리드 레이아웃 */
+/* 技能 相关 相关 */
 .skill-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -1152,7 +1152,7 @@ input:checked + .toggle-slider:before {
   overflow: hidden;
 }
 
-/* 드래그 중인 컨테이너 스타일 */
+/* 拖拽 相关 相关 相关 */
 .dragging-container {
   touch-action: none !important;
   user-select: none !important;
@@ -1160,14 +1160,14 @@ input:checked + .toggle-slider:before {
   overflow: hidden !important;
 }
 
-/* 스킬 카드 컨테이너 */
+/* 技能 卡牌 相关 */
 .skill-container {
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
 }
 
-/* 반응형 스타일 - 화면 크기에 따라 카드 크기와 간격 조절 */
+/* 相关 相关 - 相关 大小相关 相关 卡牌 大小和 间距 相关 */
 @media (max-width: 1200px) {
   .skill-grid {
     gap: 0;
@@ -1219,7 +1219,7 @@ input:checked + .toggle-slider:before {
   }
 }
 
-/* 드래그 중인 카드 스타일 */
+/* 拖拽 相关 卡牌 相关 */
 .dragging-card {
   opacity: 0.5 !important;
   z-index: 100 !important;
@@ -1229,14 +1229,14 @@ input:checked + .toggle-slider:before {
   touch-action: none !important;
 }
 
-/* 드래그 중인 본문 스타일 */
+/* 拖拽 相关 相关 相关 */
 body.dragging {
   overflow: hidden !important;
   touch-action: none !important;
   -webkit-overflow-scrolling: none !important;
 }
 
-/* 캐릭터 슬롯 테두리에 빛나는 효과 추가 */
+/* 角色 相关 边框相关 相关 效果 添加 */
 .character-slot-filled {
   border: 1px solid hsla(var(--neon-white), 0.5);
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
@@ -1250,7 +1250,7 @@ body.dragging {
   opacity: 1;
 }
 
-/* 희귀도별 테두리 빛나는 효과 추가 */
+/* 相关 边框 相关 效果 添加 */
 .border-orange-500 {
   box-shadow: 0 0 10px rgba(249, 115, 22, 0.7), 0 0 15px rgba(249, 115, 22, 0.4);
 }
@@ -1267,81 +1267,81 @@ body.dragging {
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.7), 0 0 15px rgba(59, 130, 246, 0.4);
 }
 
-/* 사진 모드 스타일 */
+/* 相关 相关 相关 */
 .photo-mode {
-  /* 사진 모드에서 타이틀 숨기기 */
+  /* 相关 相关 相关 相关 */
   & .neon-section-title {
     display: none;
   }
 
-  /* 섹션 간 간격 줄이기 */
+  /* 相关 相关 间距 相关 */
   & .mt-8 {
     margin-top: 0.5rem;
   }
 
-  /* 캐릭터 슬롯과 스킬 창 사이 간격 줄이기 */
+  /* 角色 相关和 技能 相关 相关 间距 相关 */
   & .skill-container {
     margin-top: 0.5rem;
   }
 
-  /* 캡처 영역 스타일 */
+  /* 截图 相关 相关 */
   background-color: #000;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
-/* 사진 모드에서 불필요한 요소 숨기기 */
+/* 相关 相关 相关 相关 相关 */
 .photo-mode .character-action-btn:not(.leader-btn),
 .photo-mode .equipment-info-btn {
   opacity: 0;
   pointer-events: none;
 }
 
-/* 사진 모드에서 스킬 카드 그리드 최적화 */
+/* 相关 相关 技能 卡牌 相关 相关 */
 .photo-mode .skill-grid {
   gap: 2px;
 }
 
-/* 캡처 모드 스타일 */
+/* 截图 相关 相关 */
 .capture-mode {
-  /* 캡처 모드에서 타이틀 스타일 변경 */
+  /* 截图 相关 相关 相关 变更 */
   & .neon-section-title {
     font-size: 1rem;
     margin-bottom: 0.5rem;
   }
 
-  /* 섹션 간 간격 줄이기 */
+  /* 相关 相关 间距 相关 */
   & .mt-8 {
     margin-top: 0.5rem;
   }
 
-  /* 캐릭터 슬롯과 스킬 창 사이 간격 줄이기 */
+  /* 角色 相关和 技能 相关 相关 间距 相关 */
   & .skill-container {
     margin-top: 0.5rem;
   }
 
-  /* 캡처 영역 스타일 */
+  /* 截图 相关 相关 */
   background-color: #000;
   border-radius: 8px;
   overflow: hidden;
   padding: 1rem;
 
-  /* 캡처 모드에서 불필요한 요소 숨기기 */
+  /* 截图 相关 相关 相关 相关 */
   & .character-action-btn:not(.leader-btn),
   & .equipment-info-btn {
     opacity: 0;
     pointer-events: none;
   }
 
-  /* 캡처 모드에서 스킬 카드 그리드 최적화 */
+  /* 截图 相关 技能 卡牌 相关 相关 */
   & .skill-grid {
     gap: 2px;
   }
 
-  /* 캡처 모드 스타일 내에서 전투 설정 관련 스타일 수정 */
+  /* 截图 相关 相关 相关 战斗 设置 相关 相关 修改 */
 
-  /* 전투 설정 스타일 최적화 부분 수정 */
+  /* 战斗 设置 相关 相关 相关 修改 */
   & .battle-dropdown {
     height: 36px;
   }
@@ -1356,13 +1356,13 @@ body.dragging {
     height: 36px;
   }
 
-  /* 전투 설정 그리드 레이아웃 유지 (두 줄 유지) */
+  /* 战斗 设置 相关 相关 保持 (相关 相关 保持) */
   & .grid-cols-2 {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* 모바일 환경에서 빛나는 효과만 제거 (테두리 색상은 유지) */
+  /* 相关 相关 相关 效果仅 移除 (边框 颜色 保持) */
   & .neon-border,
   & .character-slot-filled,
   & .equipment-slot-empty,
@@ -1371,18 +1371,18 @@ body.dragging {
     box-shadow: none !important;
   }
 
-  /* 네온 텍스트 효과 제거 */
+  /* 相关 相关 效果 移除 */
   & .neon-text {
     text-shadow: none !important;
   }
 
-  /* 리더 뱃지의 빛나는 효과 제거 */
+  /* 队长 相关的 相关 效果 移除 */
   & .bg-red-600 {
     box-shadow: none !important;
     border: 1px solid #f59e0b !important;
   }
 
-  /* 희귀도별 테두리 효과 제거 (색상은 유지) */
+  /* 相关 边框 效果 移除 (颜色 保持) */
   & .border-orange-500,
   & .border-yellow-500,
   & .border-purple-500,
@@ -1390,7 +1390,7 @@ body.dragging {
     box-shadow: none !important;
   }
 
-  /* 장비 카드 품질별 배경 그라데이션은 유지하되 그림자 효과만 제거 */
+  /* 装备 卡牌 相关 相关 相关 保持相关 阴影 效果仅 移除 */
   & .from-orange-500,
   & .from-yellow-500,
   & .from-purple-500,
@@ -1400,7 +1400,7 @@ body.dragging {
   }
 }
 
-/* 캡처 컨텐츠 영역 */
+/* 截图 相关 相关 */
 .capture-content {
   transition: all 0.3s ease;
 }

@@ -4,13 +4,13 @@ import path from "path"
 
 export async function GET(request: NextRequest, { params }: { params: { path: string[] } }) {
   try {
-    // 요청된 경로 가져오기
+    // 相关 路径 读取
     const filePath = params.path.join("/")
 
-    // 실제 파일 경로 구성
+    // 实际 文件 路径 相关
     const fullPath = path.join(process.cwd(), "public", "db", filePath)
 
-    // 파일 존재 여부 확인
+    // 文件 相关 相关 检查
     if (!fs.existsSync(fullPath)) {
       return new NextResponse(JSON.stringify({ error: "File not found" }), {
         status: 404,
@@ -20,15 +20,15 @@ export async function GET(request: NextRequest, { params }: { params: { path: st
       })
     }
 
-    // 파일 읽기
+    // 文件 相关
     const fileContent = fs.readFileSync(fullPath, "utf8")
 
-    // JSON 파싱 시도
+    // JSON 解析 尝试
     try {
       const jsonData = JSON.parse(fileContent)
       return NextResponse.json(jsonData)
     } catch (e) {
-      // JSON이 아닌 경우 텍스트로 반환
+      // JSON 相关 相关 相关 返回
       return new NextResponse(fileContent, {
         headers: {
           "Content-Type": "text/plain",

@@ -8,7 +8,7 @@ import { CardSettingsModal } from "./card-settings-modal"
 import { TabbedInterface } from "./tabbed-interface"
 import { DeckStats } from "./deck-stats"
 
-// dnd-kit import - MouseSensor와 TouchSensor 추가
+// dnd-kit import - MouseSensor和 TouchSensor 添加
 import { DndContext, closestCenter, useSensor, useSensors, DragOverlay, MouseSensor, TouchSensor } from "@dnd-kit/core"
 import { SortableContext, useSortable, rectSortingStrategy } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
@@ -62,12 +62,12 @@ function SortableSkillCard({ id, children }: { id: string; children: React.React
   )
 }
 
-// 태그 컴포넌트 - 파생카드 토글 상태에 따라 표시/숨김 처리
+// 标签 组件 - 相关卡牌 相关 状态相关 相关 显示/隐藏 处理
 function StatusEffectTags({
   statusEffects,
   includeDerivedCards,
   getTranslatedString,
-  forceShowAll = false, // 모든 태그를 강제로 표시할지 여부
+  forceShowAll = false, // 所有 标签 相关 显示相关 相关
 }: {
   statusEffects: {
     id: string
@@ -96,21 +96,21 @@ function StatusEffectTags({
               onMouseEnter={(e) => {
                 const tag = e.currentTarget
                 const tagRect = tag.getBoundingClientRect()
-                const tooltipWidth = 256 // 툴팁 너비
+                const tooltipWidth = 256 // 提示框 宽度
                 const screenWidth = window.innerWidth
 
-                // 태그의 중앙이 화면 중앙보다 오른쪽에 있는지 확인
+                // 标签的 相关 相关 相关 相关 存在相关 检查
                 if (tagRect.left + tagRect.width / 2 > screenWidth / 2) {
-                  // 오른쪽에 있으면 툴팁을 왼쪽으로 정렬
+                  // 相关 相关 提示框 相关 排序
                   tag.style.setProperty("--tooltip-x", `${Math.max(tagRect.left - tooltipWidth, 10)}px`)
                   tag.style.setProperty("--tooltip-align", "left")
                 } else {
-                  // 왼쪽에 있으면 툴팁을 오른쪽으로 정렬
+                  // 相关 相关 提示框 相关 排序
                   tag.style.setProperty("--tooltip-x", `${tagRect.right}px`)
                   tag.style.setProperty("--tooltip-align", "right")
                 }
 
-                // Y 위치는 태그 위에 표시
+                // Y 位置 标签 相关 显示
                 const tooltipY = tagRect.top - 10
                 tag.style.setProperty("--tooltip-y", `${tooltipY}px`)
               }}
@@ -126,13 +126,13 @@ function StatusEffectTags({
                 {effect.name}
               </span>
 
-              {/* 툴팁 */}
+              {/* 提示框 */}
               <div
                 className="fixed p-2 rounded text-xs text-gray-300 
                           invisible group-hover:visible z-10 border border-gray-700 pointer-events-none
                           bg-black bg-opacity-90 shadow-lg w-64"
                 style={{
-                  // 화면 위치에 따라 동적으로 위치 조정
+                  // 相关 位置相关 相关 相关 位置 相关
                   left: "var(--tooltip-x, 0)",
                   top: "var(--tooltip-y, 0)",
                 }}
@@ -152,7 +152,7 @@ function StatusEffectTags({
   )
 }
 
-// SkillCard 컴포넌트에서 selectedCards의 저장된 정보를 직접 사용하도록 수정
+// SkillCard 组件相关 selectedCards的 保存相关 信息 直接 使用相关 修改
 function SkillPriorityTab({
   selectedCards,
   availableCards,
@@ -196,7 +196,7 @@ function SkillPriorityTab({
         <SortableContext items={selectedCards.map((c) => c.id)} strategy={rectSortingStrategy}>
           <div className="skill-grid w-full">
             {selectedCards.map((selectedCard) => {
-              // 항상 availableCards에서 카드 정보 찾기 (CardSettingsModal과 동일한 방식)
+              // 始终 availableCards相关 卡牌 信息 查找 (CardSettingsModal和 相关 相关)
               const cardInfo = availableCards.find((c) => c.card.id.toString() === selectedCard.id.toString())
 
               if (!cardInfo) {
@@ -226,7 +226,7 @@ function SkillPriorityTab({
         </SortableContext>
       )}
 
-      {/* 드래그 오버레이 추가 - 드래그 중인 카드의 시각적 표현 */}
+      {/* 拖拽 覆盖层 添加 - 拖拽 相关 卡牌的 相关 相关 */}
       <DragOverlay adjustScale={true}>
         {activeId && activeCardInfo && (
           <div className="dragging-overlay">
@@ -245,12 +245,12 @@ function SkillPriorityTab({
         )}
       </DragOverlay>
 
-      {/* 상태 효과(태그) 표시 */}
+      {/* 状态效果(标签) 显示 */}
       <StatusEffectTags
         statusEffects={statusEffects}
         includeDerivedCards={includeDerivedCards}
         getTranslatedString={getTranslatedString}
-        forceShowAll={true} // 우선순위 탭에서는 항상 모든 태그 표시
+        forceShowAll={true} // 优先级 标签页相关 始终 所有 标签 显示
       />
     </div>
   )
@@ -272,20 +272,20 @@ export function SkillWindow({
   const skillContainerRef = useRef<HTMLDivElement>(null)
   const [includeDerivedCards, setIncludeDerivedCards] = useState(true)
 
-  // 태그 데이터와 색상 매핑을 상위 컴포넌트에서 관리
+  // 标签 数据和 颜色 映射 相关 组件相关 管理
   const [tagData, setTagData] = useState<Record<string, any>>({})
   const [tagColorMapping, setTagColorMapping] = useState<Record<string, string[]>>({})
 
-  // 태그 데이터 로드 - 컴포넌트 마운트 시 한 번만 실행
+  // 标签 数据 加载 - 组件 挂载 相关 相关 相关仅 相关
   useEffect(() => {
     const loadTagData = async () => {
       try {
-        // 태그 데이터 로드
+        // 标签 数据 加载
         const tagResponse = await fetch("/api/db/tag_db.json")
         const tagData = await tagResponse.json()
         setTagData(tagData)
 
-        // 태그 색상 매핑 데이터 로드
+        // 标签 颜色 映射 数据 加载
         const tagColorResponse = await fetch("/api/db/tag_color_mapping.json")
         const tagColorData = await tagColorResponse.json()
         setTagColorMapping(tagColorData)
@@ -295,9 +295,9 @@ export function SkillWindow({
     }
 
     loadTagData()
-  }, []) // 빈 의존성 배열로 마운트 시 한 번만 실행
+  }, []) // 空 的相关 数组相关 挂载 相关 相关 相关仅 相关
 
-  // 터치 디바이스 감지
+  // 触摸 相关 检测
   useEffect(() => {
     const detectTouch = () => {
       setIsTouchDevice(
@@ -307,7 +307,7 @@ export function SkillWindow({
 
     detectTouch()
 
-    // 윈도우 크기 변경 시 다시 감지
+    // 相关 大小 变更 相关 重新 检测
     window.addEventListener("resize", detectTouch)
 
     return () => {
@@ -315,20 +315,20 @@ export function SkillWindow({
     }
   }, [])
 
-  // 터치 디바이스와 마우스 디바이스에 따라 다른 센서 설정
+  // 触摸 相关和 鼠标 相关 相关 其他 相关 设置
   const sensors = useSensors(
-    // 마우스 센서 - 지연 없음
+    // 鼠标 相关 - 相关 相关
     useSensor(MouseSensor, {
-      // 마우스 버튼 - 왼쪽 버튼만 허용
+      // 鼠标 按钮 - 相关 按钮仅 相关
       activationConstraint: {
-        distance: 5, // 5px 이상 움직여야 드래그 시작 (실수 방지)
+        distance: 5, // 5px 相关 相关 拖拽 相关 (相关 防止)
       },
     }),
-    // 터치 센서 - 롱프레스 적용
+    // 触摸 相关 - 长按 应用
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 250, // 250ms 이상 누르고 있어야 드래그 시작
-        tolerance: 5, // 5px 이내의 움직임은 무시
+        delay: 250, // 250ms 相关 相关 相关 拖拽 相关
+        tolerance: 5, // 5px 相关的 相关 相关
       },
     }),
   )
@@ -349,7 +349,7 @@ export function SkillWindow({
     }[]
   }, [selectedCards, availableCards])
 
-  // 일반 카드와 파생 카드 분류
+  // 相关 卡牌和 相关 卡牌 分类
   const { normalCards, derivedCards } = useMemo(() => {
     if (!data) return { normalCards: [], derivedCards: [] }
 
@@ -359,20 +359,20 @@ export function SkillWindow({
     activeCards.forEach((cardInfo) => {
       let isDerived = true
 
-      // 카드가 파생 카드인지 확인
+      // 卡牌 相关 卡牌相关 检查
       if (cardInfo.selectedCard.skillId) {
-        // 모든 캐릭터의 스킬 맵 확인
+        // 所有 角色的 技能 相关 检查
         for (const charId in data.charSkillMap) {
           const charSkillMap = data.charSkillMap[charId]
 
-          // 스킬이 캐릭터의 기본 스킬 목록에 있으면 파생 카드가 아님
+          // 技能 角色的 默认 技能 列表相关 相关 相关 卡牌 相关
           if (charSkillMap.skills && charSkillMap.skills.includes(cardInfo.selectedCard.skillId)) {
             isDerived = false
             break
           }
         }
       } else {
-        // skillId가 없으면 일반 카드로 간주
+        // skillId 相关 相关 卡牌相关 相关
         isDerived = false
       }
 
@@ -386,30 +386,30 @@ export function SkillWindow({
     return { normalCards: normal, derivedCards: derived }
   }, [activeCards, data])
 
-  // 상태 효과(태그) 계산 - 일반 카드와 파생 카드에서 나온 태그 분리
+  // 状态效果(标签) 计算 - 相关 卡牌和 相关 卡牌相关 相关 标签 相关
   const statusEffects = useMemo(() => {
-    // 태그 데이터나 색상 매핑이 로드되지 않았으면 빈 배열 반환
+    // 标签 数据相关 颜色 映射 加载相关 相关 空 数组 返回
     if (Object.keys(tagData).length === 0 || Object.keys(tagColorMapping).length === 0) {
       return []
     }
 
-    // 모든 태그 ID를 색상 코드에 매핑하는 객체 생성
+    // 所有 标签 ID 颜色 相关 映射相关 对象 生成
     const tagToColorMap: Record<string, string> = {}
 
-    // 색상 코드별 태그 ID 배열을 순회하며 매핑 생성
+    // 颜色 相关 标签 ID 数组 相关 映射 生成
     Object.entries(tagColorMapping).forEach(([colorCode, tagIds]) => {
       tagIds.forEach((tagId) => {
         tagToColorMap[tagId.toString()] = colorCode
       })
     })
 
-    // 일반 카드에서 나온 태그 ID 집합
+    // 相关 卡牌相关 相关 标签 ID 相关
     const normalTagIds = new Set<string>()
 
-    // 파생 카드에서 나온 태그 ID 집합
+    // 相关 卡牌相关 相关 标签 ID 相关
     const derivedTagIds = new Set<string>()
 
-    // 일반 카드에서 태그 수집
+    // 相关 卡牌相关 标签 相关
     normalCards.forEach(({ card }) => {
       if (card.tagList && Array.isArray(card.tagList)) {
         card.tagList.forEach((tagItem) => {
@@ -420,7 +420,7 @@ export function SkillWindow({
       }
     })
 
-    // 파생 카드에서 태그 수집
+    // 相关 卡牌相关 标签 相关
     derivedCards.forEach(({ card }) => {
       if (card.tagList && Array.isArray(card.tagList)) {
         card.tagList.forEach((tagItem) => {
@@ -431,20 +431,20 @@ export function SkillWindow({
       }
     })
 
-    // 모든 태그 ID 집합
+    // 所有 标签 ID 相关
     const allTagIds = new Set([...normalTagIds, ...derivedTagIds])
 
-    // 태그 ID를 태그 정보로 변환
+    // 标签 ID 标签 信息相关 相关
     return Array.from(allTagIds)
       .map((tagId) => {
         const tag = tagData[tagId]
         if (!tag) return null
 
-        // 색상 매핑에 있는 태그만 포함
+        // 颜色 映射相关 存在 标签仅 相关
         const colorCode = tagToColorMap[tagId]
         if (!colorCode) return null
 
-        // 태그 소스 결정 (일반, 파생, 또는 둘 다)
+        // 标签 来源 相关 (相关, 相关, 或 相关 相关)
         let source: "normal" | "derived" | "both" = "normal"
         if (normalTagIds.has(tagId) && derivedTagIds.has(tagId)) {
           source = "both"
@@ -461,7 +461,7 @@ export function SkillWindow({
           name: tagName,
           color: colorCode,
           description: tagDesc,
-          source, // 태그 소스 추가
+          source, // 标签 来源 添加
         }
       })
       .filter(Boolean)
@@ -486,11 +486,11 @@ export function SkillWindow({
     const { active } = event
     setActiveId(active.id)
 
-    // 드래그 시작 시 스크롤 방지
+    // 拖拽 相关 相关 滚动 防止
     document.body.style.overflow = "hidden"
     document.body.classList.add("dragging")
 
-    // 스킬 컨테이너에 드래그 중 클래스 추가
+    // 技能 相关 拖拽 相关 类 添加
     if (skillContainerRef.current) {
       skillContainerRef.current.classList.add("dragging-container")
     }
@@ -499,11 +499,11 @@ export function SkillWindow({
   const handleDragEnd = (event: any) => {
     const { active, over } = event
 
-    // 드래그 종료 시 스크롤 다시 활성화
+    // 拖拽 相关 相关 滚动 重新 相关
     document.body.style.overflow = ""
     document.body.classList.remove("dragging")
 
-    // 스킬 컨테이너에서 드래그 중 클래스 제거
+    // 技能 相关 拖拽 相关 类 移除
     if (skillContainerRef.current) {
       skillContainerRef.current.classList.remove("dragging-container")
     }
@@ -520,19 +520,19 @@ export function SkillWindow({
     }
   }
 
-  // 현재 편집 중인 카드 정보 찾기
+  // 当前 相关 相关 卡牌 信息 查找
   const editingCardInfo = editingCard ? availableCards.find((c) => c.card.id.toString() === editingCard) : null
   const editingCardSettings = editingCard ? selectedCards.find((c) => c.id === editingCard) : null
 
-  // 현재 드래그 중인 카드 정보 찾기
+  // 当前 拖拽 相关 卡牌 信息 查找
   const activeCardInfo = activeId ? availableCards.find((c) => c.card.id.toString() === activeId) : null
 
   return (
     <div className="w-full">
-      {/* 제목 부분 제거 - DeckBuilder에서 관리하도록 변경 */}
+      {/* 相关 相关 移除 - DeckBuilder相关 管理相关 变更 */}
 
-      {/* 스킬 그리드 컨테이너의 패딩을 줄이고 여백을 최소화합니다 */}
-      {/* neon-container 클래스가 있는 div의 패딩을 수정합니다 */}
+      {/* 技能 相关 相关的 填充 相关 边距 相关 */}
+      {/* neon-container 类 存在 div的 填充 修改相关 */}
       <div ref={skillContainerRef} className="neon-container p-0 min-h-[300px] overflow-hidden skill-container w-full">
         <DndContext
           sensors={sensors}

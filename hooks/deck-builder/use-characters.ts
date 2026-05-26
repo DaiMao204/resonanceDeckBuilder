@@ -5,13 +5,13 @@ import type { Database } from "../../types"
 import { getCharacterById } from "./utils"
 
 export function useCharacters(data: Database | null) {
-  // 캐릭터 선택 (5 슬롯, -1은 빈 슬롯)
+  // 角色 选择 (5 相关, -1 空 相关)
   const [selectedCharacters, setSelectedCharacters] = useState<number[]>([-1, -1, -1, -1, -1])
 
-  // 리더 캐릭터
+  // 队长 角色
   const [leaderCharacter, setLeaderCharacter] = useState<number>(-1)
 
-  // 캐릭터 ID로 캐릭터 정보 가져오기
+  // 角色 ID相关 角色 信息 读取
   const getCharacter = useCallback(
     (id: number) => {
       return getCharacterById(data, id)
@@ -19,11 +19,11 @@ export function useCharacters(data: Database | null) {
     [data],
   )
 
-  // 리더 설정 - 개선된 버전
+  // 队长 设置 - 相关 相关
   const setLeader = useCallback(
     (characterId: number, forceSet = false) => {
-      // forceSet이 true이면 검증 없이 리더 설정
-      // 또는 유효한 캐릭터인지 확인 (현재 선택된 캐릭터 목록에 있는지)
+      // forceSet true相关 校验 相关 队长 设置
+      // 或 有效 角色相关 检查 (当前 选择相关 角色 列表相关 存在相关)
       if (forceSet || selectedCharacters.includes(characterId)) {
         setLeaderCharacter(characterId)
       }
@@ -31,15 +31,15 @@ export function useCharacters(data: Database | null) {
     [selectedCharacters, setLeaderCharacter],
   )
 
-  // 선택된 캐릭터 변경 시 리더 유효성 검사 및 자동 설정
+  // 选择相关 角色 变更 相关 队长 相关 相关 以及 相关 设置
   useEffect(() => {
-    // 현재 리더가 선택된 캐릭터 목록에 없는 경우
+    // 当前 队长 选择相关 角色 列表相关 没有 相关
     if (leaderCharacter !== -1 && !selectedCharacters.includes(leaderCharacter)) {
-      // 선택된 캐릭터 중 첫 번째를 리더로 설정
+      // 选择相关 角色 相关 第一个 队长相关 设置
       const validCharacters = selectedCharacters.filter((id) => id !== -1)
       setLeaderCharacter(validCharacters.length > 0 ? validCharacters[0] : -1)
     }
-    // 리더가 없고 선택된 캐릭터가 있는 경우
+    // 队长 相关 选择相关 角色 存在 相关
     else if (leaderCharacter === -1) {
       const validCharacters = selectedCharacters.filter((id) => id !== -1)
       if (validCharacters.length > 0) {

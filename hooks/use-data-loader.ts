@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import type { Database } from "../types"
 import { dummyData } from "../dummy"
 
-// Flag to control data source - 더미 데이터 사용 여부
+// Flag to control data source - 相关 数据 使用 相关
 const USE_DUMMY = false
 
 export function useDataLoader() {
@@ -18,7 +18,7 @@ export function useDataLoader() {
         if (USE_DUMMY) {
           setData(dummyData)
         } else {
-          // 절대 경로 사용하여 데이터 파일 로드
+          // 相关 路径 使用相关 数据 文件 加载
           const [
             charactersResponse,
             cardsResponse,
@@ -28,8 +28,8 @@ export function useDataLoader() {
             imagesResponse,
             equipmentsResponse,
             homeSkillsResponse,
-            charSkillMapResponse, // char_skill_map.json 추가
-            itemSkillMapResponse, // item_skill_map.json 추가
+            charSkillMapResponse, // char_skill_map.json 添加
+            itemSkillMapResponse, // item_skill_map.json 添加
           ] = await Promise.all([
             fetch("/api/db/char_db.json"),
             fetch("/api/db/card_db.json"),
@@ -39,8 +39,8 @@ export function useDataLoader() {
             fetch("/api/db/img_db.json"),
             fetch("/api/db/equip_db.json"),
             fetch("/api/db/home_skill_db.json"),
-            fetch("/api/db/char_skill_map.json"), // char_skill_map.json 추가
-            fetch("/api/db/item_skill_map.json"), // item_skill_map.json 추가
+            fetch("/api/db/char_skill_map.json"), // char_skill_map.json 添加
+            fetch("/api/db/item_skill_map.json"), // item_skill_map.json 添加
           ])
 
           const [
@@ -63,26 +63,26 @@ export function useDataLoader() {
             imagesResponse.json(),
             equipmentsResponse.json(),
             homeSkillsResponse.json(),
-            charSkillMapResponse.json(), // char_skill_map.json 추가
-            itemSkillMapResponse.json(), // item_skill_map.json 추가
+            charSkillMapResponse.json(), // char_skill_map.json 添加
+            itemSkillMapResponse.json(), // item_skill_map.json 添加
           ])
 
-          // 현재 브라우저 언어 또는 URL 경로에서 언어 코드 추출
+          // 当前 浏览器 语言 或 URL 路径相关 语言 相关 提取
           const currentLang = getCurrentLanguage()
 
-          // 현재 언어만 로드
+          // 当前 语言仅 加载
           const languageResponse = await fetch(`/api/db/lang_${currentLang}.json`)
           const languageData = await languageResponse.json()
 
-          // 언어 데이터 구성 - 현재 언어만 포함
+          // 语言 数据 相关 - 当前 语言仅 相关
           const languages: Record<string, any> = {}
           languages[currentLang] = languageData
 
-          // 현재 언어 코드를 추출하는 함수
+          // 当前 语言 相关 提取相关 函数
           function getCurrentLanguage(): string {
-            // 브라우저 환경인 경우에만 실행
+            // 浏览器 相关 相关仅 相关
             if (typeof window !== "undefined") {
-              // URL 경로에서 언어 코드 추출 시도
+              // URL 路径相关 语言 相关 提取 尝试
               const pathParts = window.location.pathname.split("/")
               if (pathParts.length > 1) {
                 const langFromPath = pathParts[1]
@@ -91,14 +91,14 @@ export function useDataLoader() {
                 }
               }
 
-              // URL에서 언어를 찾지 못한 경우 브라우저 언어 설정 사용
+              // URL相关 语言 相关 相关 相关 浏览器 语言 设置 使用
               const browserLang = navigator.language.split("-")[0]
               if (["ko", "en", "jp", "cn", "tw"].includes(browserLang)) {
                 return browserLang
               }
             }
 
-            // 기본값은 영어
+            // 默认值 相关
             return "cn"
           }
 
@@ -142,9 +142,9 @@ export function useDataLoader() {
               equipment.type = equipmentTypes[tagId]
             }
 
-            // 장비 타입이 없는 경우 기본값 설정 추가
+            // 装备 类型 没有 相关 默认值 设置 添加
             if (!equipment.type) {
-              // equipTagId에 따라 타입 설정
+              // equipTagId相关 相关 类型 设置
               if (tagId >= 12600155 && tagId <= 12600160) {
                 equipment.type = "weapon"
               } else if (tagId >= 12600161 && tagId <= 12600161) {
@@ -152,7 +152,7 @@ export function useDataLoader() {
               } else if (tagId >= 12600162 && tagId <= 12600162) {
                 equipment.type = "accessory"
               } else {
-                // 기본값은 weapon으로 설정
+                // 默认值 weapon相关 设置
                 equipment.type = "weapon"
               }
             }
@@ -187,8 +187,8 @@ export function useDataLoader() {
             equipments,
             equipmentTypes,
             homeSkills,
-            charSkillMap, // char_skill_map 추가
-            itemSkillMap, // item_skill_map 추가
+            charSkillMap, // char_skill_map 添加
+            itemSkillMap, // item_skill_map 添加
           })
         }
       } catch (err) {

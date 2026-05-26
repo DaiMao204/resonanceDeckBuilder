@@ -36,10 +36,10 @@
   将常用卡组保存在浏览器本地，之后可继续读取。
 
 - **多语言支持**  
-  支持韩文、英文、日文、简体中文、繁体中文。
+  支持简体中文、繁体中文、韩文、英文、日文。
 
 - **评论区**  
-  支持 Artalk 评论系统。不同语言页面共用同一页面评论区，评论按钮和提示文本会尽量跟随当前界面语言。
+  支持 Artalk 评论系统。不同语言页面共用同一页面评论区，评论按钮和提示文本会跟随当前界面语言。
 
 ### 🛠️ 当前维护版改动
 
@@ -213,7 +213,8 @@ npm run start
 
 ## 📝 许可证
 
-This project is licensed under the [GNU General Public License v3.0](./LICENSE).  
 本项目基于 [GNU General Public License v3.0](./LICENSE) 开源。
+有关更多信息，请参阅LICENSE文件。
 
+This project is licensed under the [GNU General Public License v3.0](./LICENSE).  
 See the LICENSE file for more information.

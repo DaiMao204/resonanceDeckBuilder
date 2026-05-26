@@ -13,7 +13,6 @@ import { useLanguage } from "../contexts/language-context"
 import { decodePresetFromUrlParam } from "../utils/presetCodec"
 import { loadDeckPresetFromShortlink } from "../utils/deck-shortlink"
 import { logEventWrapper } from "../lib/firebase-config"
-import { LoadingScreen } from "./loading-screen"
 import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 추가
 import { LoadDeckModal } from "./ui/modal/LoadDeckModal" // 추가
 import { getCurrentDeckId, setCurrentDeckId, removeCurrentDeckId, type SavedDeck } from "../utils/local-storage" // 추가
@@ -38,9 +37,6 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
   const { showToast, ToastContainer } = useToast()
   const contentRef = useRef<HTMLDivElement>(null) // 캡처할 컨텐츠 참조 추가
 
-  // useDataLoader 훅을 사용하여 실제 데이터 로드
-  // 로컬 로딩 상태 추가
-  const [isLocalLoading, setIsLocalLoading] = useState(true)
   const [initialLoadComplete, setInitialLoadComplete] = useState(false)
 
   // 저장/불러오기 모달 상태 추가
@@ -152,8 +148,6 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         }
       }
 
-      // 로컬 로딩 상태 업데이트
-      setIsLocalLoading(false)
       setInitialLoadComplete(true)
     }
 
@@ -636,11 +630,6 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     showToast,
     getTranslatedString,
   ])
-
-  // 로딩 중 표시
-  if (isLocalLoading) {
-    return <LoadingScreen message={getTranslatedString("loading") || "Loading..."} />
-  }
 
   // 에러 처리
   // 데이터가 없는 경우

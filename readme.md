@@ -192,9 +192,9 @@ npm run start
 当前建议使用 Vercel 部署。
 
 - `main`：主开发分支。
-- `deploy`：生产部署分支。
-- 推送 `main` 后，将 `main` 合并到 `deploy`。
-- 推送 `deploy` 后会触发 Vercel 生产部署。
+- `vercel-deploy`：生产部署分支。
+- 推送 `main` 后，将 `main` 合并到 `vercel-deploy`。
+- 推送 `vercel-deploy` 后会触发 Vercel 生产部署。
 
 ---
 

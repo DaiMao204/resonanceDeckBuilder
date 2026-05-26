@@ -46,11 +46,14 @@
 - 默认语言调整为简体中文。
 - 调整了页脚组成。
 - 默认队伍配置中加入弃牌卡，且弃牌卡不参与统计。
-- 评论区改为使用自建 Artalk 服务。
+- 评论区改为使用自建 Artalk 服务，支持表情包，智能加载不影响界面加载速度。
 - 优化界面加载和语言切换流程，减少加载时间。
 - 支持短链分享，同时兼容旧链接方式。
 - 增加BWIKI配队支持，可以从BWIKI配队攻略一键跳转。
 - 数据加载方式改为读取本地，加快网址加载速度。
+- 语言文件调整为并行加载，加快网址加载速度。
+- 取消Loading加载界面，改为骨架加载界面减少体感时间。
+- 使用首屏数据包，将首屏数据合并在一个包内加载，后续懒加载完整数据，减少界面加载时间。
 
 ---
 
@@ -91,11 +94,14 @@
 - 기본 언어를 간체 중국어로 변경했습니다.
 - 푸터 구성을 조정했습니다.
 - 기본 덱 구성에 버림 카드가 포함되며, 버림 카드는 통계에 포함되지 않습니다.
-- 댓글 영역은 자체 호스팅 Artalk 서비스를 사용하도록 변경했습니다.
+- 댓글 영역은 자체 호스팅 Artalk 서비스를 사용하도록 변경했으며, 이모티콘 팩을 지원하고 지능형 로딩으로 화면 로딩에 미치는 영향을 줄였습니다.
 - 화면 로딩과 언어 전환 흐름을 최적화하여 로딩 시간을 줄였습니다.
 - 짧은 링크 공유를 지원하며 기존 링크 방식과도 호환됩니다.
 - BWIKI 덱 구성 지원을 추가하여 BWIKI 공략에서 덱 구성 페이지로 바로 이동할 수 있습니다.
 - 데이터 로딩 방식을 로컬 정적 파일 읽기로 변경하여 사이트 로딩 속도를 개선했습니다.
+- 언어 파일을 병렬로 로딩하도록 조정하여 사이트 로딩 속도를 개선했습니다.
+- 기존 Loading 화면을 스켈레톤 로딩 화면으로 바꾸어 체감 대기 시간을 줄였습니다.
+- 첫 화면 데이터 패키지를 사용하여 첫 화면 데이터를 하나의 패키지로 합쳐 로딩하고, 이후 필요한 전체 데이터를 지연 로딩해 화면 로딩 시간을 줄였습니다.
 
 ---
 
@@ -136,11 +142,14 @@ You can select characters, equipment, skill cards, and battle settings on the si
 - Changed the default language to Simplified Chinese.
 - Adjusted the footer structure.
 - Added a default discard card to team setups, and excluded it from statistics.
-- Reworked comments to use a self-hosted Artalk service.
+- Reworked comments to use a self-hosted Artalk service, with emoji pack support and smarter loading that avoids impacting the main interface load.
 - Optimized interface loading and language switching to reduce loading time.
 - Added short-link sharing while keeping compatibility with the old link format.
 - Added BWIKI team setup support, allowing direct jumps from BWIKI team guides to the deck builder.
 - Changed data loading to read local static files, improving site load speed.
+- Adjusted language files to load in parallel, improving site load speed.
+- Replaced the Loading screen with a skeleton loading screen to reduce perceived wait time.
+- Added a first-screen data package that loads initial screen data as one bundle, then lazy-loads the full data later to reduce interface loading time.
 
 ---
 

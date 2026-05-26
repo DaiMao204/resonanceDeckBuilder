@@ -48,6 +48,7 @@
 - 默认队伍配置中加入弃牌卡，且弃牌卡不参与统计。
 - 评论区改为使用自建 Artalk 服务。
 - 优化界面加载和语言切换流程，减少加载时间。
+- 支持短链分享，同时兼容旧链接方式。
 
 ---
 
@@ -90,6 +91,7 @@
 - 기본 덱 구성에 버림 카드가 포함되며, 버림 카드는 통계에 포함되지 않습니다.
 - 댓글 영역은 자체 호스팅 Artalk 서비스를 사용하도록 변경했습니다.
 - 화면 로딩과 언어 전환 흐름을 최적화하여 로딩 시간을 줄였습니다.
+- 짧은 링크 공유를 지원하며 기존 링크 방식과도 호환됩니다.
 
 ---
 
@@ -132,6 +134,7 @@ You can select characters, equipment, skill cards, and battle settings on the si
 - Added a default discard card to team setups, and excluded it from statistics.
 - Reworked comments to use a self-hosted Artalk service.
 - Optimized interface loading and language switching to reduce loading time.
+- Added short-link sharing while keeping compatibility with the old link format.
 
 ---
 

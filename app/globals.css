@@ -1404,3 +1404,372 @@ body.dragging {
 .capture-content {
   transition: all 0.3s ease;
 }
+
+.artalk-comments {
+  --at-color-main: hsl(var(--neon-white));
+  --at-color-deep: #f5f5f5;
+  --at-color-sub: rgba(255, 255, 255, 0.64);
+  --at-color-grey: rgba(255, 255, 255, 0.42);
+  --at-color-meta: rgba(255, 255, 255, 0.52);
+  --at-color-border: rgba(255, 255, 255, 0.18);
+  --at-color-light: rgba(255, 255, 255, 0.08);
+  --at-color-bg: transparent;
+  --at-color-bg-transl: rgba(0, 0, 0, 0.72);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.artalk-comments .atk-main-editor,
+.artalk-comments .atk-list > .atk-list-comment > .atk-comment-wrap {
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+}
+
+.artalk-comments .atk-main-editor {
+  overflow: hidden;
+}
+
+.artalk-comments .atk-textarea-wrap textarea,
+.artalk-comments .atk-textarea-wrap .atk-textarea {
+  background: rgba(0, 0, 0, 0.42) !important;
+  color: #fff !important;
+  border: 0 !important;
+  min-height: 88px;
+}
+
+.artalk-comments .atk-textarea-wrap textarea:focus,
+.artalk-comments .atk-textarea-wrap .atk-textarea:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.34);
+}
+
+.artalk-comments .atk-plug-panel,
+.artalk-comments .atk-editor-footer,
+.artalk-comments .atk-comment-actions,
+.artalk-comments .atk-list-footer {
+  background: rgba(0, 0, 0, 0.18);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.artalk-comments input,
+.artalk-comments textarea,
+.artalk-comments select,
+.artalk-comments [contenteditable="true"] {
+  color: #fff !important;
+  background: rgba(0, 0, 0, 0.46) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 6px;
+}
+
+.artalk-comments input::placeholder,
+.artalk-comments textarea::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.artalk-comments .atk-textarea,
+.artalk-comments .atk-textarea-wrap,
+.artalk-comments .atk-editor-textarea,
+.artalk-comments .atk-editor-textarea-wrap,
+.artalk-comments .atk-editor-content,
+.artalk-comments .atk-editor-content textarea,
+.artalk-comments .atk-editor textarea,
+.artalk-comments .atk-main-editor textarea {
+  background: rgba(0, 0, 0, 0.46) !important;
+  color: #fff !important;
+}
+
+.artalk-comments .atk-send-btn,
+.artalk-comments button {
+  background: rgba(0, 0, 0, 0.68);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 6px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.artalk-comments .atk-send-btn:hover,
+.artalk-comments button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(245, 158, 11, 0.75);
+  color: #fff;
+}
+
+.artalk-comments a,
+.artalk-comments .atk-comment-name,
+.artalk-comments .atk-comment-action {
+  color: rgba(245, 158, 11, 0.9);
+}
+
+.artalk-comments a:hover,
+.artalk-comments .atk-comment-action:hover {
+  color: #fbbf24;
+}
+
+.artalk-comments .atk-avatar img,
+.artalk-comments .atk-avatar {
+  border-radius: 6px;
+}
+
+.artalk-comments .atk-comment-content {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.artalk-comments .atk-comment-date,
+.artalk-comments .atk-comment-meta,
+.artalk-comments .atk-list-no-comment {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.artalk-comments .atk-editor,
+.artalk-comments .atk-editor-wrap,
+.artalk-comments .atk-editor-inner,
+.artalk-comments .atk-editor-plug-emoticons,
+.artalk-comments .atk-editor-plug-preview,
+.artalk-comments .atk-dropdown,
+.artalk-comments .atk-dropdown-menu,
+.artalk-comments .atk-layer,
+.artalk-comments .atk-modal,
+.artalk-comments .atk-modal-wrap,
+.artalk-comments .atk-modal-content,
+.artalk-comments .atk-notify-wrap,
+.artalk-comments .atk-paginator,
+.artalk-comments .atk-list,
+.artalk-comments .atk-list-header,
+.artalk-comments .atk-list-body,
+.artalk-comments .atk-list-read-more,
+.artalk-comments .atk-comment,
+.artalk-comments .atk-comment-wrap,
+.artalk-comments .atk-comment-main,
+.artalk-comments .atk-comment-children {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.artalk-comments .atk-dropdown-menu,
+.artalk-comments .atk-layer,
+.artalk-comments .atk-modal-content,
+.artalk-comments .atk-notify-wrap,
+.artalk-comments .atk-editor-plug-emoticons,
+.artalk-comments .atk-editor-plug-preview {
+  background: rgba(0, 0, 0, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+.artalk-comments .atk-list-read-more,
+.artalk-comments .atk-list-footer {
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.artalk-comments .atk-comment > .atk-comment-wrap {
+  margin-top: 0.75rem;
+}
+
+.artalk-comments .atk-comment-children {
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.artalk-comments .atk-error,
+.artalk-comments .atk-error-layer {
+  background: rgba(0, 0, 0, 0.88);
+  color: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  border-radius: 6px;
+}
+
+.artalk-comments input[name="link"],
+.artalk-comments input[name="url"],
+.artalk-comments input[name="website"],
+.artalk-comments input[placeholder*="网址"],
+.artalk-comments input[placeholder*="Website"],
+.artalk-comments input[placeholder*="Site"],
+.artalk-comments input[placeholder*="URL"],
+.artalk-comments .atk-link,
+.artalk-comments .atk-link-input,
+.artalk-comments .atk-url,
+.artalk-comments .atk-url-input,
+.artalk-comments .atk-website,
+.artalk-comments .atk-website-input,
+.artalk-comments .atk-editor-link,
+.artalk-comments .atk-editor-url,
+.artalk-comments .atk-editor-website {
+  display: none !important;
+}
+
+body > .atk-dropdown,
+body > .atk-layer,
+body > .atk-modal,
+body > .atk-notify-wrap,
+body > .atk-editor-plug-emoticons,
+body > .atk-editor-plug-preview,
+.atk-dropdown,
+.atk-dropdown-menu,
+.atk-layer,
+.atk-modal,
+.atk-modal-wrap,
+.atk-modal-content,
+.atk-notify-wrap,
+.atk-editor-plug-emoticons,
+.atk-editor-plug-preview,
+.atk-emoticons,
+.atk-emoticons-wrap,
+.atk-sorter,
+.atk-sorter-menu {
+  background: rgba(0, 0, 0, 0.94) !important;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.atk-dropdown *,
+.atk-dropdown-menu *,
+.atk-layer *,
+.atk-modal *,
+.atk-notify-wrap *,
+.atk-editor-plug-emoticons *,
+.atk-editor-plug-preview *,
+.atk-emoticons *,
+.atk-sorter-menu * {
+  color: inherit;
+}
+
+.atk-dropdown a,
+.atk-dropdown-menu a,
+.atk-layer a,
+.atk-modal a,
+.atk-editor-plug-emoticons a,
+.atk-editor-plug-preview a,
+.atk-emoticons a,
+.atk-sorter-menu a,
+.atk-dropdown button,
+.atk-dropdown-menu button,
+.atk-layer button,
+.atk-modal button,
+.atk-editor-plug-emoticons button,
+.atk-editor-plug-preview button,
+.atk-emoticons button,
+.atk-sorter-menu button {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.atk-dropdown a:hover,
+.atk-dropdown-menu a:hover,
+.atk-layer a:hover,
+.atk-modal a:hover,
+.atk-editor-plug-emoticons a:hover,
+.atk-editor-plug-preview a:hover,
+.atk-emoticons a:hover,
+.atk-sorter-menu a:hover,
+.atk-dropdown button:hover,
+.atk-dropdown-menu button:hover,
+.atk-layer button:hover,
+.atk-modal button:hover,
+.atk-editor-plug-emoticons button:hover,
+.atk-editor-plug-preview button:hover,
+.atk-emoticons button:hover,
+.atk-sorter-menu button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #fbbf24 !important;
+}
+
+.atk-emoticons,
+.atk-emoticons *,
+.atk-emoticons-wrap,
+.atk-emoticons-wrap *,
+.atk-emoticon,
+.atk-emoticon *,
+.atk-emoticon-list,
+.atk-emoticon-list *,
+.atk-emoticon-item,
+.atk-emoticon-item *,
+.atk-emoticon-tabs,
+.atk-emoticon-tabs *,
+.atk-emoticon-tab,
+.atk-emoticon-tab *,
+.atk-editor-plug-emoticons,
+.atk-editor-plug-emoticons *,
+.atk-editor-plug-emoticons .atk-grp,
+.atk-editor-plug-emoticons .atk-grp *,
+.atk-editor-plug-emoticons .atk-item,
+.atk-editor-plug-emoticons .atk-item *,
+.OwO,
+.OwO *,
+.OwO-body,
+.OwO-body *,
+.OwO-items,
+.OwO-items *,
+.OwO-item,
+.OwO-item *,
+.OwO-bar,
+.OwO-bar * {
+  background-color: rgba(0, 0, 0, 0.94) !important;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.atk-emoticon-item:hover,
+.atk-editor-plug-emoticons .atk-item:hover,
+.OwO-item:hover,
+.OwO-bar .OwO-packages li:hover,
+.OwO-bar .OwO-packages .active {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.atk-emoticons img,
+.atk-editor-plug-emoticons img,
+.OwO img {
+  background: transparent !important;
+}
+
+.atk-sidebar,
+.atk-sidebar-layer,
+.atk-sidebar-wrap,
+.atk-sidebar-content,
+.atk-sidebar-main,
+.atk-sidebar-panel,
+.atk-msg-center,
+.atk-notify-center {
+  background-color: rgba(0, 0, 0, 0.96) !important;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.atk-sidebar :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea),
+.atk-sidebar-layer :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea),
+.atk-sidebar-wrap :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea),
+.atk-sidebar-content :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea),
+.atk-sidebar-main :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea),
+.atk-sidebar-panel :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea),
+.atk-msg-center :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea),
+.atk-notify-center :where(aside, main, section, header, footer, nav, div, ul, li, form, label, input, textarea) {
+  background-color: rgba(0, 0, 0, 0.94) !important;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.atk-sidebar :where(a, span, p, h1, h2, h3, h4, h5, h6),
+.atk-sidebar-layer :where(a, span, p, h1, h2, h3, h4, h5, h6),
+.atk-sidebar-wrap :where(a, span, p, h1, h2, h3, h4, h5, h6),
+.atk-sidebar-content :where(a, span, p, h1, h2, h3, h4, h5, h6),
+.atk-sidebar-main :where(a, span, p, h1, h2, h3, h4, h5, h6),
+.atk-sidebar-panel :where(a, span, p, h1, h2, h3, h4, h5, h6),
+.atk-msg-center :where(a, span, p, h1, h2, h3, h4, h5, h6),
+.atk-notify-center :where(a, span, p, h1, h2, h3, h4, h5, h6) {
+  color: rgba(255, 255, 255, 0.86) !important;
+}
+
+.atk-sidebar :where(a:hover, li:hover),
+.atk-sidebar-layer :where(a:hover, li:hover),
+.atk-sidebar-wrap :where(a:hover, li:hover),
+.atk-sidebar-content :where(a:hover, li:hover),
+.atk-sidebar-main :where(a:hover, li:hover),
+.atk-sidebar-panel :where(a:hover, li:hover),
+.atk-msg-center :where(a:hover, li:hover),
+.atk-notify-center :where(a:hover, li:hover) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fbbf24 !important;
+}

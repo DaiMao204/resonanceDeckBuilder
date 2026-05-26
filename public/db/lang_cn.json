@@ -24389,5 +24389,6 @@
   "footer.project_copyright": "雷索纳斯卡组构建器 © 2025",
   "comments.auth_loading": "正在准备匿名身份...",
   "comments.disabled": "评论功能暂时关闭。",
-  "comments.auth_failed": "匿名登录失败，请检查 Firebase Authentication 是否已启用匿名登录。"
+  "comments.auth_failed": "匿名登录失败，请检查 Firebase Authentication 是否已启用匿名登录。",
+  "comments.load_failed": "评论加载失败。"
 }

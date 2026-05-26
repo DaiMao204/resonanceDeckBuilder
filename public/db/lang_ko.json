@@ -8816,5 +8816,6 @@
   "footer.project_copyright": "레조넌스 덱 빌더 © 2025",
   "comments.auth_loading": "익명 세션을 준비하는 중...",
   "comments.disabled": "댓글 기능이 일시적으로 비활성화되었습니다.",
-  "comments.auth_failed": "익명 로그인에 실패했습니다. Firebase Authentication에서 익명 로그인이 활성화되어 있는지 확인하세요."
+  "comments.auth_failed": "익명 로그인에 실패했습니다. Firebase Authentication에서 익명 로그인이 활성화되어 있는지 확인하세요.",
+  "comments.load_failed": "댓글을 불러오지 못했습니다."
 }

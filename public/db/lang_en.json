@@ -8808,5 +8808,6 @@
   "footer.project_copyright": "Resonance Deck Builder © 2025",
   "comments.auth_loading": "Preparing anonymous session...",
   "comments.disabled": "Comments are temporarily disabled.",
-  "comments.auth_failed": "Anonymous sign-in failed. Check Firebase Authentication settings."
+  "comments.auth_failed": "Anonymous sign-in failed. Check Firebase Authentication settings.",
+  "comments.load_failed": "Failed to load comments."
 }

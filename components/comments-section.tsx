@@ -22,6 +22,14 @@ import {
 import { db, firebaseEnabled } from "../lib/firebase-config"
 import { useLanguage } from "../contexts/language-context"
 
+declare global {
+  interface Window {
+    Artalk?: {
+      init: (options: Record<string, unknown>) => { destroy?: () => void }
+    }
+  }
+}
+
 interface Comment {
   id: string
   content: string
@@ -33,6 +41,12 @@ interface Comment {
 interface CommentsProps {
   currentLanguage: string
 }
+
+const ARTALK_VERSION = "2.9.1"
+const ARTALK_SCRIPT_ID = "artalk-client-script"
+const ARTALK_STYLE_ID = "artalk-client-style"
+const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
+const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
 
 function mapToLocale(lang: string): string {
   const localeMap: Record<string, string> = {
@@ -48,6 +62,11 @@ function mapToLocale(lang: string): string {
 
 export function CommentsSection({ currentLanguage }: CommentsProps) {
   const { getTranslatedString } = useLanguage()
+
+  if (artalkServer) {
+    return <ArtalkCommentsSection currentLanguage={currentLanguage} getTranslatedString={getTranslatedString} />
+  }
+
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState("")
   const [userId, setUserId] = useState<string>("")
@@ -420,6 +439,153 @@ export function CommentsSection({ currentLanguage }: CommentsProps) {
             </>
           )}
         </div>
+      </div>
+    </section>
+  )
+}
+
+interface ArtalkCommentsProps {
+  currentLanguage: string
+  getTranslatedString: (key: string) => string
+}
+
+function loadArtalkClient() {
+  if (typeof window === "undefined") return Promise.reject(new Error("Artalk can only run in browser"))
+  if (window.Artalk) return Promise.resolve()
+
+  return new Promise<void>((resolve, reject) => {
+    if (!document.getElementById(ARTALK_STYLE_ID)) {
+      const link = document.createElement("link")
+      link.id = ARTALK_STYLE_ID
+      link.rel = "stylesheet"
+      link.href = `https://unpkg.com/artalk@${ARTALK_VERSION}/dist/Artalk.css`
+      document.head.appendChild(link)
+    }
+
+    const existingScript = document.getElementById(ARTALK_SCRIPT_ID) as HTMLScriptElement | null
+    if (existingScript) {
+      existingScript.addEventListener("load", () => resolve(), { once: true })
+      existingScript.addEventListener("error", () => reject(new Error("Failed to load Artalk client")), { once: true })
+      return
+    }
+
+    const script = document.createElement("script")
+    script.id = ARTALK_SCRIPT_ID
+    script.src = `https://unpkg.com/artalk@${ARTALK_VERSION}/dist/Artalk.js`
+    script.async = true
+    script.onload = () => resolve()
+    script.onerror = () => reject(new Error("Failed to load Artalk client"))
+    document.body.appendChild(script)
+  })
+}
+
+function mapToArtalkLocale(lang: string) {
+  const localeMap: Record<string, string> = {
+    cn: "zh-CN",
+    zh: "zh-CN",
+    tw: "zh-TW",
+    en: "en-US",
+    jp: "ja",
+    ko: "ko",
+  }
+  return localeMap[lang] || "zh-CN"
+}
+
+function getSharedArtalkPageKey() {
+  const pathname = window.location.pathname.replace(/^\/(cn|en|jp|ko|tw)(?=\/|$)/, "") || "/"
+  return pathname + window.location.search
+}
+
+function getArtalkUiText(lang: string) {
+  const uiTextMap: Record<string, Record<string, string>> = {
+    cn: {
+      placeholder: "说点什么...",
+      noComment: "暂无评论",
+      sendBtn: "发送评论",
+    },
+    zh: {
+      placeholder: "说点什么...",
+      noComment: "暂无评论",
+      sendBtn: "发送评论",
+    },
+    tw: {
+      placeholder: "說點什麼...",
+      noComment: "暫無留言",
+      sendBtn: "發送留言",
+    },
+    en: {
+      placeholder: "Type something...",
+      noComment: "No comments yet",
+      sendBtn: "Post Comment",
+    },
+    jp: {
+      placeholder: "コメントを入力...",
+      noComment: "コメントはまだありません",
+      sendBtn: "コメントを投稿",
+    },
+    ko: {
+      placeholder: "댓글을 입력하세요...",
+      noComment: "아직 댓글이 없습니다",
+      sendBtn: "댓글 작성",
+    },
+  }
+  return uiTextMap[lang] || uiTextMap.cn
+}
+
+function ArtalkCommentsSection({ currentLanguage, getTranslatedString }: ArtalkCommentsProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const artalkRef = useRef<{ destroy?: () => void } | null>(null)
+  const [loadError, setLoadError] = useState("")
+
+  useEffect(() => {
+    let cancelled = false
+
+    loadArtalkClient()
+      .then(() => {
+        if (cancelled || !window.Artalk || !containerRef.current || !artalkServer) return
+        artalkRef.current?.destroy?.()
+        containerRef.current.innerHTML = ""
+        const uiText = getArtalkUiText(currentLanguage)
+        artalkRef.current = window.Artalk.init({
+          el: containerRef.current,
+          server: artalkServer,
+          site: artalkSite,
+          pageKey: getSharedArtalkPageKey(),
+          pageTitle: "Resonance Deck Builder",
+          locale: mapToArtalkLocale(currentLanguage),
+          darkMode: true,
+          preferRemoteConf: false,
+          useBackendConf: false,
+          placeholder: uiText.placeholder,
+          noComment: uiText.noComment,
+          sendBtn: uiText.sendBtn,
+        })
+      })
+      .catch((error) => {
+        console.error("Error loading Artalk:", error)
+        if (!cancelled) setLoadError(error instanceof Error ? error.message : String(error))
+      })
+
+    return () => {
+      cancelled = true
+      artalkRef.current?.destroy?.()
+      artalkRef.current = null
+    }
+  }, [currentLanguage])
+
+  return (
+    <section className="w-full py-4 mt-12 border-t border-[rgba(255,255,255,0.1)]">
+      <div className="container mx-auto px-4">
+        <h2 className="text-xl font-semibold mb-4 neon-text">
+          {getTranslatedString("comments.title") || "Comments"}
+        </h2>
+        {loadError ? (
+          <p className="text-red-400 text-center py-4">
+            {getTranslatedString("comments.load_failed") || "Failed to load comments."}
+          </p>
+        ) : (
+          <div key={currentLanguage} className="artalk-comments" ref={containerRef} />
+        )}
       </div>
     </section>
   )

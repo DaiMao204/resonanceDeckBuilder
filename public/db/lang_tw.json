@@ -8807,5 +8807,6 @@
   "footer.project_copyright": "雷索納斯卡組構建器 © 2025",
   "comments.auth_loading": "正在準備匿名身份...",
   "comments.disabled": "留言功能暫時關閉。",
-  "comments.auth_failed": "匿名登入失敗，請檢查 Firebase Authentication 是否已啟用匿名登入。"
+  "comments.auth_failed": "匿名登入失敗，請檢查 Firebase Authentication 是否已啟用匿名登入。",
+  "comments.load_failed": "留言載入失敗。"
 }

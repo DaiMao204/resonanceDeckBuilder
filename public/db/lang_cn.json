@@ -5062,6 +5062,7 @@
   "import_from_clipboard": "从剪贴板导入",
   "import_success": "导入成功！",
   "include_derived_cards": "包含衍生卡牌",
+  "derived_cards_tooltip": "统计中包含战斗中生成的衍生卡牌；关闭后只统计角色原本持有的卡牌。",
   "language": "语言",
   "leader_skill_condition": "队长技能条件",
   "light_mode": "浅色模式",

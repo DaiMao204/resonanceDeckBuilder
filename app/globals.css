@@ -1725,6 +1725,24 @@ body > .atk-editor-plug-preview,
   background: transparent !important;
 }
 
+/* 评论正文里的普通图片按预览尺寸展示，避免桌面端被原图撑满。 */
+.artalk-comments .atk-comment-content img:not([atk-emoticon]) {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 420px) !important;
+  max-height: 420px !important;
+  object-fit: contain !important;
+  border-radius: 6px !important;
+}
+
+@media (max-width: 640px) {
+  .artalk-comments .atk-comment-content img:not([atk-emoticon]) {
+    max-width: 100% !important;
+    max-height: 70vh !important;
+  }
+}
+
 /* 蓝鹊儿 GIF 体积比默认表情更大，评论正文中限制尺寸避免撑开布局。 */
 .artalk-comments .atk-comment-content img[atk-emoticon] {
   max-width: 120px !important;

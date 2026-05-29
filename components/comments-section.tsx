@@ -26,6 +26,8 @@ const ARTALK_STYLE_ID = "artalk-client-style"
 const ARTALK_DEFAULT_EMOTICONS_URL = "https://cdn.jsdelivr.net/gh/ArtalkJS/Emoticons/grps/default.json"
 const ARTALK_EMOTICONS_ASSET_ORIGIN = "https://comment.daimao.online"
 const ARTALK_LANQUEER_EMOTICONS_URL = `${ARTALK_EMOTICONS_ASSET_ORIGIN}/artalk-emoticons/lanqueer-webp.json`
+const ARTALK_DEFAULT_AVATAR_PATH = "/artalk/default-avatar-livia.png"
+const ARTALK_GRAVATAR_MIRROR = "https://cravatar.cn/avatar/"
 const SHARED_ARTALK_PAGE_KEY = "/"
 const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
 const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
@@ -268,6 +270,16 @@ function getSharedArtalkPageKey() {
   return SHARED_ARTALK_PAGE_KEY
 }
 
+function getArtalkGravatarConfig() {
+  // 没有 Gravatar/Cravatar 头像时，回退到站点内置的莉薇娅默认头像。
+  const defaultAvatarUrl = new URL(ARTALK_DEFAULT_AVATAR_PATH, window.location.origin).toString()
+
+  return {
+    mirror: ARTALK_GRAVATAR_MIRROR,
+    params: `d=${encodeURIComponent(defaultAvatarUrl)}&s=240`,
+  }
+}
+
 function getArtalkUiText(lang: string) {
   const uiTextMap: Record<string, Record<string, string>> = {
     cn: {
@@ -383,6 +395,7 @@ function ArtalkCommentsSection({ currentLanguage, getTranslatedString }: ArtalkC
           darkMode: true,
           preview: false,
           emoticons,
+          gravatar: getArtalkGravatarConfig(),
           preferRemoteConf: false,
           useBackendConf: false,
           placeholder: uiText.placeholder,

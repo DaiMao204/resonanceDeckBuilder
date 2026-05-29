@@ -26,6 +26,7 @@ const ARTALK_STYLE_ID = "artalk-client-style"
 const ARTALK_DEFAULT_EMOTICONS_URL = "https://cdn.jsdelivr.net/gh/ArtalkJS/Emoticons/grps/default.json"
 const ARTALK_EMOTICONS_ASSET_ORIGIN = "https://comment.daimao.online"
 const ARTALK_LANQUEER_EMOTICONS_URL = `${ARTALK_EMOTICONS_ASSET_ORIGIN}/artalk-emoticons/lanqueer-webp.json`
+const SHARED_ARTALK_PAGE_KEY = "/"
 const artalkServer = process.env.NEXT_PUBLIC_ARTALK_SERVER?.replace(/\/$/, "")
 const artalkSite = process.env.NEXT_PUBLIC_ARTALK_SITE || "雷索纳斯卡组构建器"
 const preloadedEmoticonImageUrls = new Set<string>()
@@ -263,8 +264,8 @@ function mapToArtalkLocale(lang: string) {
 }
 
 function getSharedArtalkPageKey() {
-  const pathname = window.location.pathname.replace(/^\/(cn|en|jp|ko|tw)(?=\/|$)/, "") || "/"
-  return pathname + window.location.search
+  // 所有语言与配队链接共用同一个评论页，避免 Artalk 后台生成很长的本地调试链接。
+  return SHARED_ARTALK_PAGE_KEY
 }
 
 function getArtalkUiText(lang: string) {

@@ -276,7 +276,7 @@ function getArtalkGravatarConfig() {
 
   return {
     mirror: ARTALK_GRAVATAR_MIRROR,
-    params: `d=${encodeURIComponent(defaultAvatarUrl)}&s=240`,
+    params: `sha256=1&d=${encodeURIComponent(defaultAvatarUrl)}&s=240`,
   }
 }
 

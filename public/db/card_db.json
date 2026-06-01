@@ -15503,7 +15503,17 @@
     "color": "Yellow",
     "cost_SN": 30000,
     "cardType": "UseOnce",
-    "ExCondList": [],
+    "ExCondList": [
+      {
+        "condId": 96200031,
+        "des": 80608005,
+        "interValNum": 12,
+        "isNumCond": true,
+        "minNum": 0,
+        "numDuration": 1,
+        "typeEnum": "number"
+      }
+    ],
     "ExActList": [],
     "tagList": [
       {
@@ -15563,6 +15573,15 @@
       {
         "condId": 96300010,
         "des": 80610278
+      },
+      {
+        "condId": 96300018,
+        "des": 80612481,
+        "interValNum": 5,
+        "isNumCond": true,
+        "minNum": 1,
+        "numDuration": 1,
+        "typeEnum": "number"
       }
     ],
     "tagList": [
@@ -15595,8 +15614,45 @@
       },
       {
         "tagId": 12602099
+      },
+      {
+        "tagId": 12600011
+      },
+      {
+        "tagId": 12600057
+      },
+      {
+        "tagId": 12600472
       }
     ],
     "name": "card_name_10600574"
+  },
+  "10600575": {
+    "id": 10600575,
+    "idCN": "00原版/05五星/美琪/B_觉醒2",
+    "color": "Yellow",
+    "cost_SN": 30000,
+    "cardType": "UseOnce",
+    "ExCondList": [
+      {
+        "condId": 96200031,
+        "des": 80608005,
+        "interValNum": 12,
+        "isNumCond": true,
+        "minNum": 0,
+        "numDuration": 1,
+        "typeEnum": "number"
+      }
+    ],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12600146
+      },
+      {
+        "tagId": 12602098
+      }
+    ],
+    "name": "card_name_10600575"
   }
 }

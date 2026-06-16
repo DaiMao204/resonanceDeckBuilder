@@ -10611,5 +10611,15 @@
   "tag_tagName_12601926": "A",
   "tag_tagName_12601935": "A",
   "tag_tagName_12601955": "A",
-  "tag_tagName_12601983": "A"
+  "tag_tagName_12601983": "A",
+  "char_ability_10001356": "None",
+  "char_identity_10001356": "B.C.R.L.: Team Ratel Demolitionist",
+  "skill_detailDescription_12304843": "DMG: 6000% (Physical).",
+  "skill_detailDescription_12304846": "DMG: 6000% (Frost).",
+  "skill_detailDescription_12304847": "DMG: 6000% (Fire).",
+  "skill_name_12304882": "Battle Spirit",
+  "tag_tagName_12602084": "A",
+  "tag_tagName_12602104": "Special Recruit",
+  "talent_desc_12800716": "HP +35%",
+  "talent_name_12800716": "Vitality"
 }

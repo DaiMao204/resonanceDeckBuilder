@@ -33,6 +33,8 @@ function copyWithLegacyTextarea(text: string): boolean {
  * @returns Promise that resolves when text is copied
  */
 export async function copyToClipboard(text: string): Promise<void> {
+  if (copyWithLegacyTextarea(text)) return
+
   try {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(text)
@@ -41,8 +43,6 @@ export async function copyToClipboard(text: string): Promise<void> {
   } catch (err) {
     console.error("Failed to copy text: ", err)
   }
-
-  if (copyWithLegacyTextarea(text)) return
 
   throw new Error("Failed to copy to clipboard")
 }

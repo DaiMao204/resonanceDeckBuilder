@@ -613,8 +613,13 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     try {
       const result = await createShareableUrl()
       if (result.success && result.url) {
-        await copyToClipboard(result.url)
-        showToast(getTranslatedString("share_link_copied_alert"), "success")
+        try {
+          await copyToClipboard(result.url)
+          showToast(getTranslatedString("share_link_copied_alert"), "success")
+        } catch (error) {
+          window.prompt("自动复制失败，请手动复制分享链接", result.url)
+          showToast(getTranslatedString("share_link_copied_alert"), "success")
+        }
 
         // Firebase Analytics 相关 相关
         const characterIds = selectedCharacters.filter((id) => id !== -1)
@@ -735,8 +740,13 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         // 卡组 预设相关 相关 URL 生成
         const result = await createShareableUrl(deck.preset)
         if (result.success && result.url) {
-          await copyToClipboard(result.url)
-          showToast(getTranslatedString("share_link_copied_alert"), "success")
+          try {
+            await copyToClipboard(result.url)
+            showToast(getTranslatedString("share_link_copied_alert"), "success")
+          } catch (error) {
+            window.prompt("自动复制失败，请手动复制分享链接", result.url)
+            showToast(getTranslatedString("share_link_copied_alert"), "success")
+          }
 
           // Firebase Analytics 相关 相关
           const characterIds = deck.preset.roleList.filter((id) => id !== -1)

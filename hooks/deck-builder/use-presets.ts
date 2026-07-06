@@ -8,6 +8,9 @@ import { encodePreset, decodePreset, encodePresetForUrl, decodePresetFromUrlPara
 import { saveDeckPresetToShortlink, loadDeckPresetFromShortlink } from "../../utils/deck-shortlink"
 import { copyToClipboard, readFromClipboard } from "../../utils/clipboard"
 
+const MANUAL_EXPORT_PROMPT = "自动复制失败，请手动复制卡组码"
+const MANUAL_IMPORT_PROMPT = "请粘贴卡组码或分享链接"
+
 // 从剪贴板导入时兼容三种内容：纯导出码、旧长链接 code、新短链 s。
 async function decodePresetFromClipboardText(text: string): Promise<any | null> {
   const trimmedText = text.trim()
@@ -189,7 +192,13 @@ export function usePresets(
       const preset = createPresetObject(false, false) // 装备 信息和 觉醒 信息 相关
       const base64String = encodePreset(preset)
       if (!base64String) throw new Error("encode_failed")
-      await copyToClipboard(base64String)
+
+      try {
+        await copyToClipboard(base64String)
+      } catch (error) {
+        window.prompt(MANUAL_EXPORT_PROMPT, base64String)
+      }
+
       return { success: true, message: "export_success" }
     } catch (error) {
       return { success: false, message: "export_failed" }
@@ -215,13 +224,16 @@ export function usePresets(
         clipboardText = await readFromClipboard()
       } catch (error) {
         // 某些浏览器会拒绝读取剪贴板，此时让用户手动粘贴卡组码或分享链接。
-        clipboardText =
-          window.prompt("请粘贴卡组码或分享链接") ||
-          ""
+        clipboardText = window.prompt(MANUAL_IMPORT_PROMPT) || ""
       }
 
       // 剪贴板中可以是导出码，也可以是分享链接。
-      const preset = await decodePresetFromClipboardText(clipboardText)
+      let preset = await decodePresetFromClipboardText(clipboardText)
+
+      if (!preset) {
+        const manualText = window.prompt(MANUAL_IMPORT_PROMPT, clipboardText) || ""
+        preset = await decodePresetFromClipboardText(manualText)
+      }
 
       if (!preset) {
         throw new Error("invalid_preset_format")

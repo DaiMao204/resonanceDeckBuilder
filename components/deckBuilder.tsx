@@ -12,6 +12,7 @@ import { useDeckBuilder } from "../hooks/deck-builder/index"
 import { useLanguage } from "../contexts/language-context"
 import { decodePresetFromUrlParam } from "../utils/presetCodec"
 import { loadDeckPresetFromShortlink } from "../utils/deck-shortlink"
+import { copyToClipboard } from "../utils/clipboard"
 import { logEventWrapper } from "../lib/firebase-config"
 import type { Database } from "../types"
 import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 添加
@@ -588,9 +589,9 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
   }, [importPreset, showToast, getTranslatedString, selectedCharacters, currentLanguage])
 
   // 相关 导出
-  const handleExport = useCallback(() => {
+  const handleExport = useCallback(async () => {
     try {
-      const result = exportPreset()
+      const result = await exportPreset()
       showToast(getTranslatedString(result.message), result.success ? "success" : "error")
 
       // Firebase Analytics 相关 相关
@@ -610,7 +611,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     try {
       const result = await createShareableUrl()
       if (result.success && result.url) {
-        navigator.clipboard.writeText(result.url)
+        await copyToClipboard(result.url)
         showToast(getTranslatedString("share_link_copied_alert"), "success")
 
         // Firebase Analytics 相关 相关
@@ -732,7 +733,7 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         // 卡组 预设相关 相关 URL 生成
         const result = await createShareableUrl(deck.preset)
         if (result.success && result.url) {
-          navigator.clipboard.writeText(result.url)
+          await copyToClipboard(result.url)
           showToast(getTranslatedString("share_link_copied_alert"), "success")
 
           // Firebase Analytics 相关 相关

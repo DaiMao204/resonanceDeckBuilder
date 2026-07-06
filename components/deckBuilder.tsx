@@ -215,6 +215,8 @@ function applyWikiTemplateParamsToPreset(
 export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: DeckBuilderProps) {
   const { getTranslatedString, currentLanguage } = useLanguage()
   const searchParams = useSearchParams()
+  const effectiveUrlDeckCode = urlDeckCode || searchParams.get("code")
+  const effectiveUrlDeckShortCode = urlDeckShortCode || searchParams.get("s")
   const { showToast, ToastContainer } = useToast()
   const contentRef = useRef<HTMLDivElement>(null) // 截图相关 相关 引用 添加
 
@@ -295,11 +297,11 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     if (initialLoadComplete || !data) return
 
     const loadFromUrl = async () => {
-      if (urlDeckShortCode || urlDeckCode) {
+      if (effectiveUrlDeckShortCode || effectiveUrlDeckCode) {
         try {
-          const preset = urlDeckShortCode
-            ? await loadDeckPresetFromShortlink(urlDeckShortCode)
-            : decodePresetFromUrlParam(urlDeckCode)
+          const preset = effectiveUrlDeckShortCode
+            ? await loadDeckPresetFromShortlink(effectiveUrlDeckShortCode)
+            : decodePresetFromUrlParam(effectiveUrlDeckCode)
 
           if (preset) {
             const mergedPreset = applyWikiTemplateParamsToPreset(preset, searchParams, data, getTranslatedString)
@@ -312,8 +314,8 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
 
               // 记录分享链接导入事件，区分短链和旧长链。
               logEventWrapper("deck_shared_visit", {
-                deck_code: urlDeckShortCode || urlDeckCode,
-                deck_code_type: urlDeckShortCode ? "short" : "long",
+                deck_code: effectiveUrlDeckShortCode || effectiveUrlDeckCode,
+                deck_code_type: effectiveUrlDeckShortCode ? "short" : "long",
                 language: currentLanguage,
               })
             }
@@ -335,8 +337,8 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     void loadFromUrl()
   }, [
     data,
-    urlDeckCode,
-    urlDeckShortCode,
+    effectiveUrlDeckCode,
+    effectiveUrlDeckShortCode,
     importPresetObject,
     showToast,
     getTranslatedString,

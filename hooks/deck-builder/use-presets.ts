@@ -209,7 +209,16 @@ export function usePresets(
   // 相关 预设 读取
   const importPreset = useCallback(async () => {
     try {
-      const clipboardText = await readFromClipboard()
+      let clipboardText = ""
+
+      try {
+        clipboardText = await readFromClipboard()
+      } catch (error) {
+        // 某些浏览器会拒绝读取剪贴板，此时让用户手动粘贴卡组码或分享链接。
+        clipboardText =
+          window.prompt("请粘贴卡组码或分享链接") ||
+          ""
+      }
 
       // 剪贴板中可以是导出码，也可以是分享链接。
       const preset = await decodePresetFromClipboardText(clipboardText)

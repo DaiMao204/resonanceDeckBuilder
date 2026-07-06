@@ -12,8 +12,8 @@ import { ScreenshotButton } from "./screenshot-button" // 添加
 interface TopBarProps {
   onClear: () => void
   onImport: () => Promise<void>
-  onExport: () => Promise<void> | void
-  onShare: () => Promise<void> | void
+  onExport: () => void
+  onShare: () => void
   onSave: () => void // 添加: 保存 按钮 处理函数
   onLoad: () => void // 添加: 加载 按钮 处理函数
   onSortCharacters?: () => void

@@ -14467,15 +14467,6 @@
         "minNum": 0,
         "numDuration": 1,
         "typeEnum": "number"
-      },
-      {
-        "condId": 96300018,
-        "des": 80612481,
-        "interValNum": 5,
-        "isNumCond": true,
-        "minNum": 1,
-        "numDuration": 1,
-        "typeEnum": "number"
       }
     ],
     "tagList": [
@@ -15379,12 +15370,6 @@
       },
       {
         "tagId": 12602060
-      },
-      {
-        "tagId": 12602086
-      },
-      {
-        "tagId": 12602082
       }
     ],
     "name": "card_name_10600565"
@@ -15402,13 +15387,10 @@
         "tagId": 12600146
       },
       {
+        "tagId": 12600089
+      },
+      {
         "tagId": 12602059
-      },
-      {
-        "tagId": 12602088
-      },
-      {
-        "tagId": 12602087
       }
     ],
     "name": "card_name_10600566"
@@ -15448,6 +15430,9 @@
       },
       {
         "tagId": 12600082
+      },
+      {
+        "tagId": 12600149
       },
       {
         "tagId": 12602058
@@ -15518,17 +15503,7 @@
     "color": "Yellow",
     "cost_SN": 30000,
     "cardType": "UseOnce",
-    "ExCondList": [
-      {
-        "condId": 96200031,
-        "des": 80608005,
-        "interValNum": 12,
-        "isNumCond": true,
-        "minNum": 0,
-        "numDuration": 1,
-        "typeEnum": "number"
-      }
-    ],
+    "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
@@ -15588,15 +15563,6 @@
       {
         "condId": 96300010,
         "des": 80610278
-      },
-      {
-        "condId": 96300018,
-        "des": 80612481,
-        "interValNum": 5,
-        "isNumCond": true,
-        "minNum": 1,
-        "numDuration": 1,
-        "typeEnum": "number"
       }
     ],
     "tagList": [
@@ -15629,225 +15595,8 @@
       },
       {
         "tagId": 12602099
-      },
-      {
-        "tagId": 12600011
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12600472
       }
     ],
     "name": "card_name_10600574"
-  },
-  "10600575": {
-    "id": 10600575,
-    "idCN": "00原版/05五星/美琪/B_觉醒2",
-    "color": "Yellow",
-    "cost_SN": 30000,
-    "cardType": "UseOnce",
-    "ExCondList": [
-      {
-        "condId": 96200031,
-        "des": 80608005,
-        "interValNum": 12,
-        "isNumCond": true,
-        "minNum": 0,
-        "numDuration": 1,
-        "typeEnum": "number"
-      }
-    ],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600146
-      },
-      {
-        "tagId": 12602098
-      }
-    ],
-    "name": "card_name_10600575"
-  },
-  "10600576": {
-    "id": 10600576,
-    "idCN": "00原版/05五星/多萝西·瑰晨/B",
-    "color": "Yellow",
-    "cost_SN": 30000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600146
-      }
-    ],
-    "name": "card_name_10600576"
-  },
-  "10600577": {
-    "id": 10600577,
-    "idCN": "00原版/05五星/多萝西·瑰晨/S",
-    "color": "Red",
-    "cost_SN": 60000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600007
-      },
-      {
-        "tagId": 12600145
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12602083
-      }
-    ],
-    "name": "card_name_10600577"
-  },
-  "10600578": {
-    "id": 10600578,
-    "idCN": "00原版/05五星/多萝西·瑰晨/A-0",
-    "color": "Red",
-    "cost_SN": 20000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600145
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12602085
-      }
-    ],
-    "name": "card_name_10600578"
-  },
-  "10600579": {
-    "id": 10600579,
-    "idCN": "00原版/05五星/多萝西·瑰晨/A-1",
-    "color": "Red",
-    "cost_SN": 30000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600145
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12600149
-      },
-      {
-        "tagId": 12600037
-      }
-    ],
-    "name": "card_name_10600579"
-  },
-  "10600580": {
-    "id": 10600580,
-    "idCN": "00原版/05五星/多萝西·瑰晨/A-2",
-    "color": "Red",
-    "cost_SN": 30000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600145
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12600082
-      },
-      {
-        "tagId": 12600037
-      }
-    ],
-    "name": "card_name_10600580"
-  },
-  "10600581": {
-    "id": 10600581,
-    "idCN": "00原版/05五星/多萝西·瑰晨/A-3",
-    "color": "Red",
-    "cost_SN": 30000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600145
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12600037
-      },
-      {
-        "tagId": 12602082
-      }
-    ],
-    "name": "card_name_10600581"
-  },
-  "10600582": {
-    "id": 10600582,
-    "idCN": "00原版/05五星/多萝西·瑰晨/A-4",
-    "color": "Red",
-    "cost_SN": 30000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600145
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12600207
-      },
-      {
-        "tagId": 12600037
-      }
-    ],
-    "name": "card_name_10600582"
-  },
-  "10600583": {
-    "id": 10600583,
-    "idCN": "00原版/05五星/多萝西·瑰晨/A-5",
-    "color": "Red",
-    "cost_SN": 30000,
-    "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
-    "tagList": [
-      {
-        "tagId": 12600145
-      },
-      {
-        "tagId": 12600057
-      },
-      {
-        "tagId": 12601698
-      },
-      {
-        "tagId": 12600037
-      }
-    ],
-    "name": "card_name_10600583"
   }
 }

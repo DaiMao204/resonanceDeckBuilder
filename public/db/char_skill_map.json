@@ -1040,21 +1040,6 @@
     "relatedSkills": [],
     "notFromCharacters": []
   },
-  "10001356": {
-    "skills": [
-      12303430,
-      12304494,
-      12304495
-    ],
-    "relatedSkills": [
-      12304843,
-      12304844,
-      12304845,
-      12304847,
-      12304846
-    ],
-    "notFromCharacters": []
-  },
   "10001383": {
     "skills": [
       12304709,
@@ -1064,17 +1049,6 @@
     "relatedSkills": [
       12304718,
       12304719
-    ],
-    "notFromCharacters": []
-  },
-  "10001393": {
-    "skills": [
-      12304489,
-      12304490,
-      12304491
-    ],
-    "relatedSkills": [
-      12304492
     ],
     "notFromCharacters": []
   }

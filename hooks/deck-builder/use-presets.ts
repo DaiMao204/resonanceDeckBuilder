@@ -4,8 +4,35 @@ import { useCallback } from "react"
 import type { Database } from "../../types"
 import type { SelectedCard, PresetCard, Preset, EquipmentSlot, Result, AwakeningInfo } from "./types"
 import { DEFAULT_OWNER_ID, DISCARD_CARD_ID, DISCARD_SKILL_ID } from "./types"
-import { encodePreset, decodePreset, encodePresetForUrl } from "../../utils/presetCodec"
-import { saveDeckPresetToShortlink } from "../../utils/deck-shortlink"
+import { encodePreset, decodePreset, encodePresetForUrl, decodePresetFromUrlParam } from "../../utils/presetCodec"
+import { saveDeckPresetToShortlink, loadDeckPresetFromShortlink } from "../../utils/deck-shortlink"
+import { copyToClipboard, readFromClipboard } from "../../utils/clipboard"
+
+const MANUAL_EXPORT_PROMPT = "自动复制失败，请手动复制卡组码"
+const MANUAL_IMPORT_PROMPT = "请粘贴卡组码或分享链接"
+
+// 从剪贴板导入时兼容三种内容：纯导出码、旧长链接 code、新短链 s。
+async function decodePresetFromClipboardText(text: string): Promise<any | null> {
+  const trimmedText = text.trim()
+  if (!trimmedText) return null
+
+  try {
+    const url = new URL(trimmedText, window.location.origin)
+    const shortCode = url.searchParams.get("s")
+    if (shortCode) {
+      return await loadDeckPresetFromShortlink(shortCode)
+    }
+
+    const deckCode = url.searchParams.get("code")
+    if (deckCode) {
+      return decodePresetFromUrlParam(deckCode)
+    }
+  } catch (error) {
+    // 不是 URL 时继续按原始导出码解析。
+  }
+
+  return decodePreset(trimmedText)
+}
 
 export function usePresets(
   data: Database | null,
@@ -160,11 +187,18 @@ export function usePresets(
   )
 
   // 预设 导出
-  const exportPreset = useCallback(() => {
+  const exportPreset = useCallback(async () => {
     try {
       const preset = createPresetObject(false, false) // 装备 信息和 觉醒 信息 相关
       const base64String = encodePreset(preset)
-      navigator.clipboard.writeText(base64String)
+      if (!base64String) throw new Error("encode_failed")
+
+      try {
+        await copyToClipboard(base64String)
+      } catch (error) {
+        window.prompt(MANUAL_EXPORT_PROMPT, base64String)
+      }
+
       return { success: true, message: "export_success" }
     } catch (error) {
       return { success: false, message: "export_failed" }
@@ -184,10 +218,22 @@ export function usePresets(
   // 相关 预设 读取
   const importPreset = useCallback(async () => {
     try {
-      const base64Text = await navigator.clipboard.readText()
+      let clipboardText = ""
 
-      // 预设 相关
-      const preset = decodePreset(base64Text)
+      try {
+        clipboardText = await readFromClipboard()
+      } catch (error) {
+        // 某些浏览器会拒绝读取剪贴板，此时让用户手动粘贴卡组码或分享链接。
+        clipboardText = window.prompt(MANUAL_IMPORT_PROMPT) || ""
+      }
+
+      // 剪贴板中可以是导出码，也可以是分享链接。
+      let preset = await decodePresetFromClipboardText(clipboardText)
+
+      if (!preset) {
+        const manualText = window.prompt(MANUAL_IMPORT_PROMPT, clipboardText) || ""
+        preset = await decodePresetFromClipboardText(manualText)
+      }
 
       if (!preset) {
         throw new Error("invalid_preset_format")
@@ -239,6 +285,7 @@ export function usePresets(
     try {
       const preset = presetOverride || createPresetObject(true, true) // 包含装备和觉醒信息
       const encodedPreset = encodePresetForUrl(preset)
+      if (!encodedPreset) throw new Error("encode_failed")
 
       // 以当前语言路径生成分享链接，避免分享后跳到其它语言。
       const baseUrl = window.location.origin

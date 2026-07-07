@@ -12,6 +12,7 @@ import { useDeckBuilder } from "../hooks/deck-builder/index"
 import { useLanguage } from "../contexts/language-context"
 import { decodePresetFromUrlParam } from "../utils/presetCodec"
 import { loadDeckPresetFromShortlink } from "../utils/deck-shortlink"
+import { copyToClipboard } from "../utils/clipboard"
 import { logEventWrapper } from "../lib/firebase-config"
 import type { Database } from "../types"
 import { SaveDeckModal } from "./ui/modal/SaveDeckModal" // 添加
@@ -214,6 +215,8 @@ function applyWikiTemplateParamsToPreset(
 export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: DeckBuilderProps) {
   const { getTranslatedString, currentLanguage } = useLanguage()
   const searchParams = useSearchParams()
+  const effectiveUrlDeckCode = urlDeckCode || searchParams.get("code")
+  const effectiveUrlDeckShortCode = urlDeckShortCode || searchParams.get("s")
   const { showToast, ToastContainer } = useToast()
   const contentRef = useRef<HTMLDivElement>(null) // 截图相关 相关 引用 添加
 
@@ -294,11 +297,11 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     if (initialLoadComplete || !data) return
 
     const loadFromUrl = async () => {
-      if (urlDeckShortCode || urlDeckCode) {
+      if (effectiveUrlDeckShortCode || effectiveUrlDeckCode) {
         try {
-          const preset = urlDeckShortCode
-            ? await loadDeckPresetFromShortlink(urlDeckShortCode)
-            : decodePresetFromUrlParam(urlDeckCode)
+          const preset = effectiveUrlDeckShortCode
+            ? await loadDeckPresetFromShortlink(effectiveUrlDeckShortCode)
+            : decodePresetFromUrlParam(effectiveUrlDeckCode)
 
           if (preset) {
             const mergedPreset = applyWikiTemplateParamsToPreset(preset, searchParams, data, getTranslatedString)
@@ -311,8 +314,8 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
 
               // 记录分享链接导入事件，区分短链和旧长链。
               logEventWrapper("deck_shared_visit", {
-                deck_code: urlDeckShortCode || urlDeckCode,
-                deck_code_type: urlDeckShortCode ? "short" : "long",
+                deck_code: effectiveUrlDeckShortCode || effectiveUrlDeckCode,
+                deck_code_type: effectiveUrlDeckShortCode ? "short" : "long",
                 language: currentLanguage,
               })
             }
@@ -334,8 +337,8 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     void loadFromUrl()
   }, [
     data,
-    urlDeckCode,
-    urlDeckShortCode,
+    effectiveUrlDeckCode,
+    effectiveUrlDeckShortCode,
     importPresetObject,
     showToast,
     getTranslatedString,
@@ -588,9 +591,9 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
   }, [importPreset, showToast, getTranslatedString, selectedCharacters, currentLanguage])
 
   // 相关 导出
-  const handleExport = useCallback(() => {
+  const handleExport = useCallback(async () => {
     try {
-      const result = exportPreset()
+      const result = await exportPreset()
       showToast(getTranslatedString(result.message), result.success ? "success" : "error")
 
       // Firebase Analytics 相关 相关
@@ -610,8 +613,13 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     try {
       const result = await createShareableUrl()
       if (result.success && result.url) {
-        navigator.clipboard.writeText(result.url)
-        showToast(getTranslatedString("share_link_copied_alert"), "success")
+        try {
+          await copyToClipboard(result.url)
+          showToast(getTranslatedString("share_link_copied_alert"), "success")
+        } catch (error) {
+          window.prompt("自动复制失败，请手动复制分享链接", result.url)
+          showToast(getTranslatedString("share_link_copied_alert"), "success")
+        }
 
         // Firebase Analytics 相关 相关
         const characterIds = selectedCharacters.filter((id) => id !== -1)
@@ -732,8 +740,13 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
         // 卡组 预设相关 相关 URL 生成
         const result = await createShareableUrl(deck.preset)
         if (result.success && result.url) {
-          navigator.clipboard.writeText(result.url)
-          showToast(getTranslatedString("share_link_copied_alert"), "success")
+          try {
+            await copyToClipboard(result.url)
+            showToast(getTranslatedString("share_link_copied_alert"), "success")
+          } catch (error) {
+            window.prompt("自动复制失败，请手动复制分享链接", result.url)
+            showToast(getTranslatedString("share_link_copied_alert"), "success")
+          }
 
           // Firebase Analytics 相关 相关
           const characterIds = deck.preset.roleList.filter((id) => id !== -1)

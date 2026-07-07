@@ -11,24 +11,66 @@ import { copyToClipboard, readFromClipboard } from "../../utils/clipboard"
 const MANUAL_EXPORT_PROMPT = "自动复制失败，请手动复制卡组码"
 const MANUAL_IMPORT_PROMPT = "请粘贴卡组码或分享链接"
 
+function cleanUrlCandidate(value: string): string {
+  const markdownLinkStart = value.indexOf("](")
+  const candidate = markdownLinkStart === -1 ? value : value.slice(0, markdownLinkStart)
+  return candidate.trim().replace(/[)\]}>。，,.;；：:]+$/g, "")
+}
+
+function getUrlCandidates(text: string): string[] {
+  const candidates = new Set<string>()
+  const trimmedText = text.trim()
+  if (trimmedText) candidates.add(trimmedText)
+
+  const urlMatches = trimmedText.match(/https?:\/\/[^\s<>"']+/g) || []
+  urlMatches.forEach((match) => {
+    const candidate = cleanUrlCandidate(match)
+    if (candidate) candidates.add(candidate)
+  })
+
+  return Array.from(candidates)
+}
+
+function getCodeCandidates(text: string): string[] {
+  const candidates = new Set<string>()
+  const codePattern = /(?:^|[?&#\s])code=([^&\s)\]}>]+)/g
+  let match = codePattern.exec(text)
+  while (match) {
+    const candidate = match[1]?.trim()
+    if (candidate) candidates.add(candidate)
+    match = codePattern.exec(text)
+  }
+
+  return Array.from(candidates)
+}
+
 // 从剪贴板导入时兼容三种内容：纯导出码、旧长链接 code、新短链 s。
 async function decodePresetFromClipboardText(text: string): Promise<any | null> {
   const trimmedText = text.trim()
   if (!trimmedText) return null
 
-  try {
-    const url = new URL(trimmedText, window.location.origin)
-    const shortCode = url.searchParams.get("s")
-    if (shortCode) {
-      return await loadDeckPresetFromShortlink(shortCode)
-    }
+  for (const candidate of getUrlCandidates(trimmedText)) {
+    try {
+      const url = new URL(candidate, window.location.origin)
+      const shortCode = url.searchParams.get("s")
+      if (shortCode) {
+        const preset = await loadDeckPresetFromShortlink(shortCode)
+        if (preset) return preset
+      }
 
-    const deckCode = url.searchParams.get("code")
-    if (deckCode) {
-      return decodePresetFromUrlParam(deckCode)
+      const deckCode = url.searchParams.get("code")
+      if (deckCode) {
+        const preset = decodePresetFromUrlParam(deckCode)
+        if (preset) return preset
+      }
+    } catch (error) {
+      // 不是 URL 时继续按原始导出码或 code= 片段解析。
     }
-  } catch (error) {
-    // 不是 URL 时继续按原始导出码解析。
+  }
+
+  for (const deckCode of getCodeCandidates(trimmedText)) {
+    const preset = decodePresetFromUrlParam(deckCode)
+    if (preset) return preset
   }
 
   return decodePreset(trimmedText)
@@ -251,6 +293,7 @@ export function usePresets(
       // 预设 对象 读取
       return importPresetObject(preset)
     } catch (error) {
+      console.error("Failed to import preset:", error)
       return { success: false, message: "import_failed" }
     }
   }, [importPresetObject])
@@ -300,6 +343,7 @@ export function usePresets(
 
       return { success: true, url: longUrl, isShort: false }
     } catch (error) {
+      console.error("Failed to create shareable URL:", error)
       return { success: false, url: "", isShort: false }
     }
   }, [createPresetObject])

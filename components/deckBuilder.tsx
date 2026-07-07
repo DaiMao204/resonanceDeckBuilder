@@ -297,14 +297,17 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
     if (initialLoadComplete || !data) return
 
     const loadFromUrl = async () => {
-      if (effectiveUrlDeckShortCode || effectiveUrlDeckCode) {
+      const runtimeSearchParams =
+        typeof window !== "undefined" ? new URLSearchParams(window.location.search) : searchParams
+      const urlShortCode = effectiveUrlDeckShortCode || runtimeSearchParams.get("s")
+      const urlDeckCode = effectiveUrlDeckCode || runtimeSearchParams.get("code")
+
+      if (urlShortCode || urlDeckCode) {
         try {
-          const preset = effectiveUrlDeckShortCode
-            ? await loadDeckPresetFromShortlink(effectiveUrlDeckShortCode)
-            : decodePresetFromUrlParam(effectiveUrlDeckCode)
+          const preset = urlShortCode ? await loadDeckPresetFromShortlink(urlShortCode) : decodePresetFromUrlParam(urlDeckCode)
 
           if (preset) {
-            const mergedPreset = applyWikiTemplateParamsToPreset(preset, searchParams, data, getTranslatedString)
+            const mergedPreset = applyWikiTemplateParamsToPreset(preset, runtimeSearchParams, data, getTranslatedString)
             const result = importPresetObject(mergedPreset, true) // 标记为 URL 导入，沿用原有导入兼容逻辑
             if (result.success) {
               showToast(getTranslatedString(result.message), "success")
@@ -314,14 +317,24 @@ export default function DeckBuilder({ urlDeckCode, urlDeckShortCode, data }: Dec
 
               // 记录分享链接导入事件，区分短链和旧长链。
               logEventWrapper("deck_shared_visit", {
-                deck_code: effectiveUrlDeckShortCode || effectiveUrlDeckCode,
-                deck_code_type: effectiveUrlDeckShortCode ? "short" : "long",
+                deck_code: urlShortCode || urlDeckCode,
+                deck_code_type: urlShortCode ? "short" : "long",
                 language: currentLanguage,
               })
+            } else {
+              console.error("URL preset import failed:", result)
+              showToast(getTranslatedString(result.message), "error")
             }
+          } else {
+            console.error("URL preset decode returned empty:", {
+              hasShortCode: Boolean(urlShortCode),
+              deckCodeLength: urlDeckCode?.length || 0,
+            })
+            showToast(getTranslatedString("import_failed"), "error")
           }
         } catch (error) {
           console.error("Error decoding URL preset:", error)
+          showToast(getTranslatedString("import_failed"), "error")
         }
       } else {
         // 没有分享参数时，保留未来恢复本地编辑草稿的入口。

@@ -11,6 +11,23 @@ function bytesToBinaryString(bytes: Uint8Array): string {
   return binary
 }
 
+function encodeUtf8(value: string): Uint8Array {
+  if (typeof TextEncoder !== "undefined") {
+    return new TextEncoder().encode(value)
+  }
+
+  const binary = unescape(encodeURIComponent(value))
+  return Uint8Array.from(binary, (char) => char.charCodeAt(0))
+}
+
+function decodeUtf8(bytes: Uint8Array): string {
+  if (typeof TextDecoder !== "undefined") {
+    return new TextDecoder().decode(bytes)
+  }
+
+  return decodeURIComponent(escape(bytesToBinaryString(bytes)))
+}
+
 // 解码前统一整理剪贴板、URL 查询参数、base64url 这几种常见输入形态。
 function normalizeBase64(str: string): string {
   return str.trim().replace(/ /g, "+").replace(/[\r\n\t\f\v]/g, "").replace(/-/g, "+").replace(/_/g, "/")
@@ -22,10 +39,11 @@ export function decodePreset(base64: string): any {
     // URL相关 相关 base64 相关 整理
     const cleaned = fixBase64FromUrl(base64)
     const compressed = Uint8Array.from(atob(cleaned), (c) => c.charCodeAt(0))
-    const jsonStr = new TextDecoder().decode(pako.inflateRaw(compressed))
+    const jsonStr = decodeUtf8(pako.inflateRaw(compressed))
     const result = JSON.parse(jsonStr)
     return result
   } catch (e) {
+    console.error("Failed to decode preset:", e)
     return null
   }
 }
@@ -34,10 +52,11 @@ export function decodePreset(base64: string): any {
 export function encodePreset(json: any): string {
   try {
     const jsonStr = JSON.stringify(json)
-    const deflated = pako.deflateRaw(new TextEncoder().encode(jsonStr))
+    const deflated = pako.deflateRaw(encodeUtf8(jsonStr))
     const base64 = btoa(bytesToBinaryString(deflated))
     return base64
   } catch (e) {
+    console.error("Failed to encode preset:", e)
     return ""
   }
 }

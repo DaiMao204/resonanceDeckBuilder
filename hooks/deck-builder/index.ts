@@ -586,7 +586,7 @@ export function useDeckBuilder(data: Database | null) {
           // 3. 使用相关 相关 没有 卡牌 相关 以及 替换
           if (data) {
             // 相关 相关 函数 使用
-            const { idSet: availableCardIds, cardSources } = getAvailableCardIds(data, preset.roleList, equipment)
+            const { idSet: availableCardIds, cardSources } = getAvailableCardIds(data, preset.roleList, updatedEquipment)
             // 使用相关 相关 没有 卡牌 相关
             const unavailableCards = newCards.filter((card) =>!availableCardIds.has(card.id))
 
@@ -684,6 +684,7 @@ export function useDeckBuilder(data: Database | null) {
 
         return { success: true, message: "import_success" }
       } catch (error) {
+        console.error("Import preset object failed:", error)
         return { success: false, message: "import_failed" }
       }
     },

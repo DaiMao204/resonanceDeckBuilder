@@ -17,15 +17,36 @@ function cleanUrlCandidate(value: string): string {
   return candidate.trim().replace(/[)\]}>。，,.;；：:]+$/g, "")
 }
 
+function addUrlCandidate(candidates: Set<string>, value: string) {
+  const cleaned = cleanUrlCandidate(value)
+  if (cleaned) candidates.add(cleaned)
+
+  const markdownLinkStart = value.indexOf("](")
+  if (markdownLinkStart !== -1) {
+    const target = value
+      .slice(markdownLinkStart + 2)
+      .trim()
+      .replace(/[)\]}>。，,.;；：:]+$/g, "")
+    if (target) candidates.add(target)
+  }
+}
+
 function getUrlCandidates(text: string): string[] {
   const candidates = new Set<string>()
   const trimmedText = text.trim()
-  if (trimmedText) candidates.add(trimmedText)
+  if (trimmedText) addUrlCandidate(candidates, trimmedText)
+
+  const markdownTargetPattern = /\]\((https?:\/\/[^)\s]+)\)/g
+  let markdownTarget = markdownTargetPattern.exec(trimmedText)
+  while (markdownTarget) {
+    const candidate = markdownTarget[1]?.trim()
+    if (candidate) candidates.add(candidate)
+    markdownTarget = markdownTargetPattern.exec(trimmedText)
+  }
 
   const urlMatches = trimmedText.match(/https?:\/\/[^\s<>"']+/g) || []
   urlMatches.forEach((match) => {
-    const candidate = cleanUrlCandidate(match)
-    if (candidate) candidates.add(candidate)
+    addUrlCandidate(candidates, match)
   })
 
   return Array.from(candidates)

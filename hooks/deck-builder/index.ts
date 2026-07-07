@@ -405,23 +405,26 @@ export function useDeckBuilder(data: Database | null) {
         const updatedCharacters = [-1, -1, -1, -1, -1]
         const updatedEquipment = Array(5).fill({ weapon: null, armor: null, accessory: null })
 
-        // 角色 设置
+        // 先一次性写入角色槽位，避免循环 addCharacter 的多次 state 更新在首屏 URL 导入时互相覆盖。
         preset.roleList.forEach((charId: number, index: number) => {
           if (charId !== -1) {
-            addCharacter(charId, index)
             updatedCharacters[index] = charId
           }
         })
 
-        // 队长 设置 - 所有 角色 添加 相关 相关 设置
-        // 预设的 header 有效 角色相关 检查
-        if (preset.header !== -1 && preset.roleList.includes(preset.header)) {
-          // 状态 更新 相关 添加相关 所有 角色 添加 相关 相关 相关
-          setTimeout(() => {
-            // forceSet 相关 true相关 设置相关 队长 相关 设置
-            setLeader(preset.header, true)
-          }, 100) // 相关 相关 100ms相关 增加
-        }
+        setSelectedCharacters(updatedCharacters)
+
+        const nextLeader =
+          preset.header !== -1 && updatedCharacters.includes(preset.header)
+            ? preset.header
+            : updatedCharacters.find((charId) => charId !== -1) ?? -1
+        setLeaderCharacter(nextLeader)
+
+        updatedCharacters.forEach((charId) => {
+          if (charId !== -1) {
+            generateCardsFromSkills(charId)
+          }
+        })
 
         // 觉醒 信息 设置 (存在 相关)
         if (preset.awakening) {
@@ -689,17 +692,17 @@ export function useDeckBuilder(data: Database | null) {
       }
     },
     [
-      addCharacter,
-      setLeader,
       updateEquipment,
       clearAll,
       setSelectedCards,
       data,
       getSkill,
-      selectedCharacters,
       equipment,
       updateBattleSettings,
       setAwakening,
+      setSelectedCharacters,
+      setLeaderCharacter,
+      generateCardsFromSkills,
     ],
   )
 

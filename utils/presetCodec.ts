@@ -1,4 +1,4 @@
-import pako from "pako"
+import { deflateRaw, inflateRaw } from "pako"
 
 const BASE64_CHUNK_SIZE = 0x8000
 
@@ -39,7 +39,7 @@ export function decodePreset(base64: string): any {
     // URL相关 相关 base64 相关 整理
     const cleaned = fixBase64FromUrl(base64)
     const compressed = Uint8Array.from(atob(cleaned), (c) => c.charCodeAt(0))
-    const jsonStr = decodeUtf8(pako.inflateRaw(compressed))
+    const jsonStr = decodeUtf8(inflateRaw(compressed))
     const result = JSON.parse(jsonStr)
     return result
   } catch (e) {
@@ -52,7 +52,7 @@ export function decodePreset(base64: string): any {
 export function encodePreset(json: any): string {
   try {
     const jsonStr = JSON.stringify(json)
-    const deflated = pako.deflateRaw(encodeUtf8(jsonStr))
+    const deflated = deflateRaw(encodeUtf8(jsonStr))
     const base64 = btoa(bytesToBinaryString(deflated))
     return base64
   } catch (e) {

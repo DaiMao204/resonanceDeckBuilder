@@ -6852,7 +6852,15 @@
         "skillId": 12304732
       }
     ],
-    "Getway": []
+    "Getway": [
+      {
+        "DisplayName": "equip_Getway_11800317_0_DisplayName",
+        "FromLevel": -1,
+        "UIName": "",
+        "Way3": "",
+        "funcId": -1
+      }
+    ]
   },
   "11800318": {
     "id": 11800318,
@@ -6865,6 +6873,14 @@
         "skillId": 12304733
       }
     ],
-    "Getway": []
+    "Getway": [
+      {
+        "DisplayName": "equip_Getway_11800318_0_DisplayName",
+        "FromLevel": -1,
+        "UIName": "",
+        "Way3": "",
+        "funcId": -1
+      }
+    ]
   }
 }

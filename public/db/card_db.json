@@ -1105,6 +1105,9 @@
       },
       {
         "tagId": 12600149
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600039"
@@ -1493,6 +1496,9 @@
       },
       {
         "tagId": 12601788
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600054"
@@ -1514,6 +1520,9 @@
       },
       {
         "tagId": 12600073
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600055"
@@ -11300,6 +11309,9 @@
       },
       {
         "tagId": 12600045
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600421"
@@ -11410,6 +11422,9 @@
       },
       {
         "tagId": 12600216
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600424"
@@ -11462,6 +11477,9 @@
       },
       {
         "tagId": 12601724
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600426"
@@ -11858,6 +11876,9 @@
       },
       {
         "tagId": 12601680
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600442"
@@ -11898,6 +11919,9 @@
       },
       {
         "tagId": 12601658
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600443"
@@ -11925,6 +11949,9 @@
       },
       {
         "tagId": 12601730
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600444"
@@ -11956,6 +11983,9 @@
       },
       {
         "tagId": 12601680
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600445"
@@ -12157,6 +12187,9 @@
       },
       {
         "tagId": 12600210
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600451"
@@ -12211,6 +12244,9 @@
       },
       {
         "tagId": 12600056
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600452"
@@ -12326,6 +12362,9 @@
       },
       {
         "tagId": 12601689
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600456"
@@ -13464,6 +13503,9 @@
       },
       {
         "tagId": 12600007
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600495"
@@ -13525,6 +13567,9 @@
       },
       {
         "tagId": 12600146
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600497"
@@ -13556,6 +13601,9 @@
       },
       {
         "tagId": 12601788
+      },
+      {
+        "tagId": 12602135
       }
     ],
     "name": "card_name_10600498"
@@ -15385,6 +15433,9 @@
       },
       {
         "tagId": 12602082
+      },
+      {
+        "tagId": 12602071
       }
     ],
     "name": "card_name_10600565"
@@ -15867,6 +15918,9 @@
       },
       {
         "tagId": 12600057
+      },
+      {
+        "tagId": 12600275
       }
     ],
     "name": "card_name_10600584"
@@ -15922,13 +15976,16 @@
       },
       {
         "tagId": 12602110
+      },
+      {
+        "tagId": 12601698
       }
     ],
     "name": "card_name_10600586"
   },
   "10600587": {
     "id": 10600587,
-    "idCN": "00原版/05五星/联动魔裁/二阶堂希罗/A-0",
+    "idCN": "00原版/05五星/神秘联动/联动3号/A-0",
     "color": "Black",
     "cost_SN": 0,
     "cardType": "Normal",
@@ -15937,6 +15994,12 @@
     "tagList": [
       {
         "tagId": 12600037
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602163
       }
     ],
     "name": "card_name_10600587"
@@ -15977,7 +16040,7 @@
   },
   "10600589": {
     "id": 10600589,
-    "idCN": "00原版/05五星/联动魔裁/二阶堂希罗/B",
+    "idCN": "00原版/05五星/神秘联动/联动3号/B",
     "color": "Yellow",
     "cost_SN": 30000,
     "cardType": "Normal",
@@ -15986,13 +16049,19 @@
     "tagList": [
       {
         "tagId": 12600146
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602164
       }
     ],
     "name": "card_name_10600589"
   },
   "10600590": {
     "id": 10600590,
-    "idCN": "00原版/05五星/联动魔裁/二阶堂希罗/S",
+    "idCN": "00原版/05五星/神秘联动/联动3号/S",
     "color": "Red",
     "cost_SN": 60000,
     "cardType": "Normal",
@@ -16004,13 +16073,19 @@
       },
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602165
       }
     ],
     "name": "card_name_10600590"
   },
   "10600591": {
     "id": 10600591,
-    "idCN": "00原版/05五星/联动魔裁/橘雪莉/A-0",
+    "idCN": "00原版/05五星/神秘联动/联动1号/A-0",
     "color": "Blue",
     "cost_SN": 20000,
     "cardType": "Normal",
@@ -16019,13 +16094,28 @@
     "tagList": [
       {
         "tagId": 12600009
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602136
+      },
+      {
+        "tagId": 12602137
+      },
+      {
+        "tagId": 12602139
+      },
+      {
+        "tagId": 12600149
       }
     ],
     "name": "card_name_10600591"
   },
   "10600592": {
     "id": 10600592,
-    "idCN": "00原版/05五星/联动魔裁/橘雪莉/S-0",
+    "idCN": "00原版/05五星/神秘联动/联动1号/S-0",
     "color": "Blue",
     "cost_SN": 50000,
     "cardType": "Normal",
@@ -16034,13 +16124,31 @@
     "tagList": [
       {
         "tagId": 12600009
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602136
+      },
+      {
+        "tagId": 12602138
+      },
+      {
+        "tagId": 12602143
+      },
+      {
+        "tagId": 12600082
+      },
+      {
+        "tagId": 12600245
       }
     ],
     "name": "card_name_10600592"
   },
   "10600593": {
     "id": 10600593,
-    "idCN": "00原版/05五星/联动魔裁/橘雪莉/B-1",
+    "idCN": "00原版/05五星/神秘联动/联动1号/B-1",
     "color": "Purple",
     "cost_SN": 30000,
     "cardType": "Normal",
@@ -16049,13 +16157,22 @@
     "tagList": [
       {
         "tagId": 12600073
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602136
+      },
+      {
+        "tagId": 12602142
       }
     ],
     "name": "card_name_10600593"
   },
   "10600594": {
     "id": 10600594,
-    "idCN": "00原版/05五星/联动魔裁/樱羽艾玛/A-0",
+    "idCN": "00原版/05五星/神秘联动/联动4号/A-0",
     "color": "Yellow",
     "cost_SN": 30000,
     "cardType": "Normal",
@@ -16064,13 +16181,19 @@
     "tagList": [
       {
         "tagId": 12600146
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602171
       }
     ],
     "name": "card_name_10600594"
   },
   "10600595": {
     "id": 10600595,
-    "idCN": "00原版/05五星/联动魔裁/樱羽艾玛/B",
+    "idCN": "00原版/05五星/神秘联动/联动4号/B",
     "color": "Purple",
     "cost_SN": 40000,
     "cardType": "Normal",
@@ -16079,13 +16202,19 @@
     "tagList": [
       {
         "tagId": 12600073
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602173
       }
     ],
     "name": "card_name_10600595"
   },
   "10600596": {
     "id": 10600596,
-    "idCN": "00原版/05五星/联动魔裁/樱羽艾玛/S",
+    "idCN": "00原版/05五星/神秘联动/联动4号/S",
     "color": "Red",
     "cost_SN": 60000,
     "cardType": "Normal",
@@ -16097,13 +16226,19 @@
       },
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602174
       }
     ],
     "name": "card_name_10600596"
   },
   "10600597": {
     "id": 10600597,
-    "idCN": "00原版/05五星/联动魔裁/远野汉娜/B",
+    "idCN": "00原版/05五星/神秘联动/联动2号/B",
     "color": "Yellow",
     "cost_SN": 30000,
     "cardType": "Normal",
@@ -16112,88 +16247,156 @@
     "tagList": [
       {
         "tagId": 12600146
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602156
+      },
+      {
+        "tagId": 12602158
       }
     ],
     "name": "card_name_10600597"
   },
   "10600598": {
     "id": 10600598,
-    "idCN": "00原版/05五星/联动魔裁/远野汉娜/S",
-    "color": "Red",
+    "idCN": "00原版/05五星/神秘联动/联动2号/S",
+    "color": "Green",
     "cost_SN": 50000,
     "cardType": "Normal",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
-        "tagId": 12600145
+        "tagId": 12600028
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602156
       }
     ],
     "name": "card_name_10600598"
   },
   "10600599": {
     "id": 10600599,
-    "idCN": "00原版/05五星/联动魔裁/远野汉娜/A",
+    "idCN": "00原版/05五星/神秘联动/联动2号/A",
     "color": "Green",
-    "cost_SN": 30000,
+    "cost_SN": 20000,
     "cardType": "Normal",
     "ExCondList": [],
-    "ExActList": [],
+    "ExActList": [
+      {
+        "condId": 96300003,
+        "des": 80608013
+      },
+      {
+        "condId": 96300009,
+        "des": 80610277
+      },
+      {
+        "condId": 96300010,
+        "des": 80610278
+      },
+      {
+        "condId": 96300012,
+        "des": 80611770
+      },
+      {
+        "condId": 96300018,
+        "des": 80612481,
+        "interValNum": 5,
+        "isNumCond": true,
+        "minNum": 1,
+        "numDuration": 1,
+        "typeEnum": "number"
+      }
+    ],
     "tagList": [
       {
         "tagId": 12600028
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602156
+      },
+      {
+        "tagId": 12602157
       }
     ],
     "name": "card_name_10600599"
   },
   "10600600": {
     "id": 10600600,
-    "idCN": "00原版/05五星/联动魔裁/二阶堂希罗/A-1",
+    "idCN": "00原版/05五星/神秘联动/联动3号/A-1",
     "color": "Red",
     "cost_SN": 20000,
-    "cardType": "Normal",
+    "cardType": "Derive",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602166
       }
     ],
     "name": "card_name_10600600"
   },
   "10600601": {
     "id": 10600601,
-    "idCN": "00原版/05五星/联动魔裁/二阶堂希罗/A-2",
-    "color": "Purple",
+    "idCN": "00原版/05五星/神秘联动/联动3号/A-2",
+    "color": "Red",
     "cost_SN": 20000,
-    "cardType": "Normal",
+    "cardType": "Derive",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602167
       }
     ],
     "name": "card_name_10600601"
   },
   "10600602": {
     "id": 10600602,
-    "idCN": "00原版/05五星/联动魔裁/二阶堂希罗/A-3",
+    "idCN": "00原版/05五星/神秘联动/联动3号/A-3",
     "color": "Red",
     "cost_SN": 30000,
-    "cardType": "Normal",
+    "cardType": "Derive",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602168
       }
     ],
     "name": "card_name_10600602"
   },
   "10600603": {
     "id": 10600603,
-    "idCN": "00原版/05五星/联动魔裁/橘雪莉/A-1",
+    "idCN": "00原版/05五星/神秘联动/联动1号/A-1",
     "color": "Blue",
     "cost_SN": 20000,
     "cardType": "Normal",
@@ -16202,28 +16405,58 @@
     "tagList": [
       {
         "tagId": 12600009
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602136
+      },
+      {
+        "tagId": 12602137
+      },
+      {
+        "tagId": 12602140
+      },
+      {
+        "tagId": 12600149
+      },
+      {
+        "tagId": 12600275
+      },
+      {
+        "tagId": 12602074
       }
     ],
     "name": "card_name_10600603"
   },
   "10600604": {
     "id": 10600604,
-    "idCN": "00原版/05五星/联动魔裁/远野汉娜/C",
-    "color": "Green",
+    "idCN": "00原版/05五星/神秘联动/联动2号/C",
+    "color": "Red",
     "cost_SN": 50000,
-    "cardType": "Normal",
+    "cardType": "UseOnce",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
-        "tagId": 12600028
+        "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602156
+      },
+      {
+        "tagId": 12602159
       }
     ],
     "name": "card_name_10600604"
   },
   "10600605": {
     "id": 10600605,
-    "idCN": "00原版/05五星/联动魔裁/橘雪莉/B-0",
+    "idCN": "00原版/05五星/神秘联动/联动1号/B-0",
     "color": "Purple",
     "cost_SN": 30000,
     "cardType": "Normal",
@@ -16232,13 +16465,22 @@
     "tagList": [
       {
         "tagId": 12600073
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602136
+      },
+      {
+        "tagId": 12602141
       }
     ],
     "name": "card_name_10600605"
   },
   "10600606": {
     "id": 10600606,
-    "idCN": "00原版/05五星/联动魔裁/橘雪莉/S-1",
+    "idCN": "00原版/05五星/神秘联动/联动1号/S-1",
     "color": "Red",
     "cost_SN": 50000,
     "cardType": "Normal",
@@ -16250,13 +16492,28 @@
       },
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602136
+      },
+      {
+        "tagId": 12602138
+      },
+      {
+        "tagId": 12602144
+      },
+      {
+        "tagId": 12602073
       }
     ],
     "name": "card_name_10600606"
   },
   "10600607": {
     "id": 10600607,
-    "idCN": "00原版/05五星/联动魔裁/樱羽艾玛/A-1",
+    "idCN": "00原版/05五星/神秘联动/联动4号/A-1",
     "color": "Red",
     "cost_SN": 30000,
     "cardType": "Normal",
@@ -16265,8 +16522,166 @@
     "tagList": [
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602135
+      },
+      {
+        "tagId": 12602172
       }
     ],
     "name": "card_name_10600607"
+  },
+  "10600608": {
+    "id": 10600608,
+    "idCN": "00原版/05五星/科伦巴/爱弥儿/S",
+    "color": "Purple",
+    "cost_SN": 60000,
+    "cardType": "Normal",
+    "ExCondList": [],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12600007
+      },
+      {
+        "tagId": 12600073
+      },
+      {
+        "tagId": 12602146
+      },
+      {
+        "tagId": 12602147
+      }
+    ],
+    "name": "card_name_10600608"
+  },
+  "10600609": {
+    "id": 10600609,
+    "idCN": "00原版/05五星/科伦巴/爱弥儿/B",
+    "color": "Purple",
+    "cost_SN": 30000,
+    "cardType": "Normal",
+    "ExCondList": [],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12600073
+      },
+      {
+        "tagId": 12602145
+      },
+      {
+        "tagId": 12602146
+      },
+      {
+        "tagId": 12602106
+      }
+    ],
+    "name": "card_name_10600609"
+  },
+  "10600610": {
+    "id": 10600610,
+    "idCN": "00原版/05五星/科伦巴/爱弥儿/A",
+    "color": "Red",
+    "cost_SN": 20000,
+    "cardType": "Normal",
+    "ExCondList": [],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12600145
+      },
+      {
+        "tagId": 12602145
+      },
+      {
+        "tagId": 12602148
+      }
+    ],
+    "name": "card_name_10600610"
+  },
+  "10600611": {
+    "id": 10600611,
+    "idCN": "00原版/05五星/科伦巴/婕丝&西蒙/A",
+    "color": "Blue",
+    "cost_SN": 20000,
+    "cardType": "Normal",
+    "ExCondList": [],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12600009
+      },
+      {
+        "tagId": 12600057
+      },
+      {
+        "tagId": 12602182
+      }
+    ],
+    "name": "card_name_10600611"
+  },
+  "10600612": {
+    "id": 10600612,
+    "idCN": "00原版/05五星/科伦巴/婕丝&西蒙/B",
+    "color": "Yellow",
+    "cost_SN": 30000,
+    "cardType": "Normal",
+    "ExCondList": [
+      {
+        "condId": 96200031,
+        "des": 80608005,
+        "interValNum": 12,
+        "isNumCond": true,
+        "minNum": 0,
+        "numDuration": 1,
+        "typeEnum": "number"
+      }
+    ],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12600146
+      },
+      {
+        "tagId": 12600057
+      },
+      {
+        "tagId": 12602183
+      }
+    ],
+    "name": "card_name_10600612"
+  },
+  "10600613": {
+    "id": 10600613,
+    "idCN": "00原版/05五星/科伦巴/婕丝&西蒙/S",
+    "color": "Yellow",
+    "cost_SN": 50000,
+    "cardType": "Normal",
+    "ExCondList": [
+      {
+        "condId": 96200029,
+        "des": 80608007,
+        "interValNum": 30,
+        "isNumCond": true,
+        "minNum": 0,
+        "numDuration": 1,
+        "typeEnum": "number"
+      }
+    ],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12600007
+      },
+      {
+        "tagId": 12600146
+      },
+      {
+        "tagId": 12602184
+      }
+    ],
+    "name": "card_name_10600613"
   }
 }

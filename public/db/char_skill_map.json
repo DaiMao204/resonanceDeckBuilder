@@ -815,6 +815,15 @@
     ],
     "notFromCharacters": []
   },
+  "10000854": {
+    "skills": [
+      12305012,
+      12305013,
+      12305014
+    ],
+    "relatedSkills": [],
+    "notFromCharacters": []
+  },
   "10000855": {
     "skills": [
       12303070,
@@ -1060,6 +1069,15 @@
       12304849,
       12304850,
       12304851
+    ],
+    "relatedSkills": [],
+    "notFromCharacters": []
+  },
+  "10001377": {
+    "skills": [
+      12304970,
+      12304976,
+      12304977
     ],
     "relatedSkills": [],
     "notFromCharacters": []

@@ -2056,5 +2056,26 @@
     "desc": "home_skill_desc_83900294",
     "param": -0.005,
     "homeSkillType": "TaxCuts"
+  },
+  "83900295": {
+    "id": 83900295,
+    "name": "home_skill_name_83900295",
+    "desc": "home_skill_desc_83900295",
+    "param": 0.2,
+    "homeSkillType": "AddTypeQty"
+  },
+  "83900296": {
+    "id": 83900296,
+    "name": "home_skill_name_83900296",
+    "desc": "home_skill_desc_83900296",
+    "param": 5.0,
+    "homeSkillType": "AddSpeed"
+  },
+  "83900297": {
+    "id": 83900297,
+    "name": "home_skill_name_83900297",
+    "desc": "home_skill_desc_83900297",
+    "param": 0.1,
+    "homeSkillType": "AddTypeQty"
   }
 }

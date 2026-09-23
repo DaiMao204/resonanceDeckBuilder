@@ -6882,5 +6882,18 @@
         "funcId": -1
       }
     ]
+  },
+  "11800319": {
+    "id": 11800319,
+    "name": "equip_name_11800319",
+    "des": "equip_des_11800319",
+    "equipTagId": 12600155,
+    "quality": "Orange",
+    "skillList": [
+      {
+        "skillId": 12305073
+      }
+    ],
+    "Getway": []
   }
 }

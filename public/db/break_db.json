@@ -7114,5 +7114,57 @@
     "name": "break_name_12100976",
     "desc": "break_desc_12100976",
     "attributeList": []
+  },
+  "12100977": {
+    "id": 12100977,
+    "name": "break_name_12100977",
+    "desc": "break_desc_12100977",
+    "attributeList": []
+  },
+  "12100978": {
+    "id": 12100978,
+    "name": "break_name_12100978",
+    "desc": "break_desc_12100978",
+    "attributeList": []
+  },
+  "12100979": {
+    "id": 12100979,
+    "name": "break_name_12100979",
+    "desc": "break_desc_12100979",
+    "attributeList": []
+  },
+  "12100980": {
+    "id": 12100980,
+    "name": "break_name_12100980",
+    "desc": "break_desc_12100980",
+    "attributeList": [
+      {
+        "attributeType": "Atk",
+        "numType": "Number",
+        "num_SN": 1500000
+      },
+      {
+        "attributeType": "Def",
+        "numType": "Number",
+        "num_SN": 1500000
+      },
+      {
+        "attributeType": "HpMax",
+        "numType": "Percent",
+        "num_SN": 1500
+      }
+    ]
+  },
+  "12100981": {
+    "id": 12100981,
+    "name": "break_name_12100981",
+    "desc": "break_desc_12100981",
+    "attributeList": []
+  },
+  "12100982": {
+    "id": 12100982,
+    "name": "break_name_12100982",
+    "desc": "break_desc_12100982",
+    "attributeList": []
   }
 }

@@ -10670,5 +10670,12 @@
   "talent_desc_12800756": "HP +35%",
   "talent_name_12800756": "Vitality",
   "talent_name_12800758": "Blessing",
-  "talent_name_12800759": "Rebis' \"Overhaul\""
+  "talent_name_12800759": "Rebis' \"Overhaul\"",
+  "break_desc_12100980": "ATK+150\\nDEF+150\\nHP+15%",
+  "break_name_12100980": "Battle Will",
+  "talent_desc_12800763": "HP +35%",
+  "talent_name_12800763": "Vitality",
+  "tag_tagName_12602212": "Special Recruit",
+  "tag_tagName_12602222": "Special Recruit",
+  "tag_tagName_12602223": "Special Recruit"
 }

@@ -99657,7 +99657,7 @@
     "desParamList": [],
     "skillParamList": [
       {
-        "skillRateA_SN": 240000,
+        "skillRateA_SN": 360000,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99671,7 +99671,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 247200,
+        "skillRateA_SN": 370800,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99685,7 +99685,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 254400,
+        "skillRateA_SN": 381600,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99699,7 +99699,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 261600,
+        "skillRateA_SN": 392400,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99713,7 +99713,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 268800,
+        "skillRateA_SN": 403200,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99727,7 +99727,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 276000,
+        "skillRateA_SN": 414000,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99741,7 +99741,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 283200,
+        "skillRateA_SN": 424800,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99755,7 +99755,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 290400,
+        "skillRateA_SN": 435600,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99769,7 +99769,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 297600,
+        "skillRateA_SN": 446400,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99783,7 +99783,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 304800,
+        "skillRateA_SN": 457200,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -99797,7 +99797,7 @@
         "skillRateT_SN": 0
       },
       {
-        "skillRateA_SN": 312000,
+        "skillRateA_SN": 468000,
         "skillRateB_SN": 0,
         "skillRateC_SN": 0,
         "skillRateD_SN": 0,
@@ -125547,6 +125547,17 @@
     "detailDescription": "skill_detailDescription_12305060",
     "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305060"
   },
+  "12305061": {
+    "id": 12305061,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305061",
+    "description": "skill_description_12305061",
+    "detailDescription": "skill_detailDescription_12305061",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305061"
+  },
   "12305062": {
     "id": 12305062,
     "mod": "被动技能",
@@ -127636,5 +127647,1063 @@
     "description": "skill_description_12305189",
     "detailDescription": "skill_detailDescription_12305189",
     "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305189"
+  },
+  "12305190": {
+    "id": 12305190,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305190",
+    "description": "skill_description_12305190",
+    "detailDescription": "skill_detailDescription_12305190",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305190"
+  },
+  "12305191": {
+    "id": 12305191,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305191",
+    "description": "skill_description_12305191",
+    "detailDescription": "skill_detailDescription_12305191",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305191"
+  },
+  "12305192": {
+    "id": 12305192,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305192",
+    "description": "skill_description_12305192",
+    "detailDescription": "skill_detailDescription_12305192",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305192"
+  },
+  "12305193": {
+    "id": 12305193,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305193",
+    "description": "skill_description_12305193",
+    "detailDescription": "skill_detailDescription_12305193",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305193"
+  },
+  "12305194": {
+    "id": 12305194,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305194",
+    "description": "skill_description_12305194",
+    "detailDescription": "skill_detailDescription_12305194",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305194"
+  },
+  "12305195": {
+    "id": 12305195,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305195",
+    "description": "skill_description_12305195",
+    "detailDescription": "skill_detailDescription_12305195",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305195"
+  },
+  "12305196": {
+    "id": 12305196,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305196",
+    "description": "skill_description_12305196",
+    "detailDescription": "skill_detailDescription_12305196",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305196"
+  },
+  "12305197": {
+    "id": 12305197,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600623,
+    "desParamList": [],
+    "skillParamList": [
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      },
+      {
+        "skillRateA_SN": 360000
+      }
+    ],
+    "name": "skill_name_12305197",
+    "description": "skill_description_12305197",
+    "detailDescription": "skill_detailDescription_12305197",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305197"
+  },
+  "12305198": {
+    "id": 12305198,
+    "mod": "主动技能",
+    "ExSkillList": [
+      {
+        "ExSkillName": 12305199,
+        "isNeturality": false
+      }
+    ],
+    "cardID": 10600624,
+    "desParamList": [],
+    "skillParamList": [
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      },
+      {
+        "skillRateA_SN": 0
+      }
+    ],
+    "name": "skill_name_12305198",
+    "description": "skill_description_12305198",
+    "detailDescription": "skill_detailDescription_12305198",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305198"
+  },
+  "12305199": {
+    "id": 12305199,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600625,
+    "desParamList": [],
+    "skillParamList": [
+      {
+        "skillRateA_SN": 1080000,
+        "skillRateB_SN": 270000
+      },
+      {
+        "skillRateA_SN": 1134000,
+        "skillRateB_SN": 283500
+      },
+      {
+        "skillRateA_SN": 1188000,
+        "skillRateB_SN": 297000
+      },
+      {
+        "skillRateA_SN": 1242000,
+        "skillRateB_SN": 310500
+      },
+      {
+        "skillRateA_SN": 1296000,
+        "skillRateB_SN": 324000
+      },
+      {
+        "skillRateA_SN": 1350000,
+        "skillRateB_SN": 337500
+      },
+      {
+        "skillRateA_SN": 1404000,
+        "skillRateB_SN": 351000
+      },
+      {
+        "skillRateA_SN": 1458000,
+        "skillRateB_SN": 364500
+      },
+      {
+        "skillRateA_SN": 1512000,
+        "skillRateB_SN": 378000
+      },
+      {
+        "skillRateA_SN": 1566000,
+        "skillRateB_SN": 391500
+      },
+      {
+        "skillRateA_SN": 1620000,
+        "skillRateB_SN": 405000
+      }
+    ],
+    "name": "skill_name_12305199",
+    "description": "skill_description_12305199",
+    "detailDescription": "skill_detailDescription_12305199",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305199"
+  },
+  "12305200": {
+    "id": 12305200,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600626,
+    "desParamList": [],
+    "skillParamList": [
+      {
+        "skillRateA_SN": 720000
+      },
+      {
+        "skillRateA_SN": 741600
+      },
+      {
+        "skillRateA_SN": 763200
+      },
+      {
+        "skillRateA_SN": 784800
+      },
+      {
+        "skillRateA_SN": 806400
+      },
+      {
+        "skillRateA_SN": 828000
+      },
+      {
+        "skillRateA_SN": 849600
+      },
+      {
+        "skillRateA_SN": 871200
+      },
+      {
+        "skillRateA_SN": 892800
+      },
+      {
+        "skillRateA_SN": 914400
+      },
+      {
+        "skillRateA_SN": 936000
+      }
+    ],
+    "name": "skill_name_12305200",
+    "description": "skill_description_12305200",
+    "detailDescription": "skill_detailDescription_12305200",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305200"
+  },
+  "12305201": {
+    "id": 12305201,
+    "mod": "被动技能",
+    "name": "skill_name_12305201",
+    "description": "skill_description_12305201",
+    "detailDescription": "skill_detailDescription_12305201",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305201"
+  },
+  "12305202": {
+    "id": 12305202,
+    "mod": "被动技能",
+    "name": "skill_name_12305202",
+    "description": "skill_description_12305202",
+    "detailDescription": "skill_detailDescription_12305202",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305202"
+  },
+  "12305203": {
+    "id": 12305203,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305203",
+    "description": "skill_description_12305203",
+    "detailDescription": "skill_detailDescription_12305203",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305203"
+  },
+  "12305204": {
+    "id": 12305204,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305204",
+    "description": "skill_description_12305204",
+    "detailDescription": "skill_detailDescription_12305204",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305204"
+  },
+  "12305205": {
+    "id": 12305205,
+    "mod": "被动技能",
+    "name": "skill_name_12305205",
+    "description": "skill_description_12305205",
+    "detailDescription": "skill_detailDescription_12305205",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305205"
+  },
+  "12305206": {
+    "id": 12305206,
+    "mod": "被动技能",
+    "name": "skill_name_12305206",
+    "description": "skill_description_12305206",
+    "detailDescription": "skill_detailDescription_12305206",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305206"
+  },
+  "12305207": {
+    "id": 12305207,
+    "mod": "被动技能",
+    "name": "skill_name_12305207",
+    "description": "skill_description_12305207",
+    "detailDescription": "skill_detailDescription_12305207",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305207"
+  },
+  "12305208": {
+    "id": 12305208,
+    "mod": "被动技能",
+    "name": "skill_name_12305208",
+    "description": "skill_description_12305208",
+    "detailDescription": "skill_detailDescription_12305208",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305208"
+  },
+  "12305209": {
+    "id": 12305209,
+    "mod": "被动技能",
+    "name": "skill_name_12305209",
+    "description": "skill_description_12305209",
+    "detailDescription": "skill_detailDescription_12305209",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305209"
+  },
+  "12305210": {
+    "id": 12305210,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600629,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305210",
+    "description": "skill_description_12305210",
+    "detailDescription": "skill_detailDescription_12305210",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305210"
+  },
+  "12305211": {
+    "id": 12305211,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600628,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305211",
+    "description": "skill_description_12305211",
+    "detailDescription": "skill_detailDescription_12305211",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305211"
+  },
+  "12305212": {
+    "id": 12305212,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600627,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305212",
+    "description": "skill_description_12305212",
+    "detailDescription": "skill_detailDescription_12305212",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305212"
+  },
+  "12305213": {
+    "id": 12305213,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305213",
+    "description": "skill_description_12305213",
+    "detailDescription": "skill_detailDescription_12305213",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305213"
+  },
+  "12305214": {
+    "id": 12305214,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305214",
+    "description": "skill_description_12305214",
+    "detailDescription": "skill_detailDescription_12305214",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305214"
+  },
+  "12305215": {
+    "id": 12305215,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305215",
+    "description": "skill_description_12305215",
+    "detailDescription": "skill_detailDescription_12305215",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305215"
+  },
+  "12305216": {
+    "id": 12305216,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305216",
+    "description": "skill_description_12305216",
+    "detailDescription": "skill_detailDescription_12305216",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305216"
+  },
+  "12305217": {
+    "id": 12305217,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305217",
+    "description": "skill_description_12305217",
+    "detailDescription": "skill_detailDescription_12305217",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305217"
+  },
+  "12305218": {
+    "id": 12305218,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305218",
+    "description": "skill_description_12305218",
+    "detailDescription": "skill_detailDescription_12305218",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305218"
+  },
+  "12305219": {
+    "id": 12305219,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305219",
+    "description": "skill_description_12305219",
+    "detailDescription": "skill_detailDescription_12305219",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305219"
+  },
+  "12305220": {
+    "id": 12305220,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305220",
+    "description": "skill_description_12305220",
+    "detailDescription": "skill_detailDescription_12305220",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305220"
+  },
+  "12305221": {
+    "id": 12305221,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305221",
+    "description": "skill_description_12305221",
+    "detailDescription": "skill_detailDescription_12305221",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305221"
+  },
+  "12305222": {
+    "id": 12305222,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305222",
+    "description": "skill_description_12305222",
+    "detailDescription": "skill_detailDescription_12305222",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305222"
+  },
+  "12305223": {
+    "id": 12305223,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305223",
+    "description": "skill_description_12305223",
+    "detailDescription": "skill_detailDescription_12305223",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305223"
+  },
+  "12305224": {
+    "id": 12305224,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600632,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305224",
+    "description": "skill_description_12305224",
+    "detailDescription": "skill_detailDescription_12305224",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305224"
+  },
+  "12305225": {
+    "id": 12305225,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600631,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305225",
+    "description": "skill_description_12305225",
+    "detailDescription": "skill_detailDescription_12305225",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305225"
+  },
+  "12305226": {
+    "id": 12305226,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600630,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305226",
+    "description": "skill_description_12305226",
+    "detailDescription": "skill_detailDescription_12305226",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305226"
+  },
+  "12305227": {
+    "id": 12305227,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305227",
+    "description": "skill_description_12305227",
+    "detailDescription": "skill_detailDescription_12305227",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305227"
+  },
+  "12305228": {
+    "id": 12305228,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305228",
+    "description": "skill_description_12305228",
+    "detailDescription": "skill_detailDescription_12305228",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305228"
+  },
+  "12305229": {
+    "id": 12305229,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305229",
+    "description": "skill_description_12305229",
+    "detailDescription": "skill_detailDescription_12305229",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305229"
+  },
+  "12305230": {
+    "id": 12305230,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305230",
+    "description": "skill_description_12305230",
+    "detailDescription": "skill_detailDescription_12305230",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305230"
+  },
+  "12305231": {
+    "id": 12305231,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305231",
+    "description": "skill_description_12305231",
+    "detailDescription": "skill_detailDescription_12305231",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305231"
+  },
+  "12305232": {
+    "id": 12305232,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305232",
+    "description": "skill_description_12305232",
+    "detailDescription": "skill_detailDescription_12305232",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305232"
+  },
+  "12305233": {
+    "id": 12305233,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305233",
+    "description": "skill_description_12305233",
+    "detailDescription": "skill_detailDescription_12305233",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305233"
+  },
+  "12305234": {
+    "id": 12305234,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305234",
+    "description": "skill_description_12305234",
+    "detailDescription": "skill_detailDescription_12305234",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305234"
+  },
+  "12305235": {
+    "id": 12305235,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305235",
+    "description": "skill_description_12305235",
+    "detailDescription": "skill_detailDescription_12305235",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305235"
+  },
+  "12305236": {
+    "id": 12305236,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305236",
+    "description": "skill_description_12305236",
+    "detailDescription": "skill_detailDescription_12305236",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305236"
+  },
+  "12305237": {
+    "id": 12305237,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305237",
+    "description": "skill_description_12305237",
+    "detailDescription": "skill_detailDescription_12305237",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305237"
+  },
+  "12305238": {
+    "id": 12305238,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600633,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305238",
+    "description": "skill_description_12305238",
+    "detailDescription": "skill_detailDescription_12305238",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305238"
+  },
+  "12305239": {
+    "id": 12305239,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600634,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305239",
+    "description": "skill_description_12305239",
+    "detailDescription": "skill_detailDescription_12305239",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305239"
+  },
+  "12305240": {
+    "id": 12305240,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600635,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305240",
+    "description": "skill_description_12305240",
+    "detailDescription": "skill_detailDescription_12305240",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305240"
+  },
+  "12305241": {
+    "id": 12305241,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600636,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305241",
+    "description": "skill_description_12305241",
+    "detailDescription": "skill_detailDescription_12305241",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305241"
+  },
+  "12305242": {
+    "id": 12305242,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600637,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305242",
+    "description": "skill_description_12305242",
+    "detailDescription": "skill_detailDescription_12305242",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305242"
+  },
+  "12305243": {
+    "id": 12305243,
+    "mod": "主动技能",
+    "ExSkillList": [],
+    "cardID": 10600638,
+    "desParamList": [],
+    "skillParamList": [
+      {}
+    ],
+    "name": "skill_name_12305243",
+    "description": "skill_description_12305243",
+    "detailDescription": "skill_detailDescription_12305243",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305243"
+  },
+  "12305244": {
+    "id": 12305244,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305244",
+    "description": "skill_description_12305244",
+    "detailDescription": "skill_detailDescription_12305244",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305244"
+  },
+  "12305245": {
+    "id": 12305245,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305245",
+    "description": "skill_description_12305245",
+    "detailDescription": "skill_detailDescription_12305245",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305245"
+  },
+  "12305246": {
+    "id": 12305246,
+    "mod": "随机属性技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305246",
+    "description": "skill_description_12305246",
+    "detailDescription": "skill_detailDescription_12305246",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305246"
+  },
+  "12305247": {
+    "id": 12305247,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305247",
+    "description": "skill_description_12305247",
+    "detailDescription": "skill_detailDescription_12305247",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305247"
+  },
+  "12305248": {
+    "id": 12305248,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305248",
+    "description": "skill_description_12305248",
+    "detailDescription": "skill_detailDescription_12305248",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305248"
+  },
+  "12305249": {
+    "id": 12305249,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305249",
+    "description": "skill_description_12305249",
+    "detailDescription": "skill_detailDescription_12305249",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305249"
+  },
+  "12305250": {
+    "id": 12305250,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305250",
+    "description": "skill_description_12305250",
+    "detailDescription": "skill_detailDescription_12305250",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305250"
+  },
+  "12305251": {
+    "id": 12305251,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305251",
+    "description": "skill_description_12305251",
+    "detailDescription": "skill_detailDescription_12305251",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305251"
+  },
+  "12305252": {
+    "id": 12305252,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305252",
+    "description": "skill_description_12305252",
+    "detailDescription": "skill_detailDescription_12305252",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305252"
+  },
+  "12305253": {
+    "id": 12305253,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305253",
+    "description": "skill_description_12305253",
+    "detailDescription": "skill_detailDescription_12305253",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305253"
+  },
+  "12305254": {
+    "id": 12305254,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305254",
+    "description": "skill_description_12305254",
+    "detailDescription": "skill_detailDescription_12305254",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305254"
+  },
+  "12305255": {
+    "id": 12305255,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305255",
+    "description": "skill_description_12305255",
+    "detailDescription": "skill_detailDescription_12305255",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305255"
+  },
+  "12305256": {
+    "id": 12305256,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305256",
+    "description": "skill_description_12305256",
+    "detailDescription": "skill_detailDescription_12305256",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305256"
+  },
+  "12305257": {
+    "id": 12305257,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305257",
+    "description": "skill_description_12305257",
+    "detailDescription": "skill_detailDescription_12305257",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305257"
+  },
+  "12305258": {
+    "id": 12305258,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305258",
+    "description": "skill_description_12305258",
+    "detailDescription": "skill_detailDescription_12305258",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305258"
+  },
+  "12305259": {
+    "id": 12305259,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305259",
+    "description": "skill_description_12305259",
+    "detailDescription": "skill_detailDescription_12305259",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305259"
+  },
+  "12305260": {
+    "id": 12305260,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305260",
+    "description": "skill_description_12305260",
+    "detailDescription": "skill_detailDescription_12305260",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305260"
+  },
+  "12305261": {
+    "id": 12305261,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305261",
+    "description": "skill_description_12305261",
+    "detailDescription": "skill_detailDescription_12305261",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305261"
+  },
+  "12305262": {
+    "id": 12305262,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [],
+    "skillParamList": [],
+    "name": "skill_name_12305262",
+    "description": "skill_description_12305262",
+    "detailDescription": "skill_detailDescription_12305262",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305262"
+  },
+  "12305263": {
+    "id": 12305263,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305263",
+    "description": "skill_description_12305263",
+    "detailDescription": "skill_detailDescription_12305263",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305263"
+  },
+  "12305264": {
+    "id": 12305264,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305264",
+    "description": "skill_description_12305264",
+    "detailDescription": "skill_detailDescription_12305264",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305264"
+  },
+  "12305265": {
+    "id": 12305265,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305265",
+    "description": "skill_description_12305265",
+    "detailDescription": "skill_detailDescription_12305265",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305265"
+  },
+  "12305266": {
+    "id": 12305266,
+    "mod": "被动技能",
+    "ExSkillList": [],
+    "desParamList": [
+      {
+        "isPercent": false,
+        "param": "a"
+      }
+    ],
+    "skillParamList": [],
+    "name": "skill_name_12305266",
+    "description": "skill_description_12305266",
+    "detailDescription": "skill_detailDescription_12305266",
+    "leaderCardConditionDesc": "skill_leaderCardConditionDesc_12305266"
   }
 }

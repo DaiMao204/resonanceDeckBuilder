@@ -11103,7 +11103,7 @@
   },
   "10600410": {
     "id": 10600410,
-    "idCN": "06敌方/联动_甲铁城/侵蚀",
+    "idCN": "06敌方/22联动甲铁城/侵蚀",
     "color": "Purple",
     "cost_SN": 30000,
     "cardType": "UseOnce",
@@ -13159,7 +13159,7 @@
         "isNumCond": false,
         "minNum": 0,
         "numDuration": 1,
-        "typeEnum": ","
+        "typeEnum": "number"
       },
       {
         "condId": 96200039,
@@ -13168,7 +13168,7 @@
         "isNumCond": false,
         "minNum": 0,
         "numDuration": 1,
-        "typeEnum": ","
+        "typeEnum": "number"
       }
     ],
     "ExActList": [],
@@ -15156,7 +15156,7 @@
         "isNumCond": false,
         "minNum": 0,
         "numDuration": 1,
-        "typeEnum": ","
+        "typeEnum": "number"
       }
     ],
     "ExActList": [],
@@ -16283,6 +16283,9 @@
       },
       {
         "tagId": 12602164
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600589"
@@ -16307,6 +16310,9 @@
       },
       {
         "tagId": 12602165
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600590"
@@ -16576,6 +16582,9 @@
       },
       {
         "tagId": 12602166
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600600"
@@ -16597,6 +16606,9 @@
       },
       {
         "tagId": 12602167
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600601"
@@ -16618,6 +16630,9 @@
       },
       {
         "tagId": 12602168
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600602"
@@ -17319,7 +17334,7 @@
   },
   "10600630": {
     "id": 10600630,
-    "idCN": "00原版/05五星/联动BS/蕾克/S",
+    "idCN": "00原版/05五星/联动BS/小红帽/S",
     "color": "Red",
     "cost_SN": 50000,
     "cardType": "Normal",
@@ -17327,17 +17342,26 @@
     "ExActList": [],
     "tagList": [
       {
+        "tagId": 12600145
+      },
+      {
         "tagId": 12600007
       },
       {
-        "tagId": 12600145
+        "tagId": 12602244
+      },
+      {
+        "tagId": 12602248
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600630"
   },
   "10600631": {
     "id": 10600631,
-    "idCN": "00原版/05五星/联动BS/蕾克/B",
+    "idCN": "00原版/05五星/联动BS/小红帽/B",
     "color": "Purple",
     "cost_SN": 30000,
     "cardType": "Normal",
@@ -17345,22 +17369,40 @@
     "ExActList": [],
     "tagList": [
       {
-        "tagId": 12600073
+        "tagId": 12602243
+      },
+      {
+        "tagId": 12600001
+      },
+      {
+        "tagId": 12601730
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600631"
   },
   "10600632": {
     "id": 10600632,
-    "idCN": "00原版/05五星/联动BS/蕾克/A",
+    "idCN": "00原版/05五星/联动BS/小红帽/A",
     "color": "Red",
-    "cost_SN": 30000,
+    "cost_SN": 20000,
     "cardType": "Normal",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602242
+      },
+      {
+        "tagId": 12602247
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600632"
@@ -17369,13 +17411,16 @@
     "id": 10600633,
     "idCN": "00原版/05五星/联动BS/爱丽丝/A-0",
     "color": "Purple",
-    "cost_SN": 30000,
-    "cardType": "Normal",
+    "cost_SN": 20000,
+    "cardType": "UseOnce",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
         "tagId": 12600073
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600633"
@@ -17406,6 +17451,9 @@
     "tagList": [
       {
         "tagId": 12600073
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600635"
@@ -17436,6 +17484,9 @@
     "tagList": [
       {
         "tagId": 12600146
+      },
+      {
+        "tagId": 12602254
       }
     ],
     "name": "card_name_10600637"
@@ -17444,16 +17495,19 @@
     "id": 10600638,
     "idCN": "00原版/05五星/联动BS/爱丽丝/S",
     "color": "Purple",
-    "cost_SN": 50000,
+    "cost_SN": 70000,
     "cardType": "Normal",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
-        "tagId": 12600007
+        "tagId": 12600073
       },
       {
-        "tagId": 12600073
+        "tagId": 12602254
+      },
+      {
+        "tagId": 12600007
       }
     ],
     "name": "card_name_10600638"

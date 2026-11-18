@@ -6895,5 +6895,18 @@
       }
     ],
     "Getway": []
+  },
+  "11800320": {
+    "id": 11800320,
+    "name": "equip_name_11800320",
+    "des": "equip_des_11800320",
+    "equipTagId": 12600155,
+    "quality": "Orange",
+    "skillList": [
+      {
+        "skillId": 12305275
+      }
+    ],
+    "Getway": []
   }
 }

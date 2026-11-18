@@ -10692,5 +10692,18 @@
   "talent_name_12800768": "Vitality",
   "talent_name_12800771": "Vitality",
   "talent_name_12800776": "Vitality",
-  "talent_name_12800781": "Vitality"
+  "talent_name_12800781": "Vitality",
+  "break_desc_12100999": "ATK+150\\nDEF+150\\nHP+15%",
+  "char_ability_10001533": "Unknown",
+  "home_skill_desc_83900301": "BCRL Coins earned from patrol commissions +%s%%.",
+  "home_skill_desc_83900302": "Pet bonus to feeder +%s%%",
+  "home_skill_desc_83900303": "BCRL Coins earned from patrol commissions +%s%%.",
+  "home_skill_desc_83900305": "Train cargo capacity limit +%s.",
+  "skill_description_12305100": "All allies gain immunity to <color=#B383FF>[Confuse]</color>, <color=#B383FF>[Fetter]</color>, <color=#B383FF>[Imprison]</color>, <color=#B383FF>[Curse]</color>, <color=#B383FF>[Sleep]</color> and <color=#B383FF>[Moemoe]</color>.",
+  "tag_tagName_12602239": "Special Recruit",
+  "tag_tagName_12602252": "Fissure Recruit",
+  "tag_tagName_12602253": "Special Recruit",
+  "tag_tagName_12602255": "Special Recruit",
+  "tag_tagName_12602256": "Fissure Recruit",
+  "talent_desc_12800776": "HP +35%"
 }

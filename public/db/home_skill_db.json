@@ -2098,5 +2098,47 @@
     "desc": "home_skill_desc_83900300",
     "param": 0.1,
     "homeSkillType": "AddQty"
+  },
+  "83900301": {
+    "id": 83900301,
+    "name": "home_skill_name_83900301",
+    "desc": "home_skill_desc_83900301",
+    "param": 0.03,
+    "homeSkillType": "AddEntrustReward"
+  },
+  "83900302": {
+    "id": 83900302,
+    "name": "home_skill_name_83900302",
+    "desc": "home_skill_desc_83900302",
+    "param": 0.2,
+    "homeSkillType": "AddTieVal"
+  },
+  "83900303": {
+    "id": 83900303,
+    "name": "home_skill_name_83900303",
+    "desc": "home_skill_desc_83900303",
+    "param": 0.02,
+    "homeSkillType": "AddEntrustReward"
+  },
+  "83900304": {
+    "id": 83900304,
+    "name": "home_skill_name_83900304",
+    "desc": "home_skill_desc_83900304",
+    "param": 0.2,
+    "homeSkillType": "AddTypeQty"
+  },
+  "83900305": {
+    "id": 83900305,
+    "name": "home_skill_name_83900305",
+    "desc": "home_skill_desc_83900305",
+    "param": 5.0,
+    "homeSkillType": "RiseSpaceLimited"
+  },
+  "83900306": {
+    "id": 83900306,
+    "name": "home_skill_name_83900306",
+    "desc": "home_skill_desc_83900306",
+    "param": 0.1,
+    "homeSkillType": "AddTypeQty"
   }
 }

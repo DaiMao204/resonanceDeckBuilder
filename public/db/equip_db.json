@@ -6894,7 +6894,15 @@
         "skillId": 12305073
       }
     ],
-    "Getway": []
+    "Getway": [
+      {
+        "DisplayName": "equip_Getway_11800319_0_DisplayName",
+        "FromLevel": -1,
+        "UIName": "",
+        "Way3": "",
+        "funcId": -1
+      }
+    ]
   },
   "11800320": {
     "id": 11800320,

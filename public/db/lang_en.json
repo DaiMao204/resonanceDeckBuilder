@@ -10705,5 +10705,12 @@
   "tag_tagName_12602253": "Special Recruit",
   "tag_tagName_12602255": "Special Recruit",
   "tag_tagName_12602256": "Fissure Recruit",
-  "talent_desc_12800776": "HP +35%"
+  "talent_desc_12800776": "HP +35%",
+  "break_desc_12101005": "ATK+150\\nDEF+150\\nHP+15%",
+  "char_ability_10001534": "Unknown",
+  "char_identity_10001534": "???",
+  "tag_tagName_12602261": "Special Recruit",
+  "tag_tagName_12602267": "Fissure Recruit",
+  "tag_tagName_12602268": "Special Recruit",
+  "talent_desc_12800781": "HP +35%"
 }

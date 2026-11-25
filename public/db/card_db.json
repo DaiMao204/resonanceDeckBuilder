@@ -17429,13 +17429,19 @@
     "id": 10600634,
     "idCN": "00原版/05五星/联动BS/爱丽丝/A-1",
     "color": "Red",
-    "cost_SN": 30000,
+    "cost_SN": 20000,
     "cardType": "Normal",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
         "tagId": 12600145
+      },
+      {
+        "tagId": 12602264
+      },
+      {
+        "tagId": 12600216
       }
     ],
     "name": "card_name_10600634"
@@ -17444,7 +17450,7 @@
     "id": 10600635,
     "idCN": "00原版/05五星/联动BS/爱丽丝/A-2",
     "color": "Purple",
-    "cost_SN": 30000,
+    "cost_SN": 20000,
     "cardType": "Normal",
     "ExCondList": [],
     "ExActList": [],
@@ -17454,6 +17460,12 @@
       },
       {
         "tagId": 12602254
+      },
+      {
+        "tagId": 12602265
+      },
+      {
+        "tagId": 12600272
       }
     ],
     "name": "card_name_10600635"
@@ -17462,13 +17474,19 @@
     "id": 10600636,
     "idCN": "00原版/05五星/联动BS/爱丽丝/A-3",
     "color": "Yellow",
-    "cost_SN": 30000,
+    "cost_SN": 20000,
     "cardType": "Normal",
     "ExCondList": [],
     "ExActList": [],
     "tagList": [
       {
         "tagId": 12600146
+      },
+      {
+        "tagId": 12602266
+      },
+      {
+        "tagId": 12600149
       }
     ],
     "name": "card_name_10600636"
@@ -17479,8 +17497,45 @@
     "color": "Yellow",
     "cost_SN": 30000,
     "cardType": "Normal",
-    "ExCondList": [],
-    "ExActList": [],
+    "ExCondList": [
+      {
+        "condId": 96200031,
+        "des": 80608005,
+        "interValNum": 12,
+        "isNumCond": true,
+        "minNum": 0,
+        "numDuration": 1,
+        "typeEnum": "number"
+      }
+    ],
+    "ExActList": [
+      {
+        "condId": 96300009,
+        "des": 80610277
+      },
+      {
+        "condId": 96300010,
+        "des": 80610278
+      },
+      {
+        "condId": 96300018,
+        "des": 80612481,
+        "interValNum": 5,
+        "isNumCond": true,
+        "minNum": 1,
+        "numDuration": 1,
+        "typeEnum": "number"
+      },
+      {
+        "condId": 96300007,
+        "des": 80608012,
+        "interValNum": 1,
+        "isNumCond": false,
+        "minNum": 0,
+        "numDuration": 1,
+        "typeEnum": "number"
+      }
+    ],
     "tagList": [
       {
         "tagId": 12600146
@@ -17495,7 +17550,7 @@
     "id": 10600638,
     "idCN": "00原版/05五星/联动BS/爱丽丝/S",
     "color": "Purple",
-    "cost_SN": 70000,
+    "cost_SN": 60000,
     "cardType": "Normal",
     "ExCondList": [],
     "ExActList": [],
@@ -17511,5 +17566,41 @@
       }
     ],
     "name": "card_name_10600638"
+  },
+  "10600642": {
+    "id": 10600642,
+    "idCN": "03中立卡/深渊60期/面包屑",
+    "color": "Yellow",
+    "cost_SN": 0,
+    "cardType": "Derive",
+    "ExCondList": [],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12602263
+      },
+      {
+        "tagId": 12601403
+      }
+    ],
+    "name": "card_name_10600642"
+  },
+  "10600643": {
+    "id": 10600643,
+    "idCN": "03中立卡/深渊60期/E99DA2E58C85E5B191",
+    "color": "Yellow",
+    "cost_SN": 0,
+    "cardType": "Derive",
+    "ExCondList": [],
+    "ExActList": [],
+    "tagList": [
+      {
+        "tagId": 12602263
+      },
+      {
+        "tagId": 12601403
+      }
+    ],
+    "name": "card_name_10600643"
   }
 }
